@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>clienteEtiqueta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let clienteetiqueta of clienteetiquetas">
+      <ion-avatar slot="start">
+        <img src="assets/img/1.png" alt="Foto">
+      </ion-avatar>
+
+      <ion-badge slot="end">{{clienteetiqueta.clet_id}}, Cliente: {{clienteetiqueta.clienteNombre}}, Etiqueta: {{clienteetiqueta.etiquetaNombre}}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

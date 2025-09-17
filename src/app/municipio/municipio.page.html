@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>municipio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let municipio of municipios">
+      <ion-avatar slot="start">
+        <img src="assets/img/1.png" alt="Foto">
+      </ion-avatar>
+
+      <ion-label class="ion-text-wrap">
+        <h3>{{municipio.mun_nombre}}</h3>
+      </ion-label>
+
+      <ion-badge slot="end">{{municipio.mun_id}}, Estado: {{municipio.estadoNombre}}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

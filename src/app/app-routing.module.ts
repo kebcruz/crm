@@ -5,7 +5,31 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  }
+  },
+  {
+    path: 'color',
+    loadChildren: () => import('./color/color.module').then( m => m.ColorPageModule)
+  },
+  {
+    path: 'pais',
+    loadChildren: () => import('./pais/pais.module').then( m => m.PaisPageModule)
+  },
+  {
+    path: 'estado',
+    loadChildren: () => import('./estado/estado.module').then( m => m.EstadoPageModule)
+  },
+  {
+    path: 'municipio',
+    loadChildren: () => import('./municipio/municipio.module').then( m => m.MunicipioPageModule)
+  },
+  {
+    path: 'cliente-etiqueta',
+    loadChildren: () => import('./cliente-etiqueta/cliente-etiqueta.module').then( m => m.ClienteEtiquetaPageModule)
+  },
+  {
+    path: 'domicilio',
+    loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule)
+  },
 ];
 @NgModule({
   imports: [
