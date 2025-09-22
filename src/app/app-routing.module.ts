@@ -30,6 +30,14 @@ const routes: Routes = [
     path: 'domicilio',
     loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule)
   },
+  {
+    path: 'cliente',
+    loadChildren: () => import('./cliente/cliente.module').then( m => m.ClientePageModule)
+  },
+  {
+    path: 'cliente-detalle/:cli_id',
+    loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule)
+  },
 ];
 @NgModule({
   imports: [

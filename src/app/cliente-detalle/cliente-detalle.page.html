@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>clienteDetalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="cliente as cliente">
+    <div class="center">
+      <img src="assets/img/leshu2.jpg" alt="Foto">
+    </div>
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3> Cliente {{cliente.cli_id}}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Nombre</p>
+            <h2>{{cliente.cli_nombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Apellidos</p>
+            <h2>{{cliente.cli_paterno}} {{cliente.cli_materno}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Telefono</p>
+            <h2>{{cliente.cli_telefono}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Correo</p>
+            <h2>{{cliente.cli_correo}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Fecha</p>
+            <h2>{{cliente.cli_fecha_registro}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Domicilio</p>
+            <h2>{{cliente.domicilioNombre}}, {{cliente.municipioNombre}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
