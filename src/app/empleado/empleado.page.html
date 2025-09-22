@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>empleado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let empleado of empleados">
+      <ion-avatar slot="start">
+        <img [src]="empleado.archivoRuta" alt="Foto">
+      </ion-avatar>
+
+      <ion-label class="ion-text-wrap">
+        <h3>{{empleado.emp_nombre}}</h3>
+      </ion-label>
+
+      <ion-badge slot="end">{{empleado.emp_id}}</ion-badge>
+      <ion-button [routerLink]="['/empleado-detalle', empleado.emp_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

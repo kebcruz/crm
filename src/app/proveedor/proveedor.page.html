@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>proveedor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let proveedor of proveedores">
+      <ion-label class="ion-text-wrap">
+        <h3>{{proveedor.prov_nombre}}</h3>
+      </ion-label>
+
+      <ion-badge slot="end">{{proveedor.prov_id}}</ion-badge>
+      <ion-button [routerLink]="['/proveedor-detalle', proveedor.prov_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>proveedorDetalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="proveedor as proveedor">
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3> Proveedor {{proveedor.prov_id}}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Nombre</p>
+            <h2>{{proveedor.prov_nombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Contacto</p>
+            <h2>{{proveedor.prov_contacto}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Telefono</p>
+            <h2>{{proveedor.prov_telefono}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Correo</p>
+            <h2>{{proveedor.prov_correo}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Domicilio</p>
+            <h2>{{proveedor.domicilioNombre}}, {{proveedor.municipioNombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Estatus</p>
+            <h2>{{proveedor.estatuNombre}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>empleadoDetalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="empleado as empleado">
+    <div class="center">
+      <img [src]="empleado.archivoRuta" alt="Foto">
+    </div>
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3> Empleado {{empleado.emp_id}}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Nombre</p>
+            <h2>{{empleado.emp_nombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Apellidos</p>
+            <h2>{{empleado.emp_paterno}} {{empleado.emp_materno}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Telefono</p>
+            <h2>{{empleado.emp_telefono}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Comisión</p>
+            <h2>{{empleado.emp_comision}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Horario</p>
+            <h2>{{empleado.emp_hora_entrada}} - {{empleado.emp_hora_salida}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Domicilio</p>
+            <h2>{{empleado.domicilioNombre}}, {{empleado.municipioNombre}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
