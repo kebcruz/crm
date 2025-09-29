@@ -54,6 +54,18 @@ const routes: Routes = [
     path: 'proveedor-detalle/:prov_id',
     loadChildren: () => import('./proveedor-detalle/proveedor-detalle.module').then( m => m.ProveedorDetallePageModule)
   },
+  {
+    path: 'producto',
+    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
+  },
+  {
+    path: 'producto-detalle/:pro_id',
+    loadChildren: () => import('./producto-detalle/producto-detalle.module').then( m => m.ProductoDetallePageModule)
+  },
+  {
+    path: 'estado-crear',
+    loadChildren: () => import('./estado-crear/estado-crear.module').then( m => m.EstadoCrearPageModule)
+  },
 ];
 @NgModule({
   imports: [

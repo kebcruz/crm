@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let producto of productos">
+      <ion-avatar slot="start">
+        <img [src]="producto.archivoRuta" alt="Foto">
+      </ion-avatar>
+
+      <ion-label class="ion-text-wrap">
+        <h3>{{producto.pro_nombre}}</h3>
+      </ion-label>
+
+      <ion-badge slot="end">{{producto.pro_id}}</ion-badge>
+      <ion-button [routerLink]="['/producto-detalle', producto.pro_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
