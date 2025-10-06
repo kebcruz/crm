@@ -70,6 +70,10 @@ const routes: Routes = [
     path: 'pais-crear',
     loadChildren: () => import('./pais-crear/pais-crear.module').then( m => m.PaisCrearPageModule)
   },
+  {
+    path: 'empleado-crear',
+    loadChildren: () => import('./empleado-crear/empleado-crear.module').then( m => m.EmpleadoCrearPageModule)
+  },
 ];
 @NgModule({
   imports: [
