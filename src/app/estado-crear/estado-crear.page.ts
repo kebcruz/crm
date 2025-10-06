@@ -35,10 +35,10 @@ export class EstadoCrearPage implements OnInit {
   }
 
   private formulario() {
-      this.estado = this.formBuilder.group({
+    this.estado = this.formBuilder.group({
       estd_nombre: ['', [Validators.required]],
       estd_fkpai_id: ['', [Validators.required]],
-      })
+    })
   }
 
   async cargarPaises() {
