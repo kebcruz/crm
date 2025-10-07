@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios';
+import { VentaCrearPage } from '../venta-crear/venta-crear.page';
 
 @Component({
   selector: 'app-venta',
@@ -42,9 +43,9 @@ export class VentaPage implements OnInit {
     loading.dismiss();
   }
 
-/*   async new() {
+  async new() {
     const paginaModal = await this.modalCtrl.create({
-      component: VentasCrearPage,
+      component: VentaCrearPage,
       breakpoints : [0, 0.3, 0.5, 0.95],
       initialBreakpoint: 0.95
     });
@@ -52,6 +53,6 @@ export class VentaPage implements OnInit {
     paginaModal.onDidDismiss().then((data) => {
       this.cargarVentas();
     });
-  } */
+  }
 
 }

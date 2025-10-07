@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Venta</ion-title>
+    <ion-title>Ventas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,14 +18,14 @@
       </ion-label>
 
       <ion-badge slot="end">Total: ${{venta.ven_total}}</ion-badge>
-<!--       <ion-button [routerLink]="['/empleado-detalle', empleado.emp_id]">
+      <ion-button [routerLink]="['/venta-detalle', venta.ven_id]">
         <ion-icon name="person-circle"></ion-icon>
-      </ion-button> -->
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
-<!-- <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-    <ion-fab-button (click)="new()">
-        <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-</ion-fab> -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="center">
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

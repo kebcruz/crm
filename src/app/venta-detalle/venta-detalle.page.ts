@@ -30,7 +30,7 @@ export class VentaDetallePage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://localhost:8080/ventas/"+ven_id+"?expand=clienteNombre,empleadoNombre",
+      url: "http://localhost:8080/ventas/"+ven_id+"?expand=clienteNombre,empleadoNombre,pagoReferencia,ventaDetalles.producto",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+    <ion-title class="ion-text-center">Nueva Venta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="venta" (ngSubmit)="guardarDatos()">
+    <ion-grid>
+      <ion-row>>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de venta</ion-label>
+            <ion-input type="date" formControlName="ven_fecha_venta" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.ven_fecha_venta">
+            <ion-note color="danger" *ngIf="getError('ven_fecha_venta')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Total</ion-label>
+            <ion-input type="number" formControlName="ven_total" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.ven_total">
+            <ion-note color="danger" *ngIf="getError('ven_total')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Cliente</ion-label>
+            <ion-select formControlName="ven_fkcli_id" class="form-control">
+              <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.cli_id">
+                {{ cliente.cli_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.ven_fkcli_id">
+            <ion-note color="danger" *ngIf="getError('ven_fkcli_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Empleado</ion-label>
+            <ion-select formControlName="ven_fkemp_id" class="form-control">
+              <ion-select-option *ngFor="let empleado of empleados" [value]="empleado.emp_id">
+                {{ empleado.emp_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.ven_fkemp_id">
+            <ion-note color="danger" *ngIf="getError('ven_fkemp_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Pago</ion-label>
+            <ion-select formControlName="ven_fkpag_id" class="form-control">
+              <ion-select-option *ngFor="let pago of pagos" [value]="pago.pag_id">
+                {{ pago.pag_referencia }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.ven_fkpag_id">
+            <ion-note color="danger" *ngIf="getError('ven_fkpag_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!venta.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
