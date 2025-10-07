@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Venta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button *ngFor="let venta of ventas">
+      <ion-avatar slot="start">
+        <img [src]="venta.archivoRuta" alt="Foto">
+      </ion-avatar>
+
+      <ion-label class="ion-text-wrap">
+        <h3>Venta: {{venta.ven_id}}</h3>
+        <h3>Cliente: {{venta.clienteNombre}}</h3>
+        <h3>Vendedor: {{venta.empleadoNombre}}</h3>
+      </ion-label>
+
+      <ion-badge slot="end">Total: ${{venta.ven_total}}</ion-badge>
+<!--       <ion-button [routerLink]="['/empleado-detalle', empleado.emp_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button> -->
+    </ion-item>
+  </ion-list>
+</ion-content>
+<!-- <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button (click)="new()">
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+</ion-fab> -->
