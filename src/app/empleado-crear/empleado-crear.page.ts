@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import axios from 'axios';
@@ -16,6 +16,9 @@ export class EmpleadoCrearPage implements OnInit {
     private alert : AlertController,
     private modalCtrl: ModalController
   ) { }
+
+  private editarDatos = [];
+  @Input() emp_id: number | undefined;
   public empleado!: FormGroup;
   archivos: any=[];
   domicilios: any=[];
@@ -29,6 +32,9 @@ export class EmpleadoCrearPage implements OnInit {
     this.cargarDomicilios();
     this.cargarPuestos();
     this.cargarArchivos();
+    if (this.emp_id !== undefined) {
+      this.getDetalles();
+    }
     this.formulario();
   }
   mensajes_validacion:any = {
@@ -132,30 +138,6 @@ export class EmpleadoCrearPage implements OnInit {
     })
   }
 
-  async guardarDatos() {
-    try {
-    const empleado = this.empleado?.value;
-    const response = await axios({
-      method: 'post',
-      url : this.baseUrl,
-      data: empleado,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-      }
-    }).then( (response) => {
-      if(response?.status == 201) {
-        this.alertGuardado(response.data.emp_nombre, 'El empleado con nombre: ' + response.data.emp_nombre + ' ha sido registrada');
-      }
-    }).catch( (error) => {
-      if(error?.response?.status == 422) {
-        this.alertGuardado(empleado.emp_nombre, error?.response?.data[0]?.message, "Error");
-      }     
-    });
-    } catch(e){
-      console.log(e);
-    }
-  }
 
   public getError(controlName: string) {
     let errors: any[] = [];
@@ -187,5 +169,72 @@ export class EmpleadoCrearPage implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async getDetalles() {
+    const response = await axios({
+      method: 'get',
+      url: this.baseUrl + "/" + this.emp_id,
+      withCredentials: true,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then((response) => {
+        this.editarDatos = response.data;
+        Object.keys(this.editarDatos).forEach((key: any) => {
+            const control = this.empleado.get(String(key));
+            if (control !== null) {
+                control.markAsTouched();
+                control.patchValue(this.editarDatos[key]);
+            }
+        })
+    }).catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  async guardarDatos() {
+    try {
+      const empleado: any = this.empleado?.value;
+      if (this.emp_id === undefined) {
+          const response = await axios({
+            method: 'post',
+            url: this.baseUrl,
+            data: empleado,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer 100-token'
+            }
+            }).then( (response) => {
+              if(response?.status == 201) {
+                this.alertGuardado(response.data.emp_nombre, 'El empleado con nombre: ' + response.data.emp_nombre + ' ha sido registrada');
+              }
+            }).catch( (error) => {
+              if(error?.response?.status == 422) {
+                this.alertGuardado(empleado.emp_nombre, error?.response?.data[0]?.message, "Error");
+              }     
+            });
+      } else {
+          const response = await axios({
+            method: 'put',
+            url: this.baseUrl + '/' + this.emp_id,
+            data: empleado,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer 100-token'
+            }
+          }).then((response) => {
+              if (response?.status == 200) {
+                  this.alertGuardado(response.data.emp_id, 'El id: ' + response.data.emp_id + ' ha sido actualizado');
+              }
+          }).catch((error) => {
+              if (error?.response?.status == 422) {
+                  this.alertGuardado(empleado.emp_id, error?.response?.data[0]?.message, "Error");
+              }
+          });
+      }
+    } catch (e) {
+        console.log(e);
+    }
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios';
 import { EmpleadoCrearPage } from '../empleado-crear/empleado-crear.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-empleado',
@@ -14,8 +15,11 @@ export class EmpleadoPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
+    private alertCtrl : AlertController,
+    private router: Router,
   ) { }
   empleados: any=[];
+  baseUrl:string = "http://localhost:8080/empleados"
 
   ngOnInit() {
     this.cargarEmpleados();
@@ -51,6 +55,94 @@ export class EmpleadoPage implements OnInit {
     await paginaModal.present();
     paginaModal.onDidDismiss().then((data) => {
       this.cargarEmpleados();
+    });
+  }
+  async editar(emp_id: number) {
+    const paginaModal = await this.modalCtrl.create({
+      component: EmpleadoCrearPage,
+      componentProps: {
+        'emp_id': emp_id
+      },
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarEmpleados();
+    });
+  }
+
+  async alertEliminar(emp_id: number, emp_nombre: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Empleado',
+      subHeader: 'Eliminar',
+      message: '¿Estás seguro de eliminar al empleado: ' + emp_nombre + '?',
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.eliminar(emp_id, emp_nombre);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async eliminar(emp_id: number, emp_nombre: string) {
+    const response = await axios({
+      method: 'delete',
+      url: this.baseUrl + '/' + emp_id,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
+      }
+    }).then((response) => {
+      if (response?.status == 204) {
+        this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' ha sido eliminado');
+      }
+    }).catch((error) => {
+      if (error?.response.status == 500) {
+        this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
+      }
+      console.log(error);
+    });
+  }
+
+  async alertEliminado(emp_id: number, msg = "") {
+    const alert = await this.alertCtrl.create({
+      header: 'Empleado',
+      subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Continuar',
+          role: 'cancel',
+        },
+        {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
+            this.regresar();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  private regresar() {
+    this.router.navigate(['/empleado']).then(() => {
+      window.location.reload();
     });
   }
 }
