@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Playwrite DE SAS';
+    src: url("../assets/fonts/texto.ttf"); //change url accordingly
+}
+
+:root {
+    --ion-font-family: 'Playwrite DE SAS';
+}
+
+.ion-color-personalizado {
+    --ion-color-base: #686090 !important;
+    --ion-color-base-rgb: 104,96,144 !important;
+    --ion-color-contrast: #ffffff !important;
+    --ion-color-contrast-rgb: 255,255,255 !important;
+    --ion-color-shade: #5c547f !important;
+    --ion-color-tint: #77709b !important;
+}
+
+.ion-color-primario {
+    --ion-color-base: #a400d1;
+	--ion-color-base-rgb: 164,0,209;
+	--ion-color-contrast: #ffffff;
+	--ion-color-contrast-rgb: 255,255,255;
+	--ion-color-shade: #9000b8;
+	--ion-color-tint: #ad1ad6;
+}
