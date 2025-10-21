@@ -1,6 +1,7 @@
-<app-toolbar nombre="Empleado" color="danger"></app-toolbar>
+<app-toolbar nombre="Empleado"></app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
     <ion-item button *ngFor="let empleado of empleados">
       <ion-avatar slot="start">
@@ -23,8 +24,9 @@
       </ion-button>
     </ion-item>
   </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
 </ion-content>
-<ion-fab slot="fixed" vertical="bottom" horizontal="center">
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="new()">
         <ion-icon name="add"></ion-icon>
     </ion-fab-button>

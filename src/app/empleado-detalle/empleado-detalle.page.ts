@@ -31,7 +31,7 @@ export class EmpleadoDetallePage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://localhost:8080/empleados/"+emp_id+"?expand=archivoRuta, domicilioNombre, municipioNombre",
+      url: "http://localhost:8080/empleados/"+emp_id+"?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

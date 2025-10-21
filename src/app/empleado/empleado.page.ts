@@ -19,21 +19,30 @@ export class EmpleadoPage implements OnInit {
     private router: Router,
   ) { }
   empleados: any=[];
-  baseUrl:string = "http://localhost:8080/empleados"
+  total: number=0;
+  page: string='1';
+  busqueda:string = '';
+  baseUrl:string = "http://localhost:8080/empleado"
 
   ngOnInit() {
     this.cargarEmpleados();
+    this.cargarTotal();
   }
 
   async cargarEmpleados(event?: InfiniteScrollCustomEvent) {
+    let url: string = this.baseUrl + "/buscar?expand=archivoRuta";
+    if(this.busqueda !== '') {
+        url = this.baseUrl + "s/buscar/"+this.busqueda+"?expand=archivoRuta";
+    }
     const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
+      message: 'Cargando', 
       spinner: 'bubbles',
     });
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://localhost:8080/empleado?expand=archivoRuta",
+      //url: "http://localhost:8080/empleado?expand=archivoRuta",
+      url: url,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -98,7 +107,7 @@ export class EmpleadoPage implements OnInit {
   async eliminar(emp_id: number, emp_nombre: string) {
     const response = await axios({
       method: 'delete',
-      url: this.baseUrl + '/' + emp_id,
+      url: this.baseUrl + 's/' + emp_id,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -145,4 +154,29 @@ export class EmpleadoPage implements OnInit {
       window.location.reload();
     });
   }
+
+  async cargarTotal() {
+  const response = await axios({
+      method: 'get',
+      url : this.baseUrl+'/total',
+      withCredentials: true,
+      headers: {
+          'Accept': 'application/json'
+      }
+  }).then( (response) => {
+      this.total = response.data;
+  }).catch(function (error) {
+      console.log(error);     
+  });
 }
+
+pagina(event:any) {
+  this.page = event.target.innerText;
+  this.cargarEmpleados();
+}
+handleInput(event:any) {
+  this.busqueda = event.target.value.toLowerCase();
+  this.cargarEmpleados();
+}
+}
+

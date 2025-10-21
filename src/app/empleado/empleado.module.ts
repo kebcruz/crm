@@ -9,6 +9,7 @@ import { EmpleadoPageRoutingModule } from './empleado-routing.module';
 import { EmpleadoPage } from './empleado.page';
 import { ToolbarComponent } from '../components/toolbar/toolbar.component';
 import { ToolbarModule } from '../components/toolbar/toolbar.module';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ToolbarModule } from '../components/toolbar/toolbar.module';
     FormsModule,
     IonicModule,
     EmpleadoPageRoutingModule,
-    ToolbarModule
+    ToolbarModule,
+    PaginacionModule
   ],
   declarations: [EmpleadoPage]
 })
