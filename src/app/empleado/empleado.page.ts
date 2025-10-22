@@ -3,6 +3,7 @@ import { AlertController, InfiniteScrollCustomEvent, LoadingController, ModalCon
 import axios from 'axios';
 import { EmpleadoCrearPage } from '../empleado-crear/empleado-crear.page';
 import { Router } from '@angular/router';
+import { Empleados } from '../services/empleados';
 
 @Component({
   selector: 'app-empleado',
@@ -11,12 +12,12 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class EmpleadoPage implements OnInit {
-
   constructor(
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private alertCtrl : AlertController,
     private router: Router,
+    private empleadosService: Empleados
   ) { }
   empleados: any=[];
   total: number=0;
@@ -28,33 +29,27 @@ export class EmpleadoPage implements OnInit {
     this.cargarEmpleados();
     this.cargarTotal();
   }
-
-  async cargarEmpleados(event?: InfiniteScrollCustomEvent) {
-    let url: string = this.baseUrl + "/buscar?expand=archivoRuta";
-    if(this.busqueda !== '') {
-        url = this.baseUrl + "s/buscar/"+this.busqueda+"?expand=archivoRuta";
-    }
+async cargarEmpleados() {
     const loading = await this.loadingCtrl.create({
-      message: 'Cargando', 
+      message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      //url: "http://localhost:8080/empleado?expand=archivoRuta",
-      url: url,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.empleados = response.data;
-      event?.target.complete();
-    }).catch(function (error) {
-      console.log(error);     
-    });
+    try {
+      await this.empleadosService.listado('?page='+this.page+'&expand=archivoRuta', this.busqueda).subscribe(
+        response => {
+          this.empleados = response;
+          this.cargarTotal();
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
     loading.dismiss();
-  }
+}
   async new() {
     const paginaModal = await this.modalCtrl.create({
       component: EmpleadoCrearPage,
@@ -156,27 +151,27 @@ export class EmpleadoPage implements OnInit {
   }
 
   async cargarTotal() {
-  const response = await axios({
-      method: 'get',
-      url : this.baseUrl+'/total',
-      withCredentials: true,
-      headers: {
-          'Accept': 'application/json'
-      }
-  }).then( (response) => {
-      this.total = response.data;
-  }).catch(function (error) {
-      console.log(error);     
-  });
-}
+    try {
+      await this.empleadosService.total(this.busqueda).subscribe(
+        response => {
+          this.total = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-pagina(event:any) {
-  this.page = event.target.innerText;
-  this.cargarEmpleados();
-}
-handleInput(event:any) {
-  this.busqueda = event.target.value.toLowerCase();
-  this.cargarEmpleados();
-}
+  pagina(event:any) {
+    this.page = event.target.innerText;
+    this.cargarEmpleados();
+  }
+  handleInput(event:any) {
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarEmpleados();
+  }
 }
 
