@@ -29,27 +29,27 @@ export class EmpleadoPage implements OnInit {
     this.cargarEmpleados();
     this.cargarTotal();
   }
-async cargarEmpleados() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.empleadosService.listado('?page='+this.page+'&expand=archivoRuta', this.busqueda).subscribe(
-        response => {
-          this.empleados = response;
-          this.cargarTotal();
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
-}
+  async cargarEmpleados() {
+      const loading = await this.loadingCtrl.create({
+        message: 'Cargando',
+        spinner: 'bubbles',
+      });
+      await loading.present();
+      try {
+        await this.empleadosService.listado('?page='+this.page+'&expand=archivoRuta', this.busqueda).subscribe(
+          response => {
+            this.empleados = response;
+            this.cargarTotal();
+          },
+          error => {
+            console.error('Error:', error);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+      loading.dismiss();
+  }
   async new() {
     const paginaModal = await this.modalCtrl.create({
       component: EmpleadoCrearPage,
@@ -100,26 +100,25 @@ async cargarEmpleados() {
   }
 
   async eliminar(emp_id: number, emp_nombre: string) {
-    const response = await axios({
-      method: 'delete',
-      url: this.baseUrl + 's/' + emp_id,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-      }
-    }).then((response) => {
-      if (response?.status == 204) {
-        this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' ha sido eliminado');
-      }
-    }).catch((error) => {
-      if (error?.response.status == 500) {
-        this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
-      }
+    try {
+      await this.empleadosService.eliminar(emp_id).subscribe(
+        response => {
+          this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' ha sido eliminado');
+        },
+        error => {
+          console.error('Error:', error);
+          if (error.response?.status == 204) {
+            this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
+          }
+          if (error.response?.status == 500) {
+            this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
+          }
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
   }
-
   async alertEliminado(emp_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',

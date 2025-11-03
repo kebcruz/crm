@@ -69,7 +69,7 @@ crear(empleado: any): Observable<any> {
     });
 }
 
-actualizar(emp_id:string, empleado: any): Observable<any> {
+actualizar(emp_id: number, empleado: any): Observable<any> {
     const url = `${this.url}/${emp_id}`;
     return new Observable(observer => {
       axios.put(url, empleado, {
@@ -87,7 +87,7 @@ actualizar(emp_id:string, empleado: any): Observable<any> {
     });
 }
 
-eliminar(emp_id: string): Observable<any> {
+eliminar(emp_id: number): Observable<any> {
     const url = `${this.url}/${emp_id}`;
     return new Observable(observer => {
       axios.delete(url, {

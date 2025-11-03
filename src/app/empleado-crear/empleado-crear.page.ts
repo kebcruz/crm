@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import axios from 'axios';
+import { Empleados } from '../services/empleados';
 
 @Component({
   selector: 'app-empleado-crear',
@@ -14,7 +15,8 @@ export class EmpleadoCrearPage implements OnInit {
   constructor(
     private formBuilder : FormBuilder,
     private alert : AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private empleadosService: Empleados
   ) { }
 
   private editarDatos = [];
@@ -192,49 +194,51 @@ export class EmpleadoCrearPage implements OnInit {
         console.log(error);
     });
   }
-
+  
   async guardarDatos() {
     try {
-      const empleado: any = this.empleado?.value;
+      const empleado = this.empleado?.value;
       if (this.emp_id === undefined) {
-          const response = await axios({
-            method: 'post',
-            url: this.baseUrl,
-            data: empleado,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer 100-token'
-            }
-            }).then( (response) => {
-              if(response?.status == 201) {
+        try {
+          await this.empleadosService.crear(empleado).subscribe(
+            response => {
+              if (response?.status == 201) {
                 this.alertGuardado(response.data.emp_nombre, 'El empleado con nombre: ' + response.data.emp_nombre + ' ha sido registrada');
               }
-            }).catch( (error) => {
-              if(error?.response?.status == 422) {
-                this.alertGuardado(empleado.emp_nombre, error?.response?.data[0]?.message, "Error");
-              }     
-            });
-      } else {
-          const response = await axios({
-            method: 'put',
-            url: this.baseUrl + '/' + this.emp_id,
-            data: empleado,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer 100-token'
-            }
-          }).then((response) => {
-              if (response?.status == 200) {
-                  this.alertGuardado(response.data.emp_id, 'El id: ' + response.data.emp_id + ' ha sido actualizado');
-              }
-          }).catch((error) => {
+            },
+            error => {
               if (error?.response?.status == 422) {
-                  this.alertGuardado(empleado.emp_id, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(empleado.emp_nombre, error?.response?.data[0]?.message, "Error");
               }
-          });
+              if (error?.response?.status == 500) {
+                this.alertGuardado(empleado.emp_id, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
+              }
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await this.empleadosService.actualizar(this.emp_id, empleado).subscribe(
+            response => {
+              console.log(response)
+              if (response?.status == 200) {
+                this.alertGuardado(response.data.emp_id, 'El id: ' + response.data.emp_id + ' ha sido actualizado');
+              }
+            },
+            error => {
+              if (error?.response?.status == 422) {
+                this.alertGuardado(empleado.emp_id, error?.response?.data[0]?.message, "Error");
+              }
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
       }
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
   }
 }

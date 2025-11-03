@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { Empleados } from '../services/empleados';
 
 @Component({
   selector: 'app-empleado-detalle',
@@ -13,7 +14,8 @@ export class EmpleadoDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private empleadosService: Empleados
   ) { }
 
   empleado:any=null;
@@ -21,7 +23,6 @@ export class EmpleadoDetallePage implements OnInit {
   ngOnInit() {
     this.cargarEmpleado();
   }
-
   async cargarEmpleado() {
     const emp_id = this.route.snapshot.paramMap.get('emp_id');
     const loading = await this.loading.create({
@@ -29,18 +30,18 @@ export class EmpleadoDetallePage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      url: "http://localhost:8080/empleados/"+emp_id+"?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre",
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.empleado = response.data;
-    }).catch(function (error) {
+    try {
+      await this.empleadosService.detalle(emp_id, '?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre').subscribe(
+        response => {
+          this.empleado = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
     loading.dismiss();
   }
 
