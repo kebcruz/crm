@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EmpleadoDetallePageRoutingModule } from './empleado-detalle-routing.module';
 
 import { EmpleadoDetallePage } from './empleado-detalle.page';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EmpleadoDetallePageRoutingModule
+    EmpleadoDetallePageRoutingModule,
+    ToolbarModule
   ],
   declarations: [EmpleadoDetallePage]
 })

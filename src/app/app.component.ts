@@ -11,7 +11,7 @@ export class AppComponent {
 
   enlaces:any = [
     { ruta: '/empleado', texto: 'Empleados' },
-    { ruta: '/tabs/tab2', texto: 'Tab 2' },
+    { ruta: '/producto', texto: 'Productos' },
     { ruta: '/tabs/tab3', texto: 'Tab 3' },
     { ruta: '/tabs/nueva', texto: 'Nueva' },
     { ruta: '/tabs/tab1/siguiente', texto: 'Siguiente' }

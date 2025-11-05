@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { ProductoPageRoutingModule } from './producto-routing.module';
 
 import { ProductoPage } from './producto.page';
+import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+import { PaginacionComponent } from '../components/paginacion/paginacion.component';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProductoPageRoutingModule
+    ProductoPageRoutingModule,
+    ToolbarModule,
+    PaginacionModule
   ],
   declarations: [ProductoPage]
 })

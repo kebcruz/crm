@@ -111,7 +111,7 @@ export class EmpleadoPage implements OnInit {
             this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
           }
           if (error.response?.status == 500) {
-            this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar');
+            this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar esta siendo utilizado por otro registro');
           }
         }
       );

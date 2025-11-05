@@ -86,6 +86,14 @@ const routes: Routes = [
     path: 'venta-crear',
     loadChildren: () => import('./venta-crear/venta-crear.module').then( m => m.VentaCrearPageModule)
   },
+  {
+    path: 'producto-crear',
+    loadChildren: () => import('./producto-crear/producto-crear.module').then( m => m.ProductoCrearPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
 ];
 @NgModule({
   imports: [

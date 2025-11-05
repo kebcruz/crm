@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-export class Empleados {
-  url:string  = `${environment.apiUrl}empleados`;
+export class Productos {
+  url:string  = `${environment.apiUrl}productos`;
   headers:any = {'Content-Type': 'application/json', 'Authorization': /*'Bearer '+localStorage.getItem('token') ||*/ 'Bearer 100-token'};
 
   listado(extra: string = '', busqueda:string=''): Observable<any> {
@@ -33,8 +33,8 @@ export class Empleados {
     });
   }
 
-  detalle(emp_id:string | null = '', extra:string = ''): Observable<any> {
-    const url = `${this.url}/`+emp_id+extra;
+  detalle(pro_id:string | null = '', extra:string = ''): Observable<any> {
+    const url = `${this.url}/`+pro_id+extra;
     return new Observable(observer => {
       axios.get(url, {
         withCredentials: true,
@@ -51,10 +51,10 @@ export class Empleados {
     });
   }
 
-  crear(empleado: any): Observable<any> {
+  crear(producto: any): Observable<any> {
     const url = `${this.url}`;
     return new Observable(observer => {
-      axios.post(url, empleado, {
+      axios.post(url, producto, {
         withCredentials: true,
         headers: this.headers
       })
@@ -69,10 +69,10 @@ export class Empleados {
     });
   }
 
-  actualizar(emp_id: number, empleado: any): Observable<any> {
-    const url = `${this.url}/${emp_id}`;
+  actualizar(pro_id: number, producto: any): Observable<any> {
+    const url = `${this.url}/${pro_id}`;
     return new Observable(observer => {
-      axios.put(url, empleado, {
+      axios.put(url, producto, {
         withCredentials: true,
         headers: this.headers
       })
@@ -87,8 +87,8 @@ export class Empleados {
     });
   }
 
-  eliminar(emp_id: number): Observable<any> {
-    const url = `${this.url}/${emp_id}`;
+  eliminar(pro_id: number): Observable<any> {
+    const url = `${this.url}/${pro_id}`;
     return new Observable(observer => {
       axios.delete(url, {
         withCredentials: true,

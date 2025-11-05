@@ -1,8 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>productoDetalle</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar nombre="Producto Detalle" color="primario"></app-toolbar>
 
 <ion-content [fullscreen]="true">
   <ion-card *ngIf="producto as producto">
@@ -56,6 +52,24 @@
           <ion-label>
             <p>Categoria</p>
             <h2>{{producto.categoriaNombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Color</p>
+            <h2>{{producto.colorNombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Proveedor</p>
+            <h2>{{producto.proveedorNombre}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Estatus</p>
+            <h2>{{producto.estatuNombre}}</h2>
           </ion-label>
         </ion-item>
       </ion-list>

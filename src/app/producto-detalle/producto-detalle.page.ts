@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { Productos } from '../services/productos';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -13,7 +14,8 @@ export class ProductoDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private productosService: Productos
   ) { }
 
   producto:any=null;
@@ -29,18 +31,18 @@ export class ProductoDetallePage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      url: "http://localhost:8080/productos/"+pro_id+"?expand=archivoRuta, categoriaNombre",
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.producto = response.data;
-    }).catch(function (error) {
+    try {
+      await this.productosService.detalle(pro_id, '?expand=archivoRuta, categoriaNombre, proveedorNombre, colorNombre, estatuNombre').subscribe(
+        response => {
+          this.producto = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
     loading.dismiss();
   }
 }

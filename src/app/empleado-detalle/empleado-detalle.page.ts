@@ -23,6 +23,7 @@ export class EmpleadoDetallePage implements OnInit {
   ngOnInit() {
     this.cargarEmpleado();
   }
+  
   async cargarEmpleado() {
     const emp_id = this.route.snapshot.paramMap.get('emp_id');
     const loading = await this.loading.create({
