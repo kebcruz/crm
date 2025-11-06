@@ -113,6 +113,9 @@ export class EmpleadoPage implements OnInit {
           if (error.response?.status == 500) {
             this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar esta siendo utilizado por otro registro');
           }
+          if (error.response?.status == 401) {
+            this.alertEliminado(emp_id, 'El empleado: ' + emp_nombre + ' no se puede eliminar por que no tiene las credenciales');
+          }
         }
       );
     } catch (error) {

@@ -1,0 +1,209 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+    <ion-buttons slot="start">
+      <ion-button (click)="login()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Registrarme</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registro" (ngSubmit)="submitRegistrar()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Username</ion-label>
+            <ion-input type="text" formControlName="username" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.username">
+            <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Contraseña</ion-label>
+            <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password" clearOnEdit="false"
+              class="form-control"></ion-input>
+            <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+              <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"></ion-icon>
+            </button>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.password">
+            <ion-note color="danger" *ngIf="getError('password')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Confirmar Contraseña</ion-label>
+            <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password_confirm"
+              clearOnEdit="false" class="form-control"></ion-input>
+            <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+              <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"></ion-icon>
+            </button>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.password_confirm">
+            <ion-note color="danger" *ngIf="getError('password_confirm')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Nombre(s)</ion-label>
+            <ion-input type="text" formControlName="emp_nombre" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_nombre">
+            <ion-note color="danger" *ngIf="getError('emp_nombre')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Apellido Paterno</ion-label>
+            <ion-input type="text" formControlName="emp_paterno" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_paterno">
+            <ion-note color="danger" *ngIf="getError('emp_paterno')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Apellido Materno</ion-label>
+            <ion-input type="text" formControlName="emp_materno" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_materno">
+            <ion-note color="danger" *ngIf="getError('emp_materno')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Teléfono</ion-label>
+            <ion-input type="text" formControlName="emp_telefono" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_telefono">
+            <ion-note color="danger" *ngIf="getError('emp_telefono')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Comisión</ion-label>
+            <ion-input type="number" formControlName="emp_comision" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_comision">
+            <ion-note color="danger" *ngIf="getError('emp_comision')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Hora de entrada</ion-label>
+            <ion-input type="time" formControlName="emp_hora_entrada" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_hora_entrada">
+            <ion-note color="danger" *ngIf="getError('emp_hora_entrada')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Hora de salida</ion-label>
+            <ion-input type="time" formControlName="emp_hora_salida" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_hora_salida">
+            <ion-note color="danger" *ngIf="getError('emp_hora_salida')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de nacimiento</ion-label>
+            <ion-input type="date" formControlName="emp_fecha_nacimiento" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_fecha_nacimiento">
+            <ion-note color="danger" *ngIf="getError('emp_fecha_nacimiento')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de alta</ion-label>
+            <ion-input type="date" formControlName="emp_fecha_alta" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_fecha_alta">
+            <ion-note color="danger" *ngIf="getError('emp_fecha_alta')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Domicilio</ion-label>
+            <ion-select formControlName="emp_fkdom_id" class="form-control">
+              <ion-select-option *ngFor="let domicilio of domicilios" [value]="domicilio.dom_id">
+                {{ domicilio.dom_calle }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_fkdom_id">
+            <ion-note color="danger" *ngIf="getError('emp_fkdom_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Puesto</ion-label>
+            <ion-select formControlName="emp_fkpuesto_id" class="form-control">
+              <ion-select-option *ngFor="let puesto of puestos" [value]="puesto.pue_id">
+                {{ puesto.pue_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_fkpuesto_id">
+            <ion-note color="danger" *ngIf="getError('emp_fkpuesto_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Archivo</ion-label>
+            <ion-select formControlName="emp_fkarc_id" class="form-control">
+              <ion-select-option *ngFor="let archivo of archivos" [value]="archivo.arc_id">
+                {{ archivo.arc_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of validation_messages.emp_fkarc_id">
+            <ion-note color="danger" *ngIf="getError('emp_fkarc_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!registro.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

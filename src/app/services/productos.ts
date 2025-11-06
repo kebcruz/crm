@@ -8,8 +8,10 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class Productos {
   url:string  = `${environment.apiUrl}productos`;
-  headers:any = {'Content-Type': 'application/json', 'Authorization': /*'Bearer '+localStorage.getItem('token') ||*/ 'Bearer 100-token'};
-
+  headers:any = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  };
   listado(extra: string = '', busqueda:string=''): Observable<any> {
     let url:string = '';
     if(busqueda === '') {

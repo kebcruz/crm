@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,8 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ToolbarComponent  implements OnInit {
   @Input('nombre') nombre: string | undefined;
-  @Input('color') color: string = "primary";
-  constructor() { }
+  @Input('color') color: string = "primario";
+  cerrarSesion(){
+    localStorage.clear();
+    this.router.navigate(['/login'])
+  }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {}
 }

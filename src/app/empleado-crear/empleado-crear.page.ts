@@ -13,8 +13,8 @@ import { Empleados } from '../services/empleados';
 export class EmpleadoCrearPage implements OnInit {
 
   constructor(
-    private formBuilder : FormBuilder,
-    private alert : AlertController,
+    private formBuilder: FormBuilder,
+    private alert: AlertController,
     private modalCtrl: ModalController,
     private empleadosService: Empleados
   ) { }
@@ -22,13 +22,13 @@ export class EmpleadoCrearPage implements OnInit {
   private editarDatos = [];
   @Input() emp_id: number | undefined;
   public empleado!: FormGroup;
-  archivos: any=[];
-  domicilios: any=[];
-  puestos: any=[];
+  archivos: any = [];
+  domicilios: any = [];
+  puestos: any = [];
   archivoUrl: string = "http://localhost:8080/archivos"
   domicilioUrl: string = "http://localhost:8080/domicilios"
   puestoUrl: string = "http://localhost:8080/puestos"
-  baseUrl:string = "http://localhost:8080/empleados"
+  baseUrl: string = "http://localhost:8080/empleados"
 
   ngOnInit() {
     this.cargarDomicilios();
@@ -39,87 +39,87 @@ export class EmpleadoCrearPage implements OnInit {
     }
     this.formulario();
   }
-  mensajes_validacion:any = {
-    'emp_nombre' : [
-      {type : 'required' , message : 'Nombre(s) requeridos.'},
+  mensajes_validacion: any = {
+    'emp_nombre': [
+      { type: 'required', message: 'Nombre(s) requeridos.' },
     ],
-    'emp_paterno' : [
-      {type : 'required' , message : 'Apellido Paterno requeridos.'},
+    'emp_paterno': [
+      { type: 'required', message: 'Apellido Paterno requeridos.' },
     ],
-    'emp_materno' : [
-      {type : 'required' , message : 'Apellido Materno requeridos.'},
+    'emp_materno': [
+      { type: 'required', message: 'Apellido Materno requeridos.' },
     ],
-    'emp_telefono' : [
-      {type : 'required' , message : 'Telefono requerido.'},
+    'emp_telefono': [
+      { type: 'required', message: 'Telefono requerido.' },
     ],
-    'emp_comision' : [
-      {type : 'required' , message : 'Comisión requerido.'},
+    'emp_comision': [
+      { type: 'required', message: 'Comisión requerido.' },
     ],
-    'emp_hora_entrada' : [
-      {type : 'required' , message : 'Hora de entrada requerido.'},
+    'emp_hora_entrada': [
+      { type: 'required', message: 'Hora de entrada requerido.' },
     ],
-    'emp_hora_salida' : [
-      {type : 'required' , message : 'Hora de salida requerido.'},
+    'emp_hora_salida': [
+      { type: 'required', message: 'Hora de salida requerido.' },
     ],
-    'emp_fecha_nacimiento' : [
-      {type : 'required' , message : 'Fecha de nacimiento requerido.'},
+    'emp_fecha_nacimiento': [
+      { type: 'required', message: 'Fecha de nacimiento requerido.' },
     ],
-    'emp_fecha_alta' : [
-      {type : 'required' , message : 'Fecha de alta requerido.'},
+    'emp_fecha_alta': [
+      { type: 'required', message: 'Fecha de alta requerido.' },
     ],
-    'emp_fkdom_id' : [
-      {type : 'required' , message : 'Domicilio requerido.'},
+    'emp_fkdom_id': [
+      { type: 'required', message: 'Domicilio requerido.' },
     ],
-    'emp_fkpuesto_id' : [
-      {type : 'required' , message : 'Puesto requerido.'},
+    'emp_fkpuesto_id': [
+      { type: 'required', message: 'Puesto requerido.' },
     ],
-    'emp_fkarc_id' : [
-      {type : 'required' , message : 'Archivo requerido.'},
+    'emp_fkarc_id': [
+      { type: 'required', message: 'Archivo requerido.' },
     ],
   }
 
   async cargarDomicilios() {
     const response = await axios({
       method: 'get',
-      url : this.domicilioUrl,
+      url: this.domicilioUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
-    }).then( (response) => {
+    }).then((response) => {
       this.domicilios = response.data;
     }).catch(function (error) {
-      console.log(error);     
+      console.log(error);
     });
   }
 
   async cargarPuestos() {
     const response = await axios({
       method: 'get',
-      url : this.puestoUrl,
+      url: this.puestoUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
-    }).then( (response) => {
+    }).then((response) => {
       this.puestos = response.data;
     }).catch(function (error) {
-      console.log(error);     
+      console.log(error);
     });
   }
 
   async cargarArchivos() {
     const response = await axios({
       method: 'get',
-      url : this.archivoUrl,
+      url: this.archivoUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
-    }).then( (response) => {
+    }).then((response) => {
       this.archivos = response.data;
     }).catch(function (error) {
-      console.log(error);     
+      console.log(error);
     });
   }
 
@@ -150,7 +150,7 @@ export class EmpleadoCrearPage implements OnInit {
     return errors;
   }
 
-  private async alertGuardado(nombre: String, msg = "",  subMsg= "Guardado") {
+  private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
       header: 'Empleado',
       subHeader: subMsg,
@@ -179,22 +179,22 @@ export class EmpleadoCrearPage implements OnInit {
       url: this.baseUrl + "/" + this.emp_id,
       withCredentials: true,
       headers: {
-          'Accept': 'application/json'
+        'Accept': 'application/json'
       }
     }).then((response) => {
-        this.editarDatos = response.data;
-        Object.keys(this.editarDatos).forEach((key: any) => {
-            const control = this.empleado.get(String(key));
-            if (control !== null) {
-                control.markAsTouched();
-                control.patchValue(this.editarDatos[key]);
-            }
-        })
+      this.editarDatos = response.data;
+      Object.keys(this.editarDatos).forEach((key: any) => {
+        const control = this.empleado.get(String(key));
+        if (control !== null) {
+          control.markAsTouched();
+          control.patchValue(this.editarDatos[key]);
+        }
+      })
     }).catch(function (error) {
-        console.log(error);
+      console.log(error);
     });
   }
-  
+
   async guardarDatos() {
     try {
       const empleado = this.empleado?.value;
@@ -230,6 +230,9 @@ export class EmpleadoCrearPage implements OnInit {
             error => {
               if (error?.response?.status == 422) {
                 this.alertGuardado(empleado.emp_id, error?.response?.data[0]?.message, "Error");
+              }
+              if (error?.response?.status == 401) {
+                this.alertGuardado(empleado.emp_id, error?.response?.data[0]?.message, "No se puede guardar, no tienes credenciales");
               }
             }
           );
