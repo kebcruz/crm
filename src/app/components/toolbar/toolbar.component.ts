@@ -12,7 +12,7 @@ export class ToolbarComponent  implements OnInit {
   @Input('color') color: string = "primario";
   cerrarSesion(){
     localStorage.clear();
-    this.router.navigate(['/login'])
+    this.router.navigateByUrl('/', { replaceUrl : true });
   }
   constructor(
     private router: Router,

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { permisoGuard } from './guard/permiso-guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'color',
@@ -40,7 +41,8 @@ const routes: Routes = [
   },
   {
     path: 'empleado',
-    loadChildren: () => import('./empleado/empleado.module').then( m => m.EmpleadoPageModule)
+    loadChildren: () => import('./empleado/empleado.module').then( m => m.EmpleadoPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'empleado-detalle/:emp_id',
