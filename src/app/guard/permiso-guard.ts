@@ -28,6 +28,6 @@ export const permisoGuard: CanActivateFn = async (route: ActivatedRouteSnapshot,
   });
 
   await alert.present();
-  router.navigate(['/efpartido-list']);
+  router.navigate(['/tabs']);
   return false;
 };

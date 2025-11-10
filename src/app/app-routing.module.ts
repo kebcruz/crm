@@ -9,35 +9,42 @@ const routes: Routes = [
   },
   {
     path: 'color',
-    loadChildren: () => import('./color/color.module').then( m => m.ColorPageModule)
+    loadChildren: () => import('./color/color.module').then( m => m.ColorPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'pais',
-    loadChildren: () => import('./pais/pais.module').then( m => m.PaisPageModule)
+    loadChildren: () => import('./pais/pais.module').then( m => m.PaisPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'estado',
-    loadChildren: () => import('./estado/estado.module').then( m => m.EstadoPageModule)
+    loadChildren: () => import('./estado/estado.module').then( m => m.EstadoPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'municipio',
-    loadChildren: () => import('./municipio/municipio.module').then( m => m.MunicipioPageModule)
+    loadChildren: () => import('./municipio/municipio.module').then( m => m.MunicipioPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente-etiqueta',
-    loadChildren: () => import('./cliente-etiqueta/cliente-etiqueta.module').then( m => m.ClienteEtiquetaPageModule)
+    loadChildren: () => import('./cliente-etiqueta/cliente-etiqueta.module').then( m => m.ClienteEtiquetaPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'domicilio',
-    loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule)
+    loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente',
-    loadChildren: () => import('./cliente/cliente.module').then( m => m.ClientePageModule)
+    loadChildren: () => import('./cliente/cliente.module').then( m => m.ClientePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente-detalle/:cli_id',
-    loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule)
+    loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule),
   },
   {
     path: 'empleado',
@@ -46,59 +53,62 @@ const routes: Routes = [
   },
   {
     path: 'empleado-detalle/:emp_id',
-    loadChildren: () => import('./empleado-detalle/empleado-detalle.module').then( m => m.EmpleadoDetallePageModule)
+    loadChildren: () => import('./empleado-detalle/empleado-detalle.module').then( m => m.EmpleadoDetallePageModule),
   },
   {
     path: 'proveedor',
-    loadChildren: () => import('./proveedor/proveedor.module').then( m => m.ProveedorPageModule)
+    loadChildren: () => import('./proveedor/proveedor.module').then( m => m.ProveedorPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'proveedor-detalle/:prov_id',
-    loadChildren: () => import('./proveedor-detalle/proveedor-detalle.module').then( m => m.ProveedorDetallePageModule)
+    loadChildren: () => import('./proveedor-detalle/proveedor-detalle.module').then( m => m.ProveedorDetallePageModule),
   },
   {
     path: 'producto',
-    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
+    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'producto-detalle/:pro_id',
-    loadChildren: () => import('./producto-detalle/producto-detalle.module').then( m => m.ProductoDetallePageModule)
+    loadChildren: () => import('./producto-detalle/producto-detalle.module').then( m => m.ProductoDetallePageModule),
   },
   {
     path: 'estado-crear',
-    loadChildren: () => import('./estado-crear/estado-crear.module').then( m => m.EstadoCrearPageModule)
+    loadChildren: () => import('./estado-crear/estado-crear.module').then( m => m.EstadoCrearPageModule),
   },
   {
     path: 'pais-crear',
-    loadChildren: () => import('./pais-crear/pais-crear.module').then( m => m.PaisCrearPageModule)
+    loadChildren: () => import('./pais-crear/pais-crear.module').then( m => m.PaisCrearPageModule),
   },
   {
     path: 'empleado-crear',
-    loadChildren: () => import('./empleado-crear/empleado-crear.module').then( m => m.EmpleadoCrearPageModule)
+    loadChildren: () => import('./empleado-crear/empleado-crear.module').then( m => m.EmpleadoCrearPageModule),
   },
   {
     path: 'venta',
-    loadChildren: () => import('./venta/venta.module').then( m => m.VentaPageModule)
+    loadChildren: () => import('./venta/venta.module').then( m => m.VentaPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'venta-detalle/:ven_id',
-    loadChildren: () => import('./venta-detalle/venta-detalle.module').then( m => m.VentaDetallePageModule)
+    loadChildren: () => import('./venta-detalle/venta-detalle.module').then( m => m.VentaDetallePageModule),
   },
   {
     path: 'venta-crear',
-    loadChildren: () => import('./venta-crear/venta-crear.module').then( m => m.VentaCrearPageModule)
+    loadChildren: () => import('./venta-crear/venta-crear.module').then( m => m.VentaCrearPageModule),
   },
   {
     path: 'producto-crear',
-    loadChildren: () => import('./producto-crear/producto-crear.module').then( m => m.ProductoCrearPageModule)
+    loadChildren: () => import('./producto-crear/producto-crear.module').then( m => m.ProductoCrearPageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule),
   },
 ];
 @NgModule({
