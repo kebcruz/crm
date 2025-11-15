@@ -55,34 +55,44 @@ export class LoginPage implements OnInit {
         localStorage.clear();
         const loginData = this.login?.value;
         try {
-            await this.loginService.login(loginData).subscribe(
+            this.loginService.login(loginData).subscribe(
                 async response => {
-                    if (response?.status == 200 && response?.data !== '') {
-                        await localStorage.setItem('token', response?.data);
+                    if (response?.status === 200 && response?.data) {
+                        localStorage.setItem('token', response.data);
                         localStorage.setItem('sesion', 'login');
                         localStorage.setItem('username', loginData.username);
                         this.permisoService.permisos().subscribe(
-                            async permisosResponse => {
+                            permisosResponse => {
                                 if (permisosResponse?.data) {
-                                    await localStorage.setItem('permisos', JSON.stringify(permisosResponse.data));
+                                    const permisosArray = permisosResponse.data;
+                                    localStorage.setItem('permisos', JSON.stringify(permisosArray));
+                                    if (permisosArray.length > 0) {
+                                        this.router.navigate([`/${permisosArray[0]}`]);
+                                    } else {
+                                        this.router.navigate(['/login']);
+                                    }
+                                } else {
+                                    this.alertError();
                                 }
-                                this.router.navigate(['/empleado']);
                             },
                             error => {
                                 console.error('Error obteniendo permisos:', error);
                                 this.alertError();
                             }
                         );
-                    } else if (response?.data === '') {
+                    } else {
                         this.alertError();
                     }
                 },
                 error => {
-                    console.log(error);
+                    console.error('Error en login:', error);
+                    this.alertError();
                 }
             );
+
         } catch (error) {
-            console.log(error);
+            console.error('Error submitLogin:', error);
+            this.alertError();
         }
     }
 

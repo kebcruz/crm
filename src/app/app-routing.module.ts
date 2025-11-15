@@ -45,6 +45,7 @@ const routes: Routes = [
   {
     path: 'cliente-detalle/:cli_id',
     loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'empleado',
@@ -54,6 +55,7 @@ const routes: Routes = [
   {
     path: 'empleado-detalle/:emp_id',
     loadChildren: () => import('./empleado-detalle/empleado-detalle.module').then( m => m.EmpleadoDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'proveedor',
@@ -63,6 +65,7 @@ const routes: Routes = [
   {
     path: 'proveedor-detalle/:prov_id',
     loadChildren: () => import('./proveedor-detalle/proveedor-detalle.module').then( m => m.ProveedorDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'producto',
@@ -72,18 +75,22 @@ const routes: Routes = [
   {
     path: 'producto-detalle/:pro_id',
     loadChildren: () => import('./producto-detalle/producto-detalle.module').then( m => m.ProductoDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'estado-crear',
     loadChildren: () => import('./estado-crear/estado-crear.module').then( m => m.EstadoCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'pais-crear',
     loadChildren: () => import('./pais-crear/pais-crear.module').then( m => m.PaisCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'empleado-crear',
     loadChildren: () => import('./empleado-crear/empleado-crear.module').then( m => m.EmpleadoCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'venta',
@@ -93,14 +100,17 @@ const routes: Routes = [
   {
     path: 'venta-detalle/:ven_id',
     loadChildren: () => import('./venta-detalle/venta-detalle.module').then( m => m.VentaDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'venta-crear',
     loadChildren: () => import('./venta-crear/venta-crear.module').then( m => m.VentaCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'producto-crear',
     loadChildren: () => import('./producto-crear/producto-crear.module').then( m => m.ProductoCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'login',

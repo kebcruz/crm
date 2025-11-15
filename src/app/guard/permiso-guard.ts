@@ -3,21 +3,26 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-export const permisoGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> => {
+export const permisoGuard: CanActivateFn = async (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+): Promise<boolean> => {
   const router = inject(Router);
   const alertCtrl = inject(AlertController);
 
-  const permisos = await localStorage.getItem('permisos');
   const token = localStorage.getItem('token');
-  const vista = route.routeConfig?.path;
-  console.log(vista);
-
   if (!token) {
     router.navigate(['/login']);
     return false;
   }
 
-  if (permisos && vista && permisos.includes(vista)) {
+  const permisos = localStorage.getItem('permisos');
+  const permisosArray: string[] = permisos ? JSON.parse(permisos) : [];
+  const vista = route.routeConfig?.path;
+  const vistaBase = vista?.split('/:')[0];
+  const permitido = permisosArray.some((p: string) => p === vistaBase);
+
+  if (permitido) {
     return true;
   }
 
@@ -28,6 +33,7 @@ export const permisoGuard: CanActivateFn = async (route: ActivatedRouteSnapshot,
   });
 
   await alert.present();
-  router.navigate(['/tabs']);
+  await alert.onDidDismiss();
+  router.navigate(['/login']);
   return false;
 };
