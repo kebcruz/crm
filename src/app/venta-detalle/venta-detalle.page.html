@@ -1,15 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Venta Detalle</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar nombre="Venta Detalle" color="primario"></app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-card *ngIf="venta as venta">
-    <div class="center">
-      <img [src]="venta.archivoRuta" alt="Foto">
-    </div>
-
     <ion-card-header class="center">
       <ion-card-title>
         <h3>Venta {{venta.ven_id}}</h3>

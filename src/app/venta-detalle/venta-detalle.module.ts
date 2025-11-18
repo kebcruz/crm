@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { VentaDetallePageRoutingModule } from './venta-detalle-routing.module';
 
 import { VentaDetallePage } from './venta-detalle.page';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VentaDetallePageRoutingModule
+    VentaDetallePageRoutingModule,
+    ToolbarModule
   ],
   declarations: [VentaDetallePage]
 })

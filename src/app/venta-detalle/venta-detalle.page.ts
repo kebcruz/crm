@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { Ventas } from '../services/ventas';
 
 @Component({
   selector: 'app-venta-detalle',
@@ -13,8 +14,10 @@ export class VentaDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private ventasService: Ventas
   ) { }
+
   venta:any=null;
 
   ngOnInit() {
@@ -28,19 +31,20 @@ export class VentaDetallePage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      url: "http://localhost:8080/ventas/"+ven_id+"?expand=clienteNombre,empleadoNombre,pagoReferencia,ventaDetalles.producto",
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.venta = response.data;
-    }).catch(function (error) {
+    try {
+      await this.ventasService.detalle(ven_id, '?expand=clienteNombre, empleadoNombre, pagoReferencia, ventaDetalles').subscribe(
+        response => {
+          this.venta = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
     loading.dismiss();
   }
+
 
 }

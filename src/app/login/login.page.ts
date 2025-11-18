@@ -54,25 +54,41 @@ export class LoginPage implements OnInit {
     async submitLogin() {
         localStorage.clear();
         const loginData = this.login?.value;
+
         try {
-            this.loginService.login(loginData).subscribe(
+            await this.loginService.login(loginData).subscribe(
                 async response => {
                     if (response?.status === 200 && response?.data) {
-                        localStorage.setItem('token', response.data);
+                        // Guardar token y sesión
+                        await localStorage.setItem('token', response.data);
                         localStorage.setItem('sesion', 'login');
                         localStorage.setItem('username', loginData.username);
+
+                        // Obtener permisos
                         this.permisoService.permisos().subscribe(
-                            permisosResponse => {
-                                if (permisosResponse?.data) {
-                                    const permisosArray = permisosResponse.data;
-                                    localStorage.setItem('permisos', JSON.stringify(permisosArray));
-                                    if (permisosArray.length > 0) {
-                                        this.router.navigate([`/${permisosArray[0]}`]);
-                                    } else {
-                                        this.router.navigate(['/login']);
-                                    }
-                                } else {
-                                    this.alertError();
+                            async permisosResponse => {
+                                const permisos = permisosResponse?.data || [];
+                                localStorage.setItem('permisos', JSON.stringify(permisos));
+
+                                // Determinar rol según permisos
+                                let rol = '';
+                                if (permisos.includes('producto')) {
+                                    rol = 'Admin';
+                                } else if (permisos.includes('empleado')) {
+                                    rol = 'Empleado';
+                                }
+
+                                // Redirigir según rol
+                                switch (rol) {
+                                    case 'Admin':
+                                        this.router.navigate(['/empleado']);
+                                        break;
+                                    case 'Empleado':
+                                        this.router.navigate(['/producto']);
+                                        break;
+                                    default:
+                                        this.router.navigate(['/']);
+                                        break;
                                 }
                             },
                             error => {
@@ -80,6 +96,7 @@ export class LoginPage implements OnInit {
                                 this.alertError();
                             }
                         );
+
                     } else {
                         this.alertError();
                     }
@@ -89,13 +106,11 @@ export class LoginPage implements OnInit {
                     this.alertError();
                 }
             );
-
         } catch (error) {
-            console.error('Error submitLogin:', error);
+            console.error('Error inesperado en submitLogin:', error);
             this.alertError();
         }
     }
-
     async alertError() {
         const alert = await this.alertCtrl.create({
             header: 'Importante',
