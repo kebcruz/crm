@@ -132,6 +132,19 @@ const routes: Routes = [
     path: 'archivo-detalle/:archivo_id',
     loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule)
   },
+  {
+    path: 'categoria',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },
+  {
+    path: 'categoria-crear',
+    loadChildren: () => import('./categoria-crear/categoria-crear.module').then( m => m.CategoriaCrearPageModule)
+  },
+  {
+    path: 'categoria-detalle/:categoria_id',
+    loadChildren: () => import('./categoria-detalle/categoria-detalle.module').then( m => m.CategoriaDetallePageModule)
+  },
+
 
 ];
 @NgModule({
