@@ -1,0 +1,38 @@
+<app-toolbar nombre="Archivos"></app-toolbar>
+
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  <ion-list>
+    <ion-item button *ngFor="let archivo of archivos">
+
+      <ion-label class="ion-text-wrap">
+        <h3>{{archivo.arc_nombre}}</h3>
+        <p>{{archivo.arc_tipo}}</p>
+        <p>{{archivo.arc_fecha_subida | date:'y-MM-dd'}}</p>
+      </ion-label>
+
+      <ion-button [routerLink]="['/archivo-detalle', archivo.arc_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="editar(archivo.arc_id)" color="warning">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="alertEliminar(archivo.arc_id, archivo.arc_nombre)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+
+      <ion-badge slot="end">{{archivo.arc_id}}</ion-badge>
+    </ion-item>
+  </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
+</ion-content>
+
+<!-- Este boton nos redirige al formulario -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <!-- new es la funcion que hemos creado en el *.page.ts -->
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

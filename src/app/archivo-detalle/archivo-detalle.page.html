@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Archivo-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="archivo as archivo">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
+    <!--     <div class="center">
+      <img src="" alt="Foto">
+    </div> -->
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>{{ archivo.arc_id }} : {{ archivo.arc_nombre }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Tipo de archivo</p>
+            <h2>{{ archivo.arc_tipo }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Ruta del archivo</p>
+            <h2>{{ archivo.arc_ruta }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Fecha de subida</p>
+            <ion-icon name="calendar-number"></ion-icon>
+            <h2 *ngIf="archivo.arc_fecha_subida === null || archivo.arc_fecha_subida === ''; else condicionFalsa">Sin
+              Fecha de Nacimiento</h2>
+            <ng-template #condicionFalsa>
+              {{archivo.arc_fecha_subida | date:'y-MM-dd'}}
+            </ng-template>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Tamaño del archivo</p>
+            <h2>{{ archivo.arc_tamanio }}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

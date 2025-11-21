@@ -120,6 +120,19 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule),
   },
+  {
+    path: 'archivo',
+    loadChildren: () => import('./archivo/archivo.module').then( m => m.ArchivoPageModule)
+  },
+  {
+    path: 'archivo-crear',
+    loadChildren: () => import('./archivo-crear/archivo-crear.module').then( m => m.ArchivoCrearPageModule)
+  },
+  {
+    path: 'archivo-detalle/:archivo_id',
+    loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule)
+  },
+
 ];
 @NgModule({
   imports: [
