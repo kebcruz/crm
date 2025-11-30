@@ -19,7 +19,7 @@ export class ArchivoDetallePage implements OnInit {
     private archivoService: Archivo
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarArchivo();
   }
 

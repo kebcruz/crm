@@ -43,9 +43,9 @@ const routes: Routes = [
     canActivate: [permisoGuard]
   },
   {
-    path: 'cliente-detalle/:cli_id',
+    path: 'cliente-detalle/:cliente_id',
     loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'empleado',
@@ -144,6 +144,20 @@ const routes: Routes = [
     path: 'categoria-detalle/:categoria_id',
     loadChildren: () => import('./categoria-detalle/categoria-detalle.module').then( m => m.CategoriaDetallePageModule)
   },
+  {
+    path: 'cliente-crear',
+    loadChildren: () => import('./cliente-crear/cliente-crear.module').then( m => m.ClienteCrearPageModule)
+  },
+  {
+    path: 'cliente-etiqueta-crear',
+    loadChildren: () => import('./cliente-etiqueta-crear/cliente-etiqueta-crear.module').then( m => m.ClienteEtiquetaCrearPageModule)
+  },
+  {
+    path: 'cliente-etiqueta-detalle/:cliente_detalle_id',
+    loadChildren: () => import('./cliente-etiqueta-detalle/cliente-etiqueta-detalle.module').then( m => m.ClienteEtiquetaDetallePageModule)
+  },
+
+
 
 
 ];

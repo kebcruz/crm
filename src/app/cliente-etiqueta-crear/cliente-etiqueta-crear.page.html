@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+    <ion-title class="ion-text-center">Nuevo Cliente Etiqueta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="etiCliente" (ngSubmit)="guardarDatos()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Cliente</ion-label>
+            <ion-select formControlName="clet_fkcli_id" class="form-control">
+              <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.cli_id">
+                {{ cliente.cli_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.clet_fkcli_id">
+            <ion-note color="danger" *ngIf="getError('clet_fkcli_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Etiqueta</ion-label>
+            <ion-select formControlName="clet_fketi_id" class="form-control">
+              <ion-select-option *ngFor="let etiqueta of etiquetas" [value]="etiqueta.eti_id">
+                {{ etiqueta.eti_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.clet_fketi_id">
+            <ion-note color="danger" *ngIf="getError('clet_fketi_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!etiCliente.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

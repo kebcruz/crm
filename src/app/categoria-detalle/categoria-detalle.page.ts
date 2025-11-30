@@ -19,7 +19,7 @@ export class CategoriaDetallePage implements OnInit {
     private categoriaServices: Categoria
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarCategoria();
   }
 

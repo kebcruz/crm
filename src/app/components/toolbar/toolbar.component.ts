@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class ToolbarComponent  implements OnInit {
+
   @Input('nombre') nombre: string | undefined;
-  @Input('color') color: string = "primario";
+  @Input('color') color: string = "";
+
   cerrarSesion(){
     localStorage.clear();
     this.router.navigateByUrl('/', { replaceUrl : true });

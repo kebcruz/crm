@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { Cliente } from '../services/cliente';
 
 @Component({
   selector: 'app-cliente-detalle',
@@ -11,36 +12,38 @@ import axios from 'axios';
 })
 export class ClienteDetallePage implements OnInit {
 
+  cliente: any = null;
+
   constructor(
     private route: ActivatedRoute,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private clienteService: Cliente
   ) { }
 
-  cliente:any=null;
-
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.cargarCliente();
   }
 
   async cargarCliente() {
-    const cli_id = this.route.snapshot.paramMap.get('cli_id');
+    const cliente_id = this.route.snapshot.paramMap.get('cliente_id');
     const loading = await this.loading.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      url: "http://localhost:8080/clientes/"+cli_id+"?expand=domicilioNombre, municipioNombre",
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.cliente = response.data;
-    }).catch(function (error) {
+    try {
+      await this.clienteService.detalle(cliente_id, '?expand=domicilioNombre, municipioNombre').subscribe(
+        response => {
+          this.cliente = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
     loading.dismiss();
   }
+
 }

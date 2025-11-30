@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cliente-etiqueta-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="clienteEtiqueta as clienteEtiqueta">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
+<!--     <div class="center">
+      <img src="" alt="Foto">
+    </div> -->
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>{{ clienteEtiqueta.clet_id }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Cliente</p>
+            <h2>{{ clienteEtiqueta.clienteNombre }}</h2>
+            <!--cliente es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Etiqueta</p>
+            <h2>{{ clienteEtiqueta.etiquetaNombre }}</h2>
+            <!--etiqueta es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

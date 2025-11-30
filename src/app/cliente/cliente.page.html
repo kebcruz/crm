@@ -1,24 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>cliente</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar nombre="Clientes"></app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
     <ion-item button *ngFor="let cliente of clientes">
-      <ion-avatar slot="start">
-        <img src="assets/img/leshu.jpg" alt="Foto">
-      </ion-avatar>
 
       <ion-label class="ion-text-wrap">
-        <h3>{{cliente.cli_nombre}}</h3>
+        <h3>{{cliente.cli_nombre}} {{cliente.cli_paterno}} {{cliente.cli_materno}}</h3>
+        <p>{{cliente.cli_fecha_registro | date:'y-MM-dd'}}</p>
       </ion-label>
 
-      <ion-badge slot="end">{{cliente.cli_id}}</ion-badge>
       <ion-button [routerLink]="['/cliente-detalle', cliente.cli_id]">
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
+
+      <ion-button (click)="editar(cliente.cli_id)" color="warning">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="alertEliminar(cliente.cli_id, cliente.cli_nombre)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+
+      <ion-badge slot="end">{{cliente.cli_id}}</ion-badge>
+
     </ion-item>
   </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
 </ion-content>
+
+<!-- Este boton nos redirige al formulario -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <!-- new es la funcion que hemos creado en el *.page.ts -->
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

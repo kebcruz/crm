@@ -10,10 +10,18 @@ export class AppComponent {
   constructor() {}
 
   enlaces:any = [
+    { ruta: '/archivo', texto: 'Archivos' },
+    { ruta: '/categoria', texto: 'Categorias' },
+    { ruta: '/cliente', texto: 'Clientes' },
+    { ruta: '/cliente-etiqueta', texto: 'Cliente Etiqueta' },
+    { ruta: '/color', texto: 'Colores' },
+    { ruta: '/devolucion', texto: 'Devoluciones' },
+    { ruta: '/domicilio', texto: 'Domicilios' },
+    { ruta: '/estado', texto: 'Estados' },
+    { ruta: '/etiqueta', texto: 'Etiquetas' },
+    { ruta: '/producto', texto: 'Productos' },
+    { ruta: '/puesto', texto: 'Puestos' },
     { ruta: '/empleado', texto: 'Empleados' },
     { ruta: '/producto', texto: 'Productos' },
-    { ruta: '/tabs/tab3', texto: 'Tab 3' },
-    { ruta: '/tabs/nueva', texto: 'Nueva' },
-    { ruta: '/tabs/tab1/siguiente', texto: 'Siguiente' }
   ];
 }

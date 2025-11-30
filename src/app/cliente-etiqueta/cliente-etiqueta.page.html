@@ -1,17 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>clienteEtiqueta</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar nombre="Cliente Etiqueta"></app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
-    <ion-item button *ngFor="let clienteetiqueta of clienteetiquetas">
+    <ion-item button *ngFor="let clienteEtiqueta of clienteEtiquetas">
       <ion-avatar slot="start">
-        <img src="assets/img/1.png" alt="Foto">
+        <img src="" alt="Foto">
       </ion-avatar>
 
-      <ion-badge slot="end">{{clienteetiqueta.clet_id}}, Cliente: {{clienteetiqueta.clienteNombre}}, Etiqueta: {{clienteetiqueta.etiquetaNombre}}</ion-badge>
+      <ion-label class="ion-text-wrap">
+        <h3>{{clienteEtiqueta.clet_id}}</h3>
+      </ion-label>
+
+      <ion-button [routerLink]="['/cliente-etiqueta-detalle', clienteEtiqueta.clet_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="editar(clienteEtiqueta.clet_id)" color="warning">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+
+      <ion-button
+        (click)="alertEliminar(clienteEtiqueta.clet_id)"
+        color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+
+      <ion-badge slot="end">{{clienteEtiqueta.clet_id}}</ion-badge>
     </ion-item>
   </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
 </ion-content>
+
+<!-- Este boton nos redirige al formulario -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <!-- new es la funcion que hemos creado en el *.page.ts -->
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

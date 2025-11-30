@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
-export class Cliente {
+export class ClienteEtiqueta {
 
-  url: string = `${environment.apiUrl}clientes`;
+  url: string = `${environment.apiUrl}cliente-etiquetas`;
   headers: any = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') || 'Bearer 100-token' };
 
   listado(extra: string = '', busqueda: string = ''): Observable<any> {
@@ -34,8 +34,8 @@ export class Cliente {
     });
   }
 
-  detalle(cli_id: string | null = '', extra: string = ''): Observable<any> {
-    const url = `${this.url}/` + cli_id + extra;
+  detalle(clet_id: string | null = '', extra: string = ''): Observable<any> {
+    const url = `${this.url}/` + clet_id + extra;
     return new Observable(observer => {
       axios.get(url, {
         withCredentials: true,
@@ -52,10 +52,10 @@ export class Cliente {
     });
   }
 
-  crear(cliente: any): Observable<any> {
+  crear(clietiqueta: any): Observable<any> {
     const url = `${this.url}`;
     return new Observable(observer => {
-      axios.post(url, cliente, {
+      axios.post(url, clietiqueta, {
         withCredentials: true,
         headers: this.headers
       })
@@ -70,10 +70,10 @@ export class Cliente {
     });
   }
 
-  actualizar(cliente_id: number, cliente: any): Observable<any> {
-    const url = `${this.url}/${cliente_id}`;
+  actualizar(clet_id: number, ClienteEtiqueta: any): Observable<any> {
+    const url = `${this.url}/${clet_id}`;
     return new Observable(observer => {
-      axios.put(url, cliente, {
+      axios.put(url, ClienteEtiqueta, {
         withCredentials: true,
         headers: this.headers
       })
@@ -88,8 +88,8 @@ export class Cliente {
     });
   }
 
-  eliminar(cliente_id: number): Observable<any> {
-    const url = `${this.url}/${cliente_id}`;
+  eliminar(cliEtiqueta_id: number): Observable<any> {
+    const url = `${this.url}/${cliEtiqueta_id}`;
     return new Observable(observer => {
       axios.delete(url, {
         withCredentials: true,
