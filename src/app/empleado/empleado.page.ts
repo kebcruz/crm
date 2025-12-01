@@ -50,6 +50,7 @@ export class EmpleadoPage implements OnInit {
       }
       loading.dismiss();
   }
+  
   async new() {
     const paginaModal = await this.modalCtrl.create({
       component: EmpleadoCrearPage,
@@ -61,6 +62,7 @@ export class EmpleadoPage implements OnInit {
       this.cargarEmpleados();
     });
   }
+
   async editar(emp_id: number) {
     const paginaModal = await this.modalCtrl.create({
       component: EmpleadoCrearPage,
@@ -122,6 +124,7 @@ export class EmpleadoPage implements OnInit {
       console.log(error);
     }
   }
+  
   async alertEliminado(emp_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',

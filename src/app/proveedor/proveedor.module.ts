@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ProveedorPageRoutingModule } from './proveedor-routing.module';
 
 import { ProveedorPage } from './proveedor.page';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProveedorPageRoutingModule
+    ProveedorPageRoutingModule,
+    ToolbarModule,
+    PaginacionModule
   ],
   declarations: [ProveedorPage]
 })
