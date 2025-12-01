@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, ModalController } from '@ionic/angular';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios';
 import { Ventas } from '../services/ventas';
+import { Ventadetalles } from '../services/ventadetalles';
+import { Productos } from '../services/productos';
+import { Cliente } from '../services/cliente';
+import { Empleados } from '../services/empleados';
 
 @Component({
   selector: 'app-venta-crear',
@@ -13,26 +17,32 @@ import { Ventas } from '../services/ventas';
 export class VentaCrearPage implements OnInit {
 
   constructor(
+    private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private alert: AlertController,
     private modalCtrl: ModalController,
-    private ventasService: Ventas
+    private ventasService: Ventas,
+    private ventadService: Ventadetalles,
+    private productosService: Productos,
+    private clientesService: Cliente,
+    private empleadosService: Empleados
   ) { }
 
   private editarDatos = [];
   @Input() ven_id: number | undefined;
   public venta!: FormGroup;
+  public productos: any[] = [];
+  public productosCargados = false;
   clientes: any = [];
   empleados: any = [];
   pagos: any = [];
-  clienteUrl: string = "http://localhost:8080/clientes"
-  empleadoUrl: string = "http://localhost:8080/empleados"
   pagoUrl: string = "http://localhost:8080/pagos"
   baseUrl: string = "http://localhost:8080/ventas"
 
   ngOnInit() {
     this.cargarClientes();
     this.cargarEmpleados();
+    this.cargarProductos();
     this.cargarPagos();
     if (this.ven_id !== undefined) {
       this.getDetalles();
@@ -59,33 +69,61 @@ export class VentaCrearPage implements OnInit {
   }
 
   async cargarClientes() {
-    const response = await axios({
-      method: 'get',
-      url: this.clienteUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.clientes = response.data;
-    }).catch(function (error) {
-      console.log(error);
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.clientesService.listado().subscribe(
+        response => {
+          this.clientes = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarEmpleados() {
-    const response = await axios({
-      method: 'get',
-      url: this.empleadoUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.empleados = response.data;
-    }).catch(function (error) {
-      console.log(error);
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.empleadosService.listado().subscribe(
+        response => {
+          this.empleados = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
+  }
+
+  async cargarProductos() {
+    try {
+      await this.productosService.listado('?per-page=100').subscribe(
+        response => {
+          this.productos = response;
+          this.productosCargados = true;
+        },
+        error => {
+          console.error('Error productos:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async cargarPagos() {
@@ -110,7 +148,28 @@ export class VentaCrearPage implements OnInit {
       ven_fkcli_id: ['', [Validators.required]],
       ven_fkemp_id: ['', [Validators.required]],
       ven_fkpag_id: ['', [Validators.required]],
+      productos: this.formBuilder.array([])
     })
+  }
+
+  get productosFA(): FormArray {
+    return this.venta.get('productos') as FormArray;
+  }
+
+  agregarProducto() {
+    this.productosFA.push(
+      this.formBuilder.group({
+        ved_fkpro_id: ['', [Validators.required]],
+        ved_cantidad: [1, Validators.required],
+        ved_precio: ['', Validators.required],
+        ved_descuento: [0],
+        ved_subtotal: ['', Validators.required],
+      })
+    );
+  }
+
+  eliminarProducto(index: number) {
+    this.productosFA.removeAt(index);
   }
 
   public getError(controlName: string) {
@@ -120,6 +179,24 @@ export class VentaCrearPage implements OnInit {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
     return errors;
+  }
+
+  private guardarProductos(ven_id: string) {
+    const productosSeleccionados: number[] = this.productosFA.value.filter((pro_id: any) => pro_id != null && pro_id !== '');
+
+    if (!productosSeleccionados.length) {
+      return;
+    }
+
+    productosSeleccionados.forEach(proId => {
+      this.ventadService.crear({
+        ved_fkven_id: ven_id,
+        ved_fkpro_id: proId
+      }).subscribe(
+        resp => console.log('Porducto guardada', resp),
+        err => console.error('Error guardando producto', err)
+      );
+    });
   }
 
   private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
@@ -176,6 +253,8 @@ export class VentaCrearPage implements OnInit {
             response => {
               if (response?.status == 201) {
                 this.alertGuardado(response.data.ven_id, 'La venta con id: ' + response.data.ven_id + ' ha sido registrada');
+                const ventaCreada = response.data.ven_id;
+                this.guardarProductos(ventaCreada);
               }
             },
             error => {

@@ -16,7 +16,7 @@ import { PaginacionModule } from '../components/paginacion/paginacion.module';
     FormsModule,
     IonicModule,
     ProductoCrearPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [ProductoCrearPage]
 })

@@ -75,6 +75,24 @@
             </ion-note>
           </div>
         </ion-col>
+        <ion-col size="12" *ngIf="productosCargados">
+          <ion-item lines="none">
+            <ion-label color="primary">Productos</ion-label>
+            <ion-button size="small" (click)="agregarProducto()"> Agregar producto</ion-button>
+          </ion-item>
+
+          <div formArrayName="productos">
+            <ion-item *ngFor="let matCtrl of productosFA.controls; let i = index">
+              <ion-label position="floating" color="primary">Producto {{ i + 1 }}</ion-label>
+              <ion-select [formControlName]="i" class="form-control">
+                <ion-select-option *ngFor="let producto of productos" [value]="producto.pro_id">{{ producto.pro_nombre
+                  }}</ion-select-option>
+              </ion-select>
+              <ion-button fill="clear" color="danger" (click)="eliminarProducto(i)"><ion-icon
+                  name="trash"></ion-icon></ion-button>
+            </ion-item>
+          </div>
+        </ion-col>
         <ion-col size="12">
           <p class="ion-text-center">
             <ion-button type="submit" [disabled]="!venta.valid">Guardar</ion-button>

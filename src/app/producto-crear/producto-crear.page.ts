@@ -1,8 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Productos } from '../services/productos';
 import axios from 'axios';
+import { Proveedor } from '../services/proveedor';
+import { Categoria } from '../services/categoria';
+import { Archivo } from '../services/archivo';
+import { Color } from '../services/color';
+import { Estatu } from '../services/estatu';
 
 @Component({
   selector: 'app-producto-crear',
@@ -13,10 +18,16 @@ import axios from 'axios';
 export class ProductoCrearPage implements OnInit {
 
   constructor(
+    private loadingCtrl: LoadingController,
     private formBuilder : FormBuilder,
     private alert : AlertController,
     private modalCtrl: ModalController,
-    private productosService: Productos
+    private productosService: Productos,
+    private proveedoresService: Proveedor,
+    private categoriasService: Categoria,
+    private archivosService: Archivo,
+    private coloresService: Color,
+    private estatusService: Estatu,
   ) { }
 
   private editarDatos = [];
@@ -27,11 +38,6 @@ export class ProductoCrearPage implements OnInit {
   estatus: any=[];
   archivos: any=[];
   colores: any=[];
-  categoriaUrl: string = "http://localhost:8080/categorias"
-  proveedorUrl: string = "http://localhost:8080/proveedors"
-  estatuUrl: string = "http://localhost:8080/estatus"
-  archivoUrl: string = "http://localhost:8080/archivos"
-  colorUrl: string = "http://localhost:8080/colors"
   baseUrl:string = "http://localhost:8080/productos"
 
   ngOnInit() {
@@ -86,78 +92,108 @@ export class ProductoCrearPage implements OnInit {
   }
 
   async cargarCategorias() {
-    const response = await axios({
-      method: 'get',
-      url : this.categoriaUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then( (response) => {
-      this.categorias = response.data;
-    }).catch(function (error) {
-      console.log(error);     
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
-  }
-
-  async cargarProveedores() {
-    const response = await axios({
-      method: 'get',
-      url : this.proveedorUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then( (response) => {
-      this.proveedores = response.data;
-    }).catch(function (error) {
-      console.log(error);     
-    });
+    await loading.present();
+    try {
+      await this.categoriasService.listado().subscribe(
+        response => {
+          this.categorias = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarEstatus() {
-    const response = await axios({
-      method: 'get',
-      url : this.estatuUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then( (response) => {
-      this.estatus = response.data;
-    }).catch(function (error) {
-      console.log(error);     
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.estatusService.listado().subscribe(
+        response => {
+          this.estatus = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
+  }
+
+  async cargarProveedores() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
+    });
+    await loading.present();
+    try {
+      await this.proveedoresService.listado().subscribe(
+        response => {
+          this.proveedores = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarArchivos() {
-    const response = await axios({
-      method: 'get',
-      url : this.archivoUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then( (response) => {
-      this.archivos = response.data;
-    }).catch(function (error) {
-      console.log(error);     
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.archivosService.listado().subscribe(
+        response => {
+          this.archivos = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarColores() {
-    const response = await axios({
-      method: 'get',
-      url : this.colorUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then( (response) => {
-      this.colores = response.data;
-    }).catch(function (error) {
-      console.log(error);     
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.coloresService.listado().subscribe(
+        response => {
+          this.colores = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   private formulario() {

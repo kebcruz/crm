@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-export class Proveedor {
-  url: string = `${environment.apiUrl}proveedors`;
+export class Ventadetalles {
+  url: string = `${environment.apiUrl}ventas`;
   headers: any = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -36,28 +36,10 @@ export class Proveedor {
     });
   }
 
-  detalle(prov_id: string | null = '', extra: string = ''): Observable<any> {
-    const url = `${this.url}/` + prov_id + extra;
-    return new Observable(observer => {
-      axios.get(url, {
-        withCredentials: true,
-        headers: this.headers
-      })
-        .then(response => {
-          observer.next(response.data);
-          observer.complete();
-        })
-        .catch(error => {
-          observer.error(error);
-          observer.complete();
-        });
-    });
-  }
-
-  crear(proveedor: any): Observable<any> {
+  crear(ventad: any): Observable<any> {
     const url = `${this.url}`;
     return new Observable(observer => {
-      axios.post(url, proveedor, {
+      axios.post(url, ventad, {
         withCredentials: true,
         headers: this.headers
       })
@@ -72,10 +54,10 @@ export class Proveedor {
     });
   }
 
-  actualizar(prov_id: number, proveedor: any): Observable<any> {
-    const url = `${this.url}/${prov_id}`;
+  actualizar(ved_id: number, ventad: any): Observable<any> {
+    const url = `${this.url}/${ved_id}`;
     return new Observable(observer => {
-      axios.put(url, prov_id, {
+      axios.put(url, ventad, {
         withCredentials: true,
         headers: this.headers
       })
@@ -90,8 +72,8 @@ export class Proveedor {
     });
   }
 
-  eliminar(prov_id: number): Observable<any> {
-    const url = `${this.url}/${prov_id}`;
+  eliminar(ved_id: number): Observable<any> {
+    const url = `${this.url}/${ved_id}`;
     return new Observable(observer => {
       axios.delete(url, {
         withCredentials: true,
