@@ -9,20 +9,20 @@
 
 .ion-color-personalizado {
     --ion-color-base: #686090 !important;
-    --ion-color-base-rgb: 104,96,144 !important;
+    --ion-color-base-rgb: 104, 96, 144 !important;
     --ion-color-contrast: #ffffff !important;
-    --ion-color-contrast-rgb: 255,255,255 !important;
+    --ion-color-contrast-rgb: 255, 255, 255 !important;
     --ion-color-shade: #5c547f !important;
     --ion-color-tint: #77709b !important;
 }
 
 .ion-color-primario {
     --ion-color-base: #a400d1;
-	--ion-color-base-rgb: 164,0,209;
-	--ion-color-contrast: #ffffff;
-	--ion-color-contrast-rgb: 255,255,255;
-	--ion-color-shade: #9000b8;
-	--ion-color-tint: #ad1ad6;
+    --ion-color-base-rgb: 164, 0, 209;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: #9000b8;
+    --ion-color-tint: #ad1ad6;
 }
 
 ion-menu {
@@ -31,7 +31,7 @@ ion-menu {
 }
 
 ion-header {
-    background: #3880ff;
+    background: #233d4d;
     color: #fff;
 }
 
@@ -41,9 +41,15 @@ ion-toolbar {
     text-align: center;
 }
 
+ion-searchbar{
+    --background: #233d4d !important;
+    color: #fff !important;
+}
+
 ion-title {
     font-weight: bold;
     font-size: 1.3rem;
+    color: #fe7f2d;
 }
 
 ion-content {
@@ -51,23 +57,36 @@ ion-content {
     --padding-end: 0;
     --padding-top: 0;
     --padding-bottom: 0;
-    --background: #f8f7f0;
+    --background: #ffffff;
+}
+
+.crear {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --background: #af2e2e;
 }
 
 ion-list {
     margin-top: 10px;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    --background: #ffffff;
 }
 
 ion-item {
-    --background: transparent;
-    --color: #ffffff;
+    --inner-border-width: 0 !important;
+    --background: #ffffff;
+    --color: #233d4d;
     font-size: 1.1rem;
     font-weight: 500;
-    transition: background 0.2s ease;
+    transition: background 0.5s ease;
 }
 
 ion-item:hover {
-    --background: #e0e0e0;
+    --background: #EAEAEA;
     cursor: pointer;
 }
 

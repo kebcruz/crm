@@ -5,7 +5,7 @@
   <ion-list>
     <ion-item button *ngFor="let categoria of categorias">
       <ion-label class="ion-text-wrap">
-        <h3>{{categoria.cat_nombre}}</h3>
+        <h2>{{categoria.cat_nombre}}</h2>
       </ion-label>
 
       <ion-button [routerLink]="['/categoria-detalle', categoria.cat_id]">

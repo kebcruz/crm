@@ -6,7 +6,7 @@
     <ion-item button *ngFor="let cliente of clientes">
 
       <ion-label class="ion-text-wrap">
-        <h3>{{cliente.cli_nombre}} {{cliente.cli_paterno}} {{cliente.cli_materno}}</h3>
+        <h2>{{cliente.cli_nombre}} {{cliente.cli_paterno}} {{cliente.cli_materno}}</h2>
         <p>{{cliente.cli_fecha_registro | date:'y-MM-dd'}}</p>
       </ion-label>
 

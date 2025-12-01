@@ -4,14 +4,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="crear">
   <form [formGroup]="categoria" (ngSubmit)="guardarDatos()">
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <ion-item>
             <ion-label position="floating" color="primary">Nombre de la categoria</ion-label>
-            <ion-input type="text" formControlName="cat_nombre" class="form-control"></ion-input>
+            <ion-input fill="solid" type="text" formControlName="cat_nombre" class="form-control"></ion-input>
           </ion-item>
           <div id="note" *ngFor="let validation of mensajes_validacion.cat_nombre">
             <ion-note color="danger" *ngIf="getError('cat_nombre')[(validation.type)]">

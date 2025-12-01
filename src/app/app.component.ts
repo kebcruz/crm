@@ -22,6 +22,5 @@ export class AppComponent {
     { ruta: '/producto', texto: 'Productos' },
     { ruta: '/puesto', texto: 'Puestos' },
     { ruta: '/empleado', texto: 'Empleados' },
-    { ruta: '/producto', texto: 'Productos' },
   ];
 }
