@@ -21,7 +21,7 @@
                 </ion-col>
                 <ion-col size="12">
                     <ion-item>
-                        <ion-label position="floating" color="primary">Paises</ion-label>
+                        <ion-label position="floating" color="primary">Pais al que pertenece</ion-label>
                         <ion-select formControlName="estd_fkpai_id" class="form-control">
                             <ion-select-option *ngFor="let pais of paises" [value]="pais.pai_id">
                                 {{ pais.pai_nombre }}

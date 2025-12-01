@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Estado-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="estado as estado">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
+<!--     <div class="center">
+      <img src="" alt="Foto">
+    </div> -->
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>{{ estado.estd_id }} : {{ estado.estd_nombre }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Pais al que pertenece</p>
+            <h2>{{ estado.paisNombre }}</h2>
+            <!--pais es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

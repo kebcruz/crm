@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import axios from 'axios';
+import { Estado } from '../services/estado';
 
 @Component({
   selector: 'app-estado-crear',
@@ -11,26 +12,36 @@ import axios from 'axios';
 })
 export class EstadoCrearPage implements OnInit {
 
-  constructor(
-    private formBuilder : FormBuilder,
-    private alert : AlertController,
-    private modalCtrl: ModalController
-  ) { }
+  @Input() estd_id: number | undefined;
+
+  baseUrl: string = "http://localhost:8080/estados"
+  domicilioUrl: string = "http://localhost:8080/pais" /* Peticion para datos de llave foranea */
+
   public estado!: FormGroup;
-  paises: any=[];
-  paisUrl: string = "http://localhost:8080/pais"
-  baseUrl:string = "http://localhost:8080/estados"
+  paises: any = []; /* Guardar datos de llave foranea */
+  private editarDatos = []; /* Pedir los datos del registro a actualizar para guardarlos aqui */
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private alert: AlertController,
+    private modalCtrl: ModalController,
+    private estadoService: Estado
+  ) { }
 
   ngOnInit() {
-    this.formulario();
     this.cargarPaises();
+    if (this.estd_id !== undefined) {
+      this.getDetalles();
+    }
+    this.formulario();
   }
-  mensajes_validacion:any = {
-    'estd_nombre' : [
-      {type : 'required' , message : 'Nombre(s) requeridos.'},
+
+  mensajes_validacion: any = {
+    'estd_nombre': [
+      { type: 'required', message: 'Nombre del estado requerido.' },
     ],
-    'estd_fkpai_id' : [
-      {type : 'required' , message : 'País requerida.'},
+    'estd_fkpai_id': [
+      { type: 'required', message: 'Pais requerido.' },
     ],
   }
 
@@ -41,75 +52,133 @@ export class EstadoCrearPage implements OnInit {
     })
   }
 
+  public getError(controlName: string) {
+    let errors: any[] = [];
+    const control = this.estado.get(controlName);
+    if (control?.touched && control?.errors != null) {
+      errors = JSON.parse(JSON.stringify(control?.errors));
+    }
+    return errors;
+  }
+
+  /* Para cargar los datos llave foranea */
   async cargarPaises() {
     const response = await axios({
-        method: 'get',
-        url : this.paisUrl,
-        withCredentials: true,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then( (response) => {
-        this.paises = response.data;
+      method: 'get',
+      url: this.domicilioUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.paises = response.data;
     }).catch(function (error) {
-        console.log(error);     
+      console.log(error);
+    });
+  }
+
+  async getDetalles() {
+    const response = await axios({
+      method: 'get',
+      url: this.baseUrl + "/" + this.estd_id,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.editarDatos = response.data;
+      Object.keys(this.editarDatos).forEach((key: any) => {
+        const control = this.estado.get(String(key));
+        if (control !== null) {
+          control.markAsTouched();
+          control.patchValue(this.editarDatos[key]);
+        }
+      })
+    }).catch(error => {
+      console.error('Error al obtener detalles:', error);
     });
   }
 
   async guardarDatos() {
     try {
-    const estado = this.estado?.value;
-    const response = await axios({
-        method: 'post',
-        url : this.baseUrl,
-        data: estado,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 100-token'
+      const estado = this.estado?.value;
+      if (this.estd_id === undefined) {
+        try {
+          await this.estadoService.crear(estado).subscribe(
+            response => {
+              if (response?.status == 201) {
+                this.alertGuardado(response.data.estd_nombre, 'El estado con nombre ' + response.data.estd_nombre + ' ha sido registrado');
+                this.resetFormulario();
+              }
+            },
+            error => {
+              this.handleError(error, estado.estd_nombre);
+            }
+          );
+        } catch (error) {
+          console.log(error);
         }
-    }).then( (response) => {
-        if(response?.status == 201) {
-            this.alertGuardado(response.data.estd_nombre, 'El estado: ' + response.data.estd_nombre + ' ha sido registrada');
+      } else {
+        try {
+          await this.estadoService.actualizar(this.estd_id, estado).subscribe(
+            response => {
+              console.log(response)
+              if (response?.status == 200) {
+                this.alertGuardado(response.data.estd_nombre, 'El estado con nombre ' + response.data.estd_nombre + ' ha sido actualizado');
+              }
+            },
+            error => {
+              this.handleError(error, estado.estd_nombre);
+            }
+          );
+        } catch (error) {
+          console.log(error);
         }
-    }).catch( (error) => {
-        if(error?.response?.status == 422) {
-            this.alertGuardado(estado.estd_nombre, error?.response?.data[0]?.message, "Error");
-        }     
-    });
-    } catch(e){
-        console.log(e);
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  public getError(controlName: string) {
-    let errors: any[] = [];
-    const control = this.estado.get(controlName);
-    if (control?.touched && control?.errors != null) {
-        errors = JSON.parse(JSON.stringify(control?.errors));
+  /** Maneja errores de validación o de servidor */
+  private handleError(error: any, nombre: string) {
+    if (error?.response?.status == 422) {
+      this.alertGuardado(nombre, error?.response?.data[0]?.message, "Error");
     }
-    return errors;
+    if (error?.response?.status == 500) {
+      this.alertGuardado(nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
+    }
+    console.error('Error en la petición:', error);
   }
 
-  private async alertGuardado(nombre: String, msg = "",  subMsg= "Guardado") {
+  /** Limpia el formulario completamente */
+  private resetFormulario() {
+    this.estado.reset();
+    this.estado.markAsPristine();
+    this.estado.markAsUntouched();
+  }
+
+  private async alertGuardado(estdNombre: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-        header: 'Estado',
-        subHeader: subMsg,
-        message: msg,
-        cssClass: 'alert-center',
-        buttons: [
-            {
-                text: 'Continuar',
-                role: 'cancel',
-            },
-            {
-                text: 'Salir',
-                role: 'confirm',
-                handler: () => {
-                    this.modalCtrl.dismiss();
-                },
-            },
-        ],
+      header: 'Estado',
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Continuar',
+          role: 'cancel',
+        },
+        {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
+            this.modalCtrl.dismiss();
+          },
+        },
+      ],
     });
     await alert.present();
   }
+
 }

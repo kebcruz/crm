@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>color-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="color as color">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
+    <div class="center">
+      <!-- <img src="" alt="Foto"> -->
+    </div>
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>{{ color.col_id }} : {{ color.col_nombre }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Nombre del color</p>
+            <h2>{{ color.col_nombre }}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

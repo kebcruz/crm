@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+    <ion-title class="ion-text-center">Nueva Devolucion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="devolucion" (ngSubmit)="guardarDatos()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Asunto de la devolución</ion-label>
+            <ion-input type="text" formControlName="dev_asunto" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_asunto">
+            <ion-note color="danger" *ngIf="getError('dev_asunto')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Descripción</ion-label>
+            <ion-input type="text" formControlName="dev_descripcion" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_descripcion">
+            <ion-note color="danger" *ngIf="getError('dev_descripcion')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de creación</ion-label>
+            <ion-input type="date" formControlName="dev_fecha_creacion" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_fecha_creacion">
+            <ion-note color="danger" *ngIf="getError('dev_fecha_creacion')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de cierre</ion-label>
+            <ion-input type="date" formControlName="dev_fecha_cierre" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_fecha_cierre">
+            <ion-note color="danger" *ngIf="getError('dev_fecha_cierre')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Venta perteneciente a la devolución</ion-label>
+            <ion-select formControlName="dev_fkved_id" class="form-control">
+              <ion-select-option *ngFor="let det of detalleVenta" [value]="det.ved_id">
+                {{ det.ved_id }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_fkved_id">
+            <ion-note color="danger" *ngIf="getError('dev_fkved_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Estatus de la devolución</ion-label>
+            <ion-select formControlName="dev_fkest_id" class="form-control">
+              <ion-select-option *ngFor="let est of estatuVenta" [value]="est.est_id">
+                {{ est.est_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.dev_fkest_id">
+            <ion-note color="danger" *ngIf="getError('dev_fkest_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!devolucion.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

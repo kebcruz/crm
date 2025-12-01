@@ -1,21 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>color</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar nombre="Colores"></app-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
     <ion-item button *ngFor="let color of colores">
-    <ion-avatar slot="start">
-      <img src="assets/img/1.png" alt="Foto">
-    </ion-avatar>
+      <!--       <ion-avatar slot="start">
+        <img src="" alt="Foto">
+      </ion-avatar> -->
 
-    <ion-label class="ion-text-wrap">
-      <h3>{{color.col_nombre}}</h3>
-    </ion-label>
+      <ion-label class="ion-text-wrap">
+        <h3>{{color.col_nombre}}</h3>
+      </ion-label>
 
-    <ion-badge slot="end">{{color.col_id}}</ion-badge>
+      <ion-button [routerLink]="['/color-detalle', color.col_id]">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="editar(color.col_id)" color="warning">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="alertEliminar(color.col_id, color.col_nombre)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+
+      <ion-badge slot="end">{{color.col_id}}</ion-badge>
     </ion-item>
   </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
 </ion-content>
+
+<!-- Este boton nos redirige al formulario -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <!-- new es la funcion que hemos creado en el *.page.ts -->
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

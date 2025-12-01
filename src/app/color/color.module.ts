@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ColorPageRoutingModule } from './color-routing.module';
 
 import { ColorPage } from './color.page';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ColorPageRoutingModule
+    ColorPageRoutingModule,
+    ToolbarModule,
+    PaginacionModule
   ],
   declarations: [ColorPage]
 })

@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { DomicilioPageRoutingModule } from './domicilio-routing.module';
 
 import { DomicilioPage } from './domicilio.page';
+import { ToolbarModule } from '../components/toolbar/toolbar.module';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DomicilioPageRoutingModule
+    DomicilioPageRoutingModule,
+    ToolbarModule,
+    PaginacionModule
   ],
   declarations: [DomicilioPage]
 })

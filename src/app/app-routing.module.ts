@@ -156,10 +156,38 @@ const routes: Routes = [
     path: 'cliente-etiqueta-detalle/:cliente_detalle_id',
     loadChildren: () => import('./cliente-etiqueta-detalle/cliente-etiqueta-detalle.module').then( m => m.ClienteEtiquetaDetallePageModule)
   },
-
-
-
-
+  {
+    path: 'color-crear',
+    loadChildren: () => import('./color-crear/color-crear.module').then( m => m.ColorCrearPageModule)
+  },
+  {
+    path: 'color-detalle/:color_id',
+    loadChildren: () => import('./color-detalle/color-detalle.module').then( m => m.ColorDetallePageModule)
+  },
+  {
+    path: 'devolucion',
+    loadChildren: () => import('./devolucion/devolucion.module').then( m => m.DevolucionPageModule)
+  },
+  {
+    path: 'devolucion-crear',
+    loadChildren: () => import('./devolucion-crear/devolucion-crear.module').then( m => m.DevolucionCrearPageModule)
+  },
+  {
+    path: 'devolucion-detalle/:devolucion_id',
+    loadChildren: () => import('./devolucion-detalle/devolucion-detalle.module').then( m => m.DevolucionDetallePageModule)
+  },
+  {
+    path: 'domicilio-crear',
+    loadChildren: () => import('./domicilio-crear/domicilio-crear.module').then( m => m.DomicilioCrearPageModule)
+  },
+  {
+    path: 'domicilio-detalle/:domicilio_id',
+    loadChildren: () => import('./domicilio-detalle/domicilio-detalle.module').then( m => m.DomicilioDetallePageModule)
+  },
+  {
+    path: 'estado-detalle/:estado_id',
+    loadChildren: () => import('./estado-detalle/estado-detalle.module').then( m => m.EstadoDetallePageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>devolucion-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="devolucion as devolucion">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
+    <!--     <div class="center">
+      <img src="" alt="Foto">
+    </div> -->
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>{{ devolucion.dev_id }} : {{ devolucion.dev_asunto }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Decripción de la devolucion</p>
+            <h2>{{ devolucion.dev_descripcion }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Apertura de la devolucion</p>
+            <ion-icon name="calendar-number"></ion-icon>
+            <h2
+              *ngIf="devolucion.dev_fecha_creacion === null || devolucion.dev_fecha_creacion === ''; else condicionFalsa">
+              Sin Fecha de devolucion</h2>
+            <ng-template #condicionFalsa>
+              {{devolucion.dev_fecha_creacion | date:'y-MM-dd'}}
+            </ng-template>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Cierre de la devolucion</p>
+            <ion-icon name="calendar-number"></ion-icon>
+            <h2 *ngIf="devolucion.dev_fecha_cierre === null || devolucion.dev_fecha_cierre === ''; else condicionFalsa">
+              Pendiente</h2>
+            <ng-template #condicionFalsa>
+              {{devolucion.dev_fecha_cierre | date:'y-MM-dd'}}
+            </ng-template>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Detalles de venta</p>
+            <h2>Productos comprados: {{ devolucion.detalleVenta }}</h2>
+            <!--ventaDetalle es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Estatus de venta</p>
+            <h2>{{ devolucion.estatusVenta }}</h2>
+            <!--ventaEstatus es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

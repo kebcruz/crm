@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
     validation_messages: any = {
         'username': [
-            { type: 'required', message: 'Username requerida.' },
+            { type: 'required', message: 'Nombre de usuario requerido.' },
         ],
         'password': [
             { type: 'required', message: 'Contraseña requerida.' },
