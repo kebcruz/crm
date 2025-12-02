@@ -105,7 +105,7 @@ export class EstadoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Estado',
       subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar al estado ' + estd_nombre + '?' + ' (Mald1t0 seas Estado de ' + estd_nombre + ')',
+      message: '¿Estás seguro de eliminar al estado ' + estd_nombre + '?',
       cssClass: 'alert-center',
       buttons: [
         {
