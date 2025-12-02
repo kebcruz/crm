@@ -187,10 +187,36 @@ const routes: Routes = [
   {
     path: 'estado-detalle/:estado_id',
     loadChildren: () => import('./estado-detalle/estado-detalle.module').then( m => m.EstadoDetallePageModule)
-  },  {
+  },
+  {
     path: 'proveedor-crear',
     loadChildren: () => import('./proveedor-crear/proveedor-crear.module').then( m => m.ProveedorCrearPageModule)
   },
+  {
+    path: 'etiqueta',
+    loadChildren: () => import('./etiqueta/etiqueta.module').then( m => m.EtiquetaPageModule)
+  },
+  {
+    path: 'etiqueta-crear',
+    loadChildren: () => import('./etiqueta-crear/etiqueta-crear.module').then( m => m.EtiquetaCrearPageModule)
+  },
+  {
+    path: 'etiqueta-detalle/:etiqueta_id',
+    loadChildren: () => import('./etiqueta-detalle/etiqueta-detalle.module').then( m => m.EtiquetaDetallePageModule)
+  },
+  {
+    path: 'puesto',
+    loadChildren: () => import('./puesto/puesto.module').then( m => m.PuestoPageModule)
+  },
+  {
+    path: 'puesto-crear',
+    loadChildren: () => import('./puesto-crear/puesto-crear.module').then( m => m.PuestoCrearPageModule)
+  },
+  {
+    path: 'puesto-detalle/:puesto_id',
+    loadChildren: () => import('./puesto-detalle/puesto-detalle.module').then( m => m.PuestoDetallePageModule)
+  },
+
 
 ];
 @NgModule({

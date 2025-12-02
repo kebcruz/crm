@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
 import { Productos } from '../services/productos';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -12,16 +13,23 @@ import { Productos } from '../services/productos';
 })
 export class ProductoDetallePage implements OnInit {
 
+  producto: any = null;
+
   constructor(
     private route: ActivatedRoute,
     private loading: LoadingController,
     private productosService: Productos
   ) { }
 
-  producto:any=null;
-
   ngOnInit() {
     this.cargarProducto();
+  }
+
+  getImageUrl(producto: any): string {
+    if (producto?.archivo?.arc_ruta) {
+      return environment.apiUrl + producto.archivo.arc_ruta;
+    }
+    return 'assets/images/placeholder.jpg';
   }
 
   async cargarProducto() {
@@ -32,7 +40,7 @@ export class ProductoDetallePage implements OnInit {
     });
     await loading.present();
     try {
-      await this.productosService.detalle(pro_id, '?expand=archivoRuta, categoriaNombre, proveedorNombre, colorNombre, estatuNombre').subscribe(
+      await this.productosService.detalle(pro_id, '?expand=archivo, categoriaNombre, proveedorNombre, colorNombre, estatuNombre').subscribe(
         response => {
           this.producto = response;
         },

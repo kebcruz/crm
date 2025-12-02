@@ -1,75 +1,99 @@
-<app-toolbar nombre="Producto Detalle" ></app-toolbar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Producto-detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-card *ngIf="producto as producto">
+    <!--Solo tengo 1, se pregunta si existe, sino existe no manda error ni tampoco muestra nada, si existe se muestra-->
     <div class="center">
-      <img [src]="producto.archivoRuta" alt="Foto">
+      <img [src]="getImageUrl(producto)" alt="Foto del producto">
     </div>
     <ion-card-header class="center">
       <ion-card-title>
-        <h3> Producto {{producto.pro_id}}</h3>
+        <h3>{{ producto.pro_id }} : {{ producto.pro_nombre }}</h3>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
         <ion-item>
           <ion-label>
-            <p>Nombre</p>
-            <h2>{{producto.pro_nombre}}</h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <p>Caracteristica</p>
-            <h2>{{producto.pro_caracteristica}}</h2>
+            <p>Caracteristicas</p>
+            <h2>{{ producto.pro_caracteristica }}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
             <p>Precio</p>
-            <h2>${{producto.pro_precio}}</h2>
+            <h2>${{ producto.pro_precio }}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
-            <p>SKU</p>
-            <h2>{{producto.pro_sku}}</h2>
+            <p>Código de barras</p>
+            <h2>{{ producto.pro_sku }}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
             <p>Descuento</p>
-            <h2>{{producto.pro_descuento}}</h2>
+            <h2>{{ producto.pro_descuento }}%</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
-            <p>Stock</p>
-            <h2>{{producto.pro_stock}}</h2>
+            <p>Cantidad disponible</p>
+            <h2>{{ producto.pro_stock }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Fecha de creación</p>
+            <ion-icon name="calendar-number"></ion-icon>
+            <h2 *ngIf="producto.pro_fecha_creacion === null || producto.pro_fecha_creacion === ''; else condicionFalsa">
+              Sin Fecha de Nacimiento</h2>
+            <ng-template #condicionFalsa>
+              {{producto.pro_fecha_creacion | date:'y-MM-dd'}}
+            </ng-template>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
             <p>Categoria</p>
-            <h2>{{producto.categoriaNombre}}</h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <p>Color</p>
-            <h2>{{producto.colorNombre}}</h2>
+            <h2>{{ producto.categoriaNombre }}</h2>
+            <!--categoria es un objeto entonces, que datos de ese objeto quiero sacar?-->
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
             <p>Proveedor</p>
-            <h2>{{producto.proveedorNombre}}</h2>
+            <h2>{{ producto.proveedorNombre }}</h2>
+            <!--proveedor es un objeto entonces, que datos de ese objeto quiero sacar?-->
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
-            <p>Estatus</p>
-            <h2>{{producto.estatuNombre}}</h2>
+            <p>Estado de venta</p>
+            <h2>{{ producto.estatuNombre }}</h2>
+            <!--estadodeVenta es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Archivo asociado</p>
+            <h2>Nombre: {{ producto.archivo.arc_nombre }} Ruta: {{ producto.archivo.arc_ruta }}</h2>
+            <!--archivo es un objeto entonces, que datos de ese objeto quiero sacar?-->
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Color</p>
+            <h2>{{ producto.colorNombre }}</h2>
+            <!--color es un objeto entonces, que datos de ese objeto quiero sacar?-->
           </ion-label>
         </ion-item>
       </ion-list>

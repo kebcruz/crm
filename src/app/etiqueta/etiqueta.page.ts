@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
-import axios from 'axios';
-import { Productos } from '../services/productos';
 import { Router } from '@angular/router';
-import { ProductoCrearPage } from '../producto-crear/producto-crear.page';
-import { environment } from 'src/environments/environment.prod';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { Etiqueta } from '../services/etiqueta';
+import { EtiquetaCrearPage } from '../etiqueta-crear/etiqueta-crear.page';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.page.html',
-  styleUrls: ['./producto.page.scss'],
+  selector: 'app-etiqueta',
+  templateUrl: './etiqueta.page.html',
+  styleUrls: ['./etiqueta.page.scss'],
   standalone: false
 })
-export class ProductoPage implements OnInit {
 
-  baseUrl: string = "http://localhost:8080/producto"
-  productos: any = [];
+export class EtiquetaPage implements OnInit {
+
+  baseUrl: string = "http://localhost:8080/etiqueta";
+  etiquetas: any = [];
   total: number = 0;
   page: string = "1";
   busqueda: string = '';
@@ -25,38 +24,23 @@ export class ProductoPage implements OnInit {
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
-    private productoService: Productos
+    private etiquetaService: Etiqueta
   ) { }
 
   ngOnInit() {
-    this.cargarProductos();
-    this.cargarTotal();
+    this.cargarEtiquetas();
   }
 
-  getImageUrl(producto: any): string {
-    if (producto?.archivo?.arc_ruta) {
-      return environment.apiUrl + producto.archivo.arc_ruta;
-    }
-    return 'assets/images/placeholder.jpg';
-  }
-
-  // Método para manejar errores de carga de imagen
-  onImageError(event: any) {
-    console.log('Error cargando imagen, usando placeholder');
-    event.target.src = 'assets/images/placeholder.jpg';
-  }
-
-  async cargarProductos() {
+  async cargarEtiquetas() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
     try {
-      await this.productoService.listado('?page=' + this.page + '&expand=archivo', this.busqueda).subscribe(
+      await this.etiquetaService.listado('?page=' + this.page, this.busqueda).subscribe(
         response => {
-          console.log('Datos de productos:', response); // ← Agrega esto
-          this.productos = response;
+          this.etiquetas = response;
           this.cargarTotal();
         },
         error => {
@@ -69,10 +53,9 @@ export class ProductoPage implements OnInit {
     loading.dismiss();
   }
 
-  /* obtiene total de registros */
   async cargarTotal() {
     try {
-      await this.productoService.total(this.busqueda).subscribe(
+      await this.etiquetaService.total(this.busqueda).subscribe(
         response => {
           this.total = response;
         },
@@ -85,26 +68,27 @@ export class ProductoPage implements OnInit {
     }
   }
 
-  /* Función que nos permitira abrir el modal */
+  /* Modal para insertar un nuevo registro */
   async new() {
     const paginaModal = await this.modalCtrl.create({
-      /* ClienteCrearPage es el nombre de la clase de la página donde estará nuestro formulario */
-      component: ProductoCrearPage,
+      /* EtiquetaCrearPage es el nombre de la clase de la página donde estará nuestro formulario */
+      component: EtiquetaCrearPage,
       breakpoints: [0, 0.3, 0.5, 0.95],
       initialBreakpoint: 0.95
     });
     await paginaModal.present();
     paginaModal.onDidDismiss().then((data) => {
-      this.cargarProductos();
+      this.cargarEtiquetas();
     });
   }
 
-  async editar(pro_id: number) {
+  /* Abrel el modal para editar a un registro existente */
+  async editar(eti_id: number) {
     const paginaModal = await this.modalCtrl.create({
-      component: ProductoCrearPage,
+      component: EtiquetaCrearPage,
       /* Abre el modal para crear, o ahora, poder editar */
       componentProps: {
-        'pro_id': pro_id
+        'eti_id': eti_id
         /* El que importa es el que se encuentra en el lado de las comillas; es el que se muestra */
       },
       breakpoints: [0, 0.3, 0.5, 0.95],
@@ -112,15 +96,16 @@ export class ProductoPage implements OnInit {
     });
     await paginaModal.present();
     paginaModal.onDidDismiss().then((data) => {
-      this.cargarProductos();
+      this.cargarEtiquetas();
     });
   }
 
-  async alertEliminar(pro_id: number, pro_nombre: string) {
+  /* Confirmación antes de eliminar un registro */
+  async alertEliminar(eti_id: number, eti_nombre: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Producto',
+      header: 'Etiqueta',
       subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar el producto ' + pro_nombre + '?',
+      message: '¿Estás seguro de eliminar la etiqueta ' + eti_nombre + '?',
       cssClass: 'alert-center',
       buttons: [
         {
@@ -131,7 +116,7 @@ export class ProductoPage implements OnInit {
           text: 'Confirmar',
           role: 'confirm',
           handler: () => {
-            this.eliminar(pro_id, pro_nombre);
+            this.eliminar(eti_id, eti_nombre);
           }
         }
       ]
@@ -140,19 +125,19 @@ export class ProductoPage implements OnInit {
   }
 
   // Llamado a la API para eliminar un registro
-  async eliminar(pro_id: number, pro_nombre: string) {
+  async eliminar(eti_id: number, eti_nombre: string) {
     try {
-      await this.productoService.eliminar(pro_id).subscribe(
+      await this.etiquetaService.eliminar(eti_id).subscribe(
         response => {
-          this.alertEliminado(pro_id, 'El producto ' + pro_nombre + ' ha sido eliminado');
+          this.alertEliminado(eti_id, 'La etiqueta de nombre ' + eti_nombre + ' ha sido eliminado');
         },
         error => {
           console.error('Error:', error);
           if (error.response?.status == 204) {
-            this.alertEliminado(pro_id, 'El producto ' + pro_nombre + ' ha sido eliminado');
+            this.alertEliminado(eti_id, 'La etiqueta de nombre ' + eti_nombre + ' ha sido eliminado');
           }
           if (error?.response?.status == 500) {
-            this.alertEliminado(pro_id, "No puedes eliminar porque tiene relaciones con otra tabla");
+            this.alertEliminado(eti_id, "No puedes eliminar porque tiene relaciones con otra tabla");
           }
         }
       );
@@ -161,9 +146,10 @@ export class ProductoPage implements OnInit {
     }
   }
 
-  async alertEliminado(pro_id: number, msg = "") {
+  /* Muestra que el registro ha sido eliminado */
+  async alertEliminado(eti_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Producto',
+      header: 'Etiqueta',
       subHeader: 'Eliminado',
       message: msg,
       cssClass: 'alert-center',
@@ -187,8 +173,9 @@ export class ProductoPage implements OnInit {
     await alert.present();
   }
 
+  /* Recarga la vista actual */
   private regresar() {
-    this.router.navigate(['/producto']).then(() => {
+    this.router.navigate(['/etiqueta']).then(() => {
       window.location.reload();
     });
   }
@@ -196,13 +183,13 @@ export class ProductoPage implements OnInit {
   /* Cambia la pagina actual (Paginación) */
   pagina(event: any) {
     this.page = event.target.innerText;
-    this.cargarProductos();
+    this.cargarEtiquetas();
   }
 
   /* Esta función permite guardar el valor introducido en la busqueda convertida ademas en minuscula */
   handleInput(event: any) {
     this.busqueda = event.target.value.toLowerCase();
-    this.cargarProductos();
+    this.cargarEtiquetas();
   }
 
 }

@@ -17,33 +17,40 @@ import { Estatu } from '../services/estatu';
 })
 export class ProductoCrearPage implements OnInit {
 
+  @Input() pro_id: number | undefined;
+  baseUrl: string = "http://localhost:8080/productos"
+  categoriaUrl: string = "http://localhost:8080/categoria" /* Peticion para datos de llave foranea */
+  proveedorUrl: string = "http://localhost:8080/proveedor" /* Peticion para datos de llave foranea */
+  estatusVentaUrl: string = "http://localhost:8080/estatu" /* Peticion para datos de llave foranea */
+  archivoUrl: string = "http://localhost:8080/archivo" /* Peticion para datos de llave foranea */
+  colorUrl: string = "http://localhost:8080/color" /* Peticion para datos de llave foranea */
+
+  public producto!: FormGroup;
+
+  categorias: any = []; /* Guardar datos de llave foranea */
+  proveedores: any = []; /* Guardar datos de llave foranea */
+  estatusVenta: any = []; /* Guardar datos de llave foranea */
+  archivos: any = []; /* Guardar datos de llave foranea */
+  colores: any = []; /* Guardar datos de llave foranea */
+  private editarDatos = []; /* Pedir los datos del registro a actualizar para guardarlos aqui */
+
   constructor(
     private loadingCtrl: LoadingController,
-    private formBuilder : FormBuilder,
-    private alert : AlertController,
+    private formBuilder: FormBuilder,
+    private alert: AlertController,
     private modalCtrl: ModalController,
-    private productosService: Productos,
-    private proveedoresService: Proveedor,
-    private categoriasService: Categoria,
-    private archivosService: Archivo,
-    private coloresService: Color,
-    private estatusService: Estatu,
+    private productoService: Productos,
+    private proveedorService: Proveedor,
+    private categoriaService: Categoria,
+    private archivoService: Archivo,
+    private coloreService: Color,
+    private estatuService: Estatu,
   ) { }
-
-  private editarDatos = [];
-  @Input() pro_id: number | undefined;
-  public producto!: FormGroup;
-  categorias: any=[];
-  proveedores: any=[];
-  estatus: any=[];
-  archivos: any=[];
-  colores: any=[];
-  baseUrl:string = "http://localhost:8080/productos"
 
   ngOnInit() {
     this.cargarCategorias();
     this.cargarProveedores();
-    this.cargarEstatus();
+    this.cargarestatusVenta();
     this.cargarArchivos();
     this.cargarColores();
     if (this.pro_id !== undefined) {
@@ -52,163 +59,60 @@ export class ProductoCrearPage implements OnInit {
     this.formulario();
   }
 
-  mensajes_validacion:any = {
-    'pro_nombre' : [
-      {type : 'required' , message : 'Nombre requerido.'},
+  mensajes_validacion: any = {
+    'pro_nombre': [
+      { type: 'required', message: 'Nombre requerido.' },
     ],
-    'pro_caracteristica' : [
-      {type : 'required' , message : 'Caracteristica requerida.'},
+    'pro_precio': [
+      { type: 'required', message: 'Precio requerido.' },
+      { type: 'min', message: 'El precio debe ser mayor que 0.' },
     ],
-    'pro_precio' : [
-      {type : 'required' , message : 'Precio requerido.'},
+    'pro_sku': [
+      { type: 'maxlength', message: 'No puede tener más de 20 caracteres.' },
+      { type: 'pattern', message: 'Solo se permiten letras, números, guiones y guiones bajos.' },
     ],
-    'pro_sku' : [
-      {type : 'required' , message : 'SKU requerido.'},
+    'pro_descuento': [
+      { type: 'min', message: 'El descuento no puede ser menor que 0%.' },
+      { type: 'max', message: 'El descuento no puede superar el 100%.' },
     ],
-    'pro_descuento' : [
-      {type : 'required' , message : 'Descuento requerido.'},
+    'pro_stock': [
+      { type: 'required', message: 'Cantidad disponible requerida.' },
+      { type: 'min', message: 'El stock no puede ser negativo.' },
     ],
-    'pro_stock' : [
-      {type : 'required' , message : 'Stock requerido.'},
+    'pro_fecha_creacion': [
+      { type: 'required', message: 'Fecha de creación requerido.' },
     ],
-    'pro_fecha_creacion' : [
-      {type : 'required' , message : 'Fecha de creación requerida.'},
+    'pro_fkcat_id': [
+      { type: 'required', message: 'Categoria requerido.' },
     ],
-    'pro_fkcat_id' : [
-      {type : 'required' , message : 'Categoria requerida.'},
+    'pro_fkproveedor_id': [
+      { type: 'required', message: 'Proveedor requerido.' },
     ],
-    'pro_fkproveedor_id' : [
-      {type : 'required' , message : 'Proveedor requerido.'},
+    'pro_fkest_id': [
+      { type: 'required', message: 'Estatus requerido.' },
     ],
-    'pro_fkest_id' : [
-      {type : 'required' , message : 'Estatus requerido.'},
+    'pro_fkcol_id': [
+      { type: 'required', message: 'Colores disponibles requerido.' },
     ],
-    'pro_fkarc_id' : [
-      {type : 'required' , message : 'Archivo requerido.'},
-    ],
-    'pro_fkcol_id' : [
-      {type : 'required' , message : 'Color requerido.'},
-    ],
-  }
-
-  async cargarCategorias() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.categoriasService.listado().subscribe(
-        response => {
-          this.categorias = response;
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
-  }
-
-  async cargarEstatus() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.estatusService.listado().subscribe(
-        response => {
-          this.estatus = response;
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
-  }
-
-  async cargarProveedores() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.proveedoresService.listado().subscribe(
-        response => {
-          this.proveedores = response;
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
-  }
-
-  async cargarArchivos() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.archivosService.listado().subscribe(
-        response => {
-          this.archivos = response;
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
-  }
-
-  async cargarColores() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
-    try {
-      await this.coloresService.listado().subscribe(
-        response => {
-          this.colores = response;
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    loading.dismiss();
   }
 
   private formulario() {
     this.producto = this.formBuilder.group({
       pro_nombre: ['', [Validators.required]],
-      pro_caracteristica: ['', [Validators.required]],
-      pro_precio: ['', [Validators.required]],
-      pro_sku: ['', [Validators.required]],
-      pro_descuento: ['', [Validators.required]],
-      pro_stock: ['', [Validators.required]],
+      pro_caracteristica: [''],
+      pro_precio: ['', [Validators.required, Validators.min(0.01)]],
+      pro_sku: ['', [
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.pattern("^[A-Za-z0-9_-]+$")
+      ]],
+      pro_descuento: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      pro_stock: ['', [Validators.required, Validators.min(0)]],
       pro_fecha_creacion: ['', [Validators.required]],
       pro_fkcat_id: ['', [Validators.required]],
       pro_fkproveedor_id: ['', [Validators.required]],
       pro_fkest_id: ['', [Validators.required]],
-      pro_fkarc_id: ['', [Validators.required]],
+      pro_fkarc_id: [''],
       pro_fkcol_id: ['', [Validators.required]],
     })
   }
@@ -222,7 +126,160 @@ export class ProductoCrearPage implements OnInit {
     return errors;
   }
 
-  private async alertGuardado(nombre: String, msg = "",  subMsg= "Guardado") {
+  /* Para cargar los datos llave foranea */
+  async cargarCategorias() {
+    const response = await axios({
+      method: 'get',
+      url: this.categoriaUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.categorias = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+  async cargarProveedores() {
+    const response = await axios({
+      method: 'get',
+      url: this.proveedorUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.proveedores = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+  async cargarestatusVenta() {
+    const response = await axios({
+      method: 'get',
+      url: this.estatusVentaUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.estatusVenta = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+  async cargarArchivos() {
+    const response = await axios({
+      method: 'get',
+      url: this.archivoUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.archivos = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+  async cargarColores() {
+    const response = await axios({
+      method: 'get',
+      url: this.colorUrl,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.colores = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  async getDetalles() {
+    const response = await axios({
+      method: 'get',
+      url: this.baseUrl + "/" + this.pro_id,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.editarDatos = response.data;
+      Object.keys(this.editarDatos).forEach((key: any) => {
+        const control = this.producto.get(String(key));
+        if (control !== null) {
+          control.markAsTouched();
+          control.patchValue(this.editarDatos[key]);
+        }
+      })
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  async guardarDatos() {
+    try {
+      const producto = this.producto?.value;
+      if (this.pro_id === undefined) {
+        try {
+          await this.productoService.crear(producto).subscribe(
+            response => {
+              if (response?.status == 201) {
+                this.alertGuardado(response.data.pro_nombre, 'El producto con nombre ' + response.data.pro_nombre + ' ha sido registrado');
+                this.resetFormulario();
+              }
+            },
+            error => {
+              this.handleError(error, producto.cli_nombre);
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await this.productoService.actualizar(this.pro_id, producto).subscribe(
+            response => {
+              console.log(response)
+              if (response?.status == 200) {
+                this.alertGuardado(response.data.pro_nombre, 'El producto con nombre ' + response.data.pro_nombre + ' ha sido actualizado');
+              }
+            },
+            error => {
+              this.handleError(error, producto.pro_nombre);
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  /** Maneja errores de validación o de servidor */
+  private handleError(error: any, nombre: string) {
+    if (error?.response?.status == 422) {
+      this.alertGuardado(nombre, error?.response?.data[0]?.message, "Error");
+    }
+    if (error?.response?.status == 500) {
+      this.alertGuardado(nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
+    }
+    console.error('Error en la petición:', error);
+  }
+
+  /** Limpia el formulario completamente */
+  private resetFormulario() {
+    this.producto.reset();
+    this.producto.markAsPristine();
+    this.producto.markAsUntouched();
+  }
+
+  private async alertGuardado(proNombre: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
       header: 'Producto',
       subHeader: subMsg,
@@ -245,72 +302,4 @@ export class ProductoCrearPage implements OnInit {
     await alert.present();
   }
 
-  async getDetalles() {
-    const response = await axios({
-      method: 'get',
-      url: this.baseUrl + "/" + this.pro_id,
-      withCredentials: true,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then((response) => {
-        this.editarDatos = response.data;
-        Object.keys(this.editarDatos).forEach((key: any) => {
-            const control = this.producto.get(String(key));
-            if (control !== null) {
-                control.markAsTouched();
-                control.patchValue(this.editarDatos[key]);
-            }
-        })
-    }).catch(function (error) {
-        console.log(error);
-    });
-  }
-
-  async guardarDatos() {
-    try {
-      const producto = this.producto?.value;
-      if (this.pro_id === undefined) {
-        try {
-          await this.productosService.crear(producto).subscribe(
-            response => {
-              if (response?.status == 201) {
-                this.alertGuardado(response.data.pro_nombre, 'El producto con nombre: ' + response.data.pro_nombre + ' ha sido registrada');
-              }
-            },
-            error => {
-              if (error?.response?.status == 422) {
-                this.alertGuardado(producto.pro_nombre, error?.response?.data[0]?.message, "Error");
-              }
-              if (error?.response?.status == 500) {
-                this.alertGuardado(producto.pro_id, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
-              }
-            }
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        try {
-          await this.productosService.actualizar(this.pro_id, producto).subscribe(
-            response => {
-              console.log(response)
-              if (response?.status == 200) {
-                this.alertGuardado(response.data.pro_id, 'El id: ' + response.data.pro_id + ' ha sido actualizado');
-              }
-            },
-            error => {
-              if (error?.response?.status == 422) {
-                this.alertGuardado(producto.pro_id, error?.response?.data[0]?.message, "Error");
-              }
-            }
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
 }

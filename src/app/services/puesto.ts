@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
-export class Etiqueta {
+export class Puesto {
 
-  url: string = `${environment.apiUrl}etiquetas`;
+  url: string = `${environment.apiUrl}puestos`;
   headers: any = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') || 'Bearer 100-token' };
 
   listado(extra: string = '', busqueda: string = ''): Observable<any> {
@@ -34,8 +34,8 @@ export class Etiqueta {
     });
   }
 
-  detalle(eti_id: string | null = '', extra: string = ''): Observable<any> {
-    const url = `${this.url}/` + eti_id + extra;
+  detalle(pue_id: string | null = '', extra: string = ''): Observable<any> {
+    const url = `${this.url}/` + pue_id + extra;
     return new Observable(observer => {
       axios.get(url, {
         withCredentials: true,
@@ -52,10 +52,10 @@ export class Etiqueta {
     });
   }
 
-  crear(etiqueta: any): Observable<any> {
+  crear(puesto: any): Observable<any> {
     const url = `${this.url}`;
     return new Observable(observer => {
-      axios.post(url, etiqueta, {
+      axios.post(url, puesto, {
         withCredentials: true,
         headers: this.headers
       })
@@ -70,10 +70,10 @@ export class Etiqueta {
     });
   }
 
-  actualizar(etiqueta_id: number, etiqueta: any): Observable<any> {
-    const url = `${this.url}/${etiqueta_id}`;
+  actualizar(pue_id: number, puesto: any): Observable<any> {
+    const url = `${this.url}/${pue_id}`;
     return new Observable(observer => {
-      axios.put(url, etiqueta, {
+      axios.put(url, puesto, {
         withCredentials: true,
         headers: this.headers
       })
@@ -88,8 +88,8 @@ export class Etiqueta {
     });
   }
 
-  eliminar(etiqueta_id: number): Observable<any> {
-    const url = `${this.url}/${etiqueta_id}`;
+  eliminar(pue_id: number): Observable<any> {
+    const url = `${this.url}/${pue_id}`;
     return new Observable(observer => {
       axios.delete(url, {
         withCredentials: true,
@@ -123,5 +123,5 @@ export class Etiqueta {
         });
     });
   }
-
+  
 }

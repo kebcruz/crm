@@ -1,33 +1,30 @@
-<app-toolbar nombre="Productos"></app-toolbar>
+<app-toolbar nombre="Etiquetas"></app-toolbar>
 
 <ion-content>
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
-    <ion-item button *ngFor="let producto of productos">
+    <ion-item button *ngFor="let etiqueta of etiquetas">
       <ion-avatar slot="start">
-        <img [src]="getImageUrl(producto)" alt="Foto del producto">
+        <img src="" alt="Foto">
       </ion-avatar>
 
       <ion-label class="ion-text-wrap">
-        <h3>{{producto.pro_nombre}}</h3>
-        <p>{{producto.pro_sku}}</p>
-        <p>{{producto.pro_fecha_creacion}}</p>
+        <h3>{{etiqueta.eti_nombre}}</h3>
       </ion-label>
 
-      <ion-button [routerLink]="['/producto-detalle', producto.pro_id]">
+      <ion-button [routerLink]="['/etiqueta-detalle', etiqueta.eti_id]">
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(producto.pro_id)" color="warning">
+      <ion-button (click)="editar(etiqueta.eti_id)" color="warning">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(producto.pro_id, producto.pro_nombre)" color="danger">
+      <ion-button (click)="alertEliminar(etiqueta.eti_id, etiqueta.eti_nombre)" color="danger">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{producto.pro_id}}</ion-badge>
-
+      <ion-badge slot="end">{{etiqueta.eti_id}}</ion-badge>
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
