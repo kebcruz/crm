@@ -81,7 +81,7 @@ export class LoginPage implements OnInit {
                                 // Redirigir según rol
                                 switch (rol) {
                                     case 'Admin':
-                                        this.router.navigate(['/empleado/']);
+                                        this.router.navigate(['/empleado']);
                                         break;
                                     case 'Empleado':
                                         this.router.navigate(['/producto']);

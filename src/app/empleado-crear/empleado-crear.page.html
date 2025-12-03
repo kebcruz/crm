@@ -8,6 +8,67 @@
   <form [formGroup]="empleado" (ngSubmit)="guardarDatos()">
     <ion-grid>
       <ion-row>
+        <!-- SECCIÓN DE ARCHIVO (INTEGRADA ARRIBA) -->
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Foto del Empleado</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <!-- Selector de modo -->
+              <ion-segment [value]="modoArchivo" (ionChange)="cambiarModoArchivo($event.detail.value)">
+                <ion-segment-button value="nuevo">
+                  <ion-label>Subir Nueva Foto</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="existente">
+                  <ion-label>Usar Foto Existente</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+
+              <!-- MODO: SUBIR NUEVA FOTO -->
+              <div *ngIf="modoArchivo === 'nuevo'" class="ion-margin-top">
+                <!-- Preview -->
+                <div class="preview-container" *ngIf="previewUrl">
+                  <img [src]="previewUrl" alt="Preview" class="image-preview">
+                </div>
+
+                <!-- Botón para seleccionar archivo -->
+                <ion-button expand="block" color="primary" (click)="openFileSelector()" class="ion-margin-top">
+                  <ion-icon name="camera-outline" slot="start"></ion-icon>
+                  {{ previewUrl ? 'Cambiar Foto' : 'Seleccionar Foto' }}
+                </ion-button>
+
+                <!-- Info del archivo -->
+                <ion-note color="medium" *ngIf="selectedFile" class="ion-margin-top">
+                  Archivo seleccionado: {{selectedFile.name}} ({{selectedFile.size | number}} bytes)
+                </ion-note>
+              </div>
+
+              <!-- MODO: USAR FOTO EXISTENTE -->
+              <div *ngIf="modoArchivo === 'existente'" class="ion-margin-top">
+                <ion-item>
+                  <ion-label position="floating" color="primary">Archivo Existente</ion-label>
+                  <ion-select formControlName="emp_fkarc_id" class="form-control">
+                    <ion-select-option value="">-- Seleccione una foto --</ion-select-option>
+                    <ion-select-option *ngFor="let archivo of archivos" [value]="archivo.arc_id">
+                      {{ archivo.arc_nombre }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <!-- Preview del archivo existente -->
+                <div class="preview-container" *ngIf="empleado.value.emp_fkarc_id">
+                  <img *ngFor="let archivo of archivos"
+                    [src]="archivo.arc_id == empleado.value.emp_fkarc_id ? baseUrl + '/' + archivo.arc_ruta : ''"
+                    alt="Archivo" class="image-preview"
+                    [style.display]="archivo.arc_id == empleado.value.emp_fkarc_id ? 'block' : 'none'">
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- CAMPOS ORIGINALES DEL FORMULARIO (IGUAL A TU DISEÑO) -->
         <ion-col size="12">
           <ion-item>
             <ion-label position="floating" color="primary">Nombre(s)</ion-label>
@@ -137,24 +198,15 @@
             </ion-note>
           </div>
         </ion-col>
-        <ion-col size="12">
-          <ion-item>
-            <ion-label position="floating" color="primary">Archivo</ion-label>
-            <ion-select formControlName="emp_fkarc_id" class="form-control">
-              <ion-select-option *ngFor="let archivo of archivos" [value]="archivo.arc_id">
-                {{ archivo.arc_nombre }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
-          <div id="note" *ngFor="let validation of mensajes_validacion.emp_fkarc_id">
-            <ion-note color="danger" *ngIf="getError('emp_fkarc_id')[(validation.type)]">
-              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-            </ion-note>
-          </div>
-        </ion-col>
+        <!-- NOTA: Ya no mostramos el select de archivo aquí porque está arriba -->
+
         <ion-col size="12">
           <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!empleado.valid">Guardar</ion-button>
+            <ion-button type="submit" [disabled]="!empleado.valid || 
+              (modoArchivo === 'nuevo' && !selectedFile) || 
+              (modoArchivo === 'existente' && !empleado.value.emp_fkarc_id)">
+              Guardar
+            </ion-button>
           </p>
         </ion-col>
       </ion-row>
