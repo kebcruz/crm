@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class Login {
   url:string  = `${environment.apiUrl}empleado/`;
-  headers:any = {'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('token')};
+  headers:any = {'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem('token') || 'Bearer 100-token'};
   
   login(dataLogin: any): Observable<any> {
     const url = `${this.url}login`;

@@ -11,7 +11,7 @@
         <!-- Botón para seleccionar archivo -->
         <ion-col size="12">
           <ion-item>
-            <ion-button expand="block" color="primary" (click)="openFileSelector()">
+            <ion-button color="personalizado" expand="block" (click)="openFileSelector()">
               <ion-icon name="document-attach-outline" slot="start"></ion-icon>
               Seleccionar Archivo
             </ion-button>
@@ -82,7 +82,7 @@
         </ion-col>
         <ion-col size="12">
           <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!archivo.valid">Guardar</ion-button>
+            <ion-button color="personalizado" type="submit" [disabled]="!archivo.valid">Guardar</ion-button>
           </p>
         </ion-col>
       </ion-row>

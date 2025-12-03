@@ -12,8 +12,8 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <ion-input label="Nombre de usuario" label-placement="floating" fill="solid" type="text"
-            formControlName="username" class="form-control"></ion-input>
+          <!-- <ion-label position="floating" color="primary">Nombre de usuario</ion-label> -->
+          <ion-input label="Nombre de usuario" label-placement="floating" type="text" formControlName="username" class="form-control" fill="solid"></ion-input>
           <div id="note" *ngFor="let validation of validation_messages.username">
             <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
               <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
@@ -21,8 +21,9 @@
           </div>
         </ion-col>
         <ion-col size="12">
-          <ion-input #passwordEyeRegister label="Contraseña" label-placement="floating" fill="solid" type="password"
-            formControlName="password" clearOnEdit="false" class="form-control">
+          <!-- <ion-label position="floating" color="primary">Contraseña</ion-label> -->
+          <ion-input #passwordEyeRegister label="Contraseña" label-placement="floating" type="password"
+            formControlName="password" clearOnEdit="false" class="form-control" fill="solid">
           </ion-input>
           <div id="note" *ngFor="let validation of validation_messages.password">
             <ion-note color="danger" *ngIf="getError('password')[(validation.type)]">
@@ -32,7 +33,7 @@
         </ion-col>
         <ion-col size="12">
           <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!login.valid">Enviar</ion-button>
+            <ion-button type="submit" [disabled]="!login.valid" color="personalizado">Enviar</ion-button>
           </p>
         </ion-col>
       </ion-row>
@@ -40,9 +41,9 @@
   </form>
 </ion-content>
 
-<!-- <ion-footer>
-  <ion-button expand="full" (click)="registrar()">
+<ion-footer>
+  <ion-button expand="full" (click)="registrar()" color="personalizado">
     <ion-icon name="open-outline" slot="start"></ion-icon>
     Registrarme
   </ion-button>
-</ion-footer> -->
+</ion-footer>
