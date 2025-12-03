@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { Proveedor } from '../services/proveedor';
 
 @Component({
   selector: 'app-proveedor-detalle',
@@ -13,14 +14,16 @@ export class ProveedorDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private proveedoresService: Proveedor,
   ) { }
 
-  proveedor:any=null;
+  proveedor: any = null;
 
   ngOnInit() {
     this.cargarProveedor();
   }
+
 
   async cargarProveedor() {
     const prov_id = this.route.snapshot.paramMap.get('prov_id');
@@ -29,18 +32,18 @@ export class ProveedorDetallePage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
-    const response = await axios({
-      method: 'get',
-      url: "http://localhost:8080/proveedors/"+prov_id+"?expand=domicilioNombre, municipioNombre, estatuNombre",
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.proveedor = response.data;
-    }).catch(function (error) {
+    try {
+      await this.proveedoresService.detalle(prov_id, '?expand=domicilioNombre, municipioNombre, estatuNombre, estadoNombre').subscribe(
+        response => {
+          this.proveedor = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
     loading.dismiss();
   }
 

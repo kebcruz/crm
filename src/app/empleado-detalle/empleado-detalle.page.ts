@@ -40,7 +40,11 @@ export class EmpleadoDetallePage implements OnInit {
     });
     await loading.present();
     try {
+<<<<<<< HEAD
       await this.empleadosService.detalle(emp_id, '?expand=archivo, domicilioNombre, municipioNombre, puestoNombre').subscribe(
+=======
+      await this.empleadosService.detalle(emp_id, '?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre, estadoNombre').subscribe(
+>>>>>>> 085643b2a48b261c60e1f4325fbb5d440e105a91
         response => {
           this.empleado = response;
         },

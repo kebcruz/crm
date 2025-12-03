@@ -1,13 +1,104 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>proveedorCrear</ion-title>
+    <ion-title class="ion-text-center">Nuevo Proveedor</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">proveedorCrear</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <form [formGroup]="proveedor" (ngSubmit)="guardarDatos()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Nombre</ion-label>
+            <ion-input type="text" formControlName="prov_nombre" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_nombre">
+            <ion-note color="danger" *ngIf="getError('prov_nombre')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Nombre del contacto</ion-label>
+            <ion-input type="text" formControlName="prov_contacto" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_contacto">
+            <ion-note color="danger" *ngIf="getError('prov_contacto')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Teléfono</ion-label>
+            <ion-input type="text" formControlName="prov_telefono" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_telefono">
+            <ion-note color="danger" *ngIf="getError('prov_telefono')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Correo</ion-label>
+            <ion-input type="text" formControlName="prov_correo" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_correo">
+            <ion-note color="danger" *ngIf="getError('prov_correo')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Fecha de registro</ion-label>
+            <ion-input type="date" formControlName="prov_fecha_creacion" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_fecha_creacion">
+            <ion-note color="danger" *ngIf="getError('prov_fecha_creacion')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Domicilio</ion-label>
+            <ion-select formControlName="prov_fkdom_id" class="form-control">
+              <ion-select-option *ngFor="let domicilio of domicilios" [value]="domicilio.dom_id">
+                {{ domicilio.dom_calle }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_fkdom_id">
+            <ion-note color="danger" *ngIf="getError('prov_fkdom_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Estatu</ion-label>
+            <ion-select formControlName="prov_fkest_id" class="form-control">
+              <ion-select-option *ngFor="let estatu of estatus" [value]="estatu.est_id">
+                {{ estatu.est_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of mensajes_validacion.prov_fkest_id">
+            <ion-note color="danger" *ngIf="getError('prov_fkest_id')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!proveedor.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

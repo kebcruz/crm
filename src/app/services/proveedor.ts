@@ -75,7 +75,7 @@ export class Proveedor {
   actualizar(prov_id: number, proveedor: any): Observable<any> {
     const url = `${this.url}/${prov_id}`;
     return new Observable(observer => {
-      axios.put(url, prov_id, {
+      axios.put(url, proveedor, {
         withCredentials: true,
         headers: this.headers
       })

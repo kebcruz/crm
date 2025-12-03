@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios';
 import { Empleados } from '../services/empleados';
+import { Puesto } from '../services/puesto';
+import { Archivo } from '../services/archivo';
+import { Domicilio } from '../services/domicilio';
 
 @Component({
   selector: 'app-empleado-crear',
@@ -13,10 +16,14 @@ import { Empleados } from '../services/empleados';
 export class EmpleadoCrearPage implements OnInit {
 
   constructor(
+    private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private alert: AlertController,
     private modalCtrl: ModalController,
-    private empleadosService: Empleados
+    private empleadosService: Empleados,
+    private puestosService: Puesto,
+    private archivosService: Archivo,
+    private domiciliosService: Domicilio
   ) { }
 
   private editarDatos = [];
@@ -25,9 +32,6 @@ export class EmpleadoCrearPage implements OnInit {
   archivos: any = [];
   domicilios: any = [];
   puestos: any = [];
-  archivoUrl: string = "http://localhost:8080/archivos"
-  domicilioUrl: string = "http://localhost:8080/domicilios"
-  puestoUrl: string = "http://localhost:8080/puestos"
   baseUrl: string = "http://localhost:8080/empleados"
 
   ngOnInit() {
@@ -79,48 +83,66 @@ export class EmpleadoCrearPage implements OnInit {
   }
 
   async cargarDomicilios() {
-    const response = await axios({
-      method: 'get',
-      url: this.domicilioUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.domicilios = response.data;
-    }).catch(function (error) {
-      console.log(error);
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.domiciliosService.listado().subscribe(
+        response => {
+          this.domicilios = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarPuestos() {
-    const response = await axios({
-      method: 'get',
-      url: this.puestoUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.puestos = response.data;
-    }).catch(function (error) {
-      console.log(error);
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.puestosService.listado().subscribe(
+        response => {
+          this.puestos = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   async cargarArchivos() {
-    const response = await axios({
-      method: 'get',
-      url: this.archivoUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.archivos = response.data;
-    }).catch(function (error) {
-      console.log(error);
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
+    await loading.present();
+    try {
+      await this.archivosService.listado().subscribe(
+        response => {
+          this.archivos = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
   }
 
   private formulario() {
