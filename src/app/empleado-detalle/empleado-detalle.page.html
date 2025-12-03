@@ -3,7 +3,7 @@
 <ion-content [fullscreen]="true">
   <ion-card *ngIf="empleado as empleado">
     <div class="center">
-      <img [src]="empleado.archivoRuta" alt="Foto">
+      <img [src]="getImageUrl(empleado)" alt="Foto">
     </div>
     <ion-card-header class="center">
       <ion-card-title>

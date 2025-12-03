@@ -1,95 +1,91 @@
 @font-face {
-    font-family: '"Rubik", sans-serif';
-    src: url("../assets/fonts/Rubik-Regular.ttf"); //change url accordingly
+	font-family: '"Rubik", sans-serif';
+	src: url("../assets/fonts/Rubik-Regular.ttf"); //change url accordingly
 }
 
+/* PALETA DE COLORES GLOBAL */
 :root {
-    --ion-font-family: '"Rubik", sans-serif';
+	--ion-font-family: 'Rubik', sans-serif;
+
+	--fondo-app: #E1E4E7;
+	--color-primario: #233d4d;
+	/* azul oscuro */
+	--color-texto: #ffffff;
+	/* blanco */
 }
 
+/* Color Ionic personalizado */
 .ion-color-personalizado {
-    --ion-color-base: #686090 !important;
-    --ion-color-base-rgb: 104, 96, 144 !important;
-    --ion-color-contrast: #ffffff !important;
-    --ion-color-contrast-rgb: 255, 255, 255 !important;
-    --ion-color-shade: #5c547f !important;
-    --ion-color-tint: #77709b !important;
+	--ion-color-base: var(--color-primario);
+	--ion-color-base-rgb: 35, 61, 77;
+	--ion-color-contrast: var(--color-texto);
+	--ion-color-contrast-rgb: 255, 255, 255;
 }
 
-.ion-color-primario {
-    --ion-color-base: #a400d1;
-    --ion-color-base-rgb: 164, 0, 209;
-    --ion-color-contrast: #ffffff;
-    --ion-color-contrast-rgb: 255, 255, 255;
-    --ion-color-shade: #9000b8;
-    --ion-color-tint: #ad1ad6;
-}
-
-ion-menu {
-    --width: 260px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-}
-
-ion-header {
-    background: #233d4d;
-    color: #fff;
-}
-
+/* HEADER Y TOOLBAR UNIFORMES */
+ion-header,
 ion-toolbar {
-    --background: transparent;
-    --color: #fff;
-    text-align: center;
-}
-
-ion-searchbar{
-    --background: #233d4d !important;
-    color: #fff !important;
+	--background: var(--color-primario);
+	--color: var(--color-texto);
+	--border-color: transparent;
 }
 
 ion-title {
-    font-weight: bold;
-    font-size: 1.3rem;
-    color: #fe7f2d;
+	font-weight: bold;
+	font-size: 1.25rem;
 }
 
+/* FONDO GLOBAL */
 ion-content {
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --background: #ffffff;
+	--background: var(--fondo-app);
+	--color: var(--color-primario);
 }
 
-.crear {
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --background: #af2e2e;
+/* SEARCHBAR */
+ion-searchbar {
+	--background: var(--color-primario) !important;
+	--color: #fff;
+	--placeholder-color: #c3d0d6;
 }
 
+/* LISTA E ÍTEMS */
 ion-list {
-    margin-top: 10px;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    --background: #ffffff;
+	background: transparent !important;
 }
 
 ion-item {
-    --inner-border-width: 0 !important;
-    --background: #ffffff;
-    --color: #233d4d;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: background 0.5s ease;
+	--background: transparent;
+	--color: var(--color-primario) !important;
+	border-radius: 5px;
+	margin-bottom: 6px;
+	font-weight: 500;
 }
 
 ion-item:hover {
-    --background: #EAEAEA;
-    cursor: pointer;
+	--background: #d4d6d8;
 }
 
-ion-item::part(native) {
-    padding-left: 20px;
+/* BOTONES */
+ion-button[color="primary"] {
+	color: var(--color-primario) !important;
+	--color: #fff !important;
+}
+
+/* CARDS (vista detalle) */
+ion-card {
+	background: #fff;
+	border-radius: 5px;
+	padding: 12px;
+	margin: 12px;
+}
+
+ion-label[color="primary"] {
+	color: var(--color-primario) !important;
+}
+
+ion-card-title,
+ion-card-subtitle,
+ion-label h2,
+ion-label p {
+	color: var(--color-primario) !important;
 }

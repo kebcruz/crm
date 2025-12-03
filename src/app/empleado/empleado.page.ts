@@ -4,6 +4,7 @@ import axios from 'axios';
 import { EmpleadoCrearPage } from '../empleado-crear/empleado-crear.page';
 import { Router } from '@angular/router';
 import { Empleados } from '../services/empleados';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-empleado',
@@ -15,46 +16,54 @@ export class EmpleadoPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
-    private alertCtrl : AlertController,
+    private alertCtrl: AlertController,
     private router: Router,
     private empleadosService: Empleados
   ) { }
-  empleados: any=[];
-  total: number=0;
-  page: string='1';
-  busqueda:string = '';
-  baseUrl:string = "http://localhost:8080/empleado"
+  empleados: any = [];
+  total: number = 0;
+  page: string = '1';
+  busqueda: string = '';
+  baseUrl: string = "http://localhost:8080/empleado"
 
   ngOnInit() {
     this.cargarEmpleados();
     this.cargarTotal();
   }
-  async cargarEmpleados() {
-      const loading = await this.loadingCtrl.create({
-        message: 'Cargando',
-        spinner: 'bubbles',
-      });
-      await loading.present();
-      try {
-        await this.empleadosService.listado('?page='+this.page+'&expand=archivoRuta', this.busqueda).subscribe(
-          response => {
-            this.empleados = response;
-            this.cargarTotal();
-          },
-          error => {
-            console.error('Error:', error);
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
-      loading.dismiss();
+
+  getImageUrl(empleado: any): string {
+    if (empleado?.archivo?.arc_ruta) {
+      return environment.apiUrl + empleado.archivo.arc_ruta;
+    }
+    return 'assets/images/placeholder.jpg';
   }
   
+  async cargarEmpleados() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
+    });
+    await loading.present();
+    try {
+      await this.empleadosService.listado('?page=' + this.page + '&expand=archivo', this.busqueda).subscribe(
+        response => {
+          this.empleados = response;
+          this.cargarTotal();
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
+  }
+
   async new() {
     const paginaModal = await this.modalCtrl.create({
       component: EmpleadoCrearPage,
-      breakpoints : [0, 0.3, 0.5, 0.95],
+      breakpoints: [0, 0.3, 0.5, 0.95],
       initialBreakpoint: 0.95
     });
     await paginaModal.present();
@@ -74,7 +83,7 @@ export class EmpleadoPage implements OnInit {
     });
     await paginaModal.present();
     paginaModal.onDidDismiss().then((data) => {
-        this.cargarEmpleados();
+      this.cargarEmpleados();
     });
   }
 
@@ -124,7 +133,7 @@ export class EmpleadoPage implements OnInit {
       console.log(error);
     }
   }
-  
+
   async alertEliminado(emp_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',
@@ -170,11 +179,11 @@ export class EmpleadoPage implements OnInit {
     }
   }
 
-  pagina(event:any) {
+  pagina(event: any) {
     this.page = event.target.innerText;
     this.cargarEmpleados();
   }
-  handleInput(event:any) {
+  handleInput(event: any) {
     this.busqueda = event.target.value.toLowerCase();
     this.cargarEmpleados();
   }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
 import { Empleados } from '../services/empleados';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-empleado-detalle',
@@ -18,12 +19,19 @@ export class EmpleadoDetallePage implements OnInit {
     private empleadosService: Empleados
   ) { }
 
-  empleado:any=null;
+  empleado: any = null;
 
+  getImageUrl(empleado: any): string {
+    if (empleado?.archivo?.arc_ruta) {
+      return environment.apiUrl + empleado.archivo.arc_ruta;
+    }
+    return 'assets/images/placeholder.jpg';
+  }
+  
   ngOnInit() {
     this.cargarEmpleado();
   }
-  
+
   async cargarEmpleado() {
     const emp_id = this.route.snapshot.paramMap.get('emp_id');
     const loading = await this.loading.create({
@@ -32,7 +40,7 @@ export class EmpleadoDetallePage implements OnInit {
     });
     await loading.present();
     try {
-      await this.empleadosService.detalle(emp_id, '?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre').subscribe(
+      await this.empleadosService.detalle(emp_id, '?expand=archivo, domicilioNombre, municipioNombre, puestoNombre').subscribe(
         response => {
           this.empleado = response;
         },

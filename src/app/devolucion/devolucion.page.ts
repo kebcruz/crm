@@ -68,7 +68,6 @@ export class DevolucionPage implements OnInit {
     }
   }
 
-
   /* Modal para insertar un nuevo registro */
   async new() {
     const paginaModal = await this.modalCtrl.create({

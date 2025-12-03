@@ -5,7 +5,7 @@
   <ion-list>
     <ion-item button *ngFor="let empleado of empleados">
       <ion-avatar slot="start">
-        <img [src]="empleado.archivoRuta" alt="Foto">
+        <img [src]="getImageUrl(empleado)" alt="Foto">
       </ion-avatar>
 
       <ion-label class="ion-text-wrap">
