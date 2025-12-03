@@ -32,7 +32,7 @@ export class EmpleadoDetallePage implements OnInit {
     });
     await loading.present();
     try {
-      await this.empleadosService.detalle(emp_id, '?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre').subscribe(
+      await this.empleadosService.detalle(emp_id, '?expand=archivoRuta, domicilioNombre, municipioNombre, puestoNombre, estadoNombre').subscribe(
         response => {
           this.empleado = response;
         },

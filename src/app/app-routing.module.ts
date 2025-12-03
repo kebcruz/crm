@@ -190,7 +190,8 @@ const routes: Routes = [
   },
   {
     path: 'proveedor-crear',
-    loadChildren: () => import('./proveedor-crear/proveedor-crear.module').then( m => m.ProveedorCrearPageModule)
+    loadChildren: () => import('./proveedor-crear/proveedor-crear.module').then( m => m.ProveedorCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'etiqueta',

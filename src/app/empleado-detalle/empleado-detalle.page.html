@@ -1,6 +1,13 @@
-<app-toolbar nombre="Empleado Detalle"></app-toolbar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Empleado Detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-card *ngIf="empleado as empleado">
     <div class="center">
       <img [src]="empleado.archivoRuta" alt="Foto">
@@ -39,7 +46,7 @@
         <ion-item>
           <ion-label>
             <p>Domicilio</p>
-            <h2>{{empleado.domicilioNombre}}, {{empleado.municipioNombre}}</h2>
+            <h2>{{empleado.domicilioNombre}}, {{empleado.municipioNombre}}, {{empleado.estadoNombre}}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
