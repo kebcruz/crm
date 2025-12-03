@@ -67,7 +67,7 @@ ion-item:hover {
 
 /* BOTONES */
 ion-button[color="primary"] {
-	color: var(--color-primario) !important;
+	--background: var(--color-primario) !important;
 	--color: #fff !important;
 }
 
