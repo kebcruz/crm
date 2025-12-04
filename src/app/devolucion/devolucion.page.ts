@@ -106,15 +106,17 @@ export class DevolucionPage implements OnInit {
       header: 'Devolución',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar la devolución ' + dev_asunto + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(dev_id, dev_asunto);
           }
@@ -152,11 +154,12 @@ export class DevolucionPage implements OnInit {
       header: 'Devolución',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -164,6 +167,7 @@ export class DevolucionPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

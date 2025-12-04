@@ -119,17 +119,19 @@ export class ArchivoPage implements OnInit {
   async alertEliminar(arc_id: number, arc_nombre: string) {
     const alert = await this.alertCtrl.create({
       header: 'Archivo',
-      subHeader: 'Eliminar',
+      subHeader: 'Eliminar', 
       message: '¿Estás seguro de eliminar el archivo ' + arc_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(arc_id, arc_nombre);
           }
@@ -166,11 +168,12 @@ export class ArchivoPage implements OnInit {
       header: 'Archivo',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -178,6 +181,7 @@ export class ArchivoPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

@@ -45,7 +45,7 @@ const routes: Routes = [
   {
     path: 'cliente-detalle/:cliente_id',
     loadChildren: () => import('./cliente-detalle/cliente-detalle.module').then( m => m.ClienteDetallePageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'empleado',
@@ -122,71 +122,88 @@ const routes: Routes = [
   },
   {
     path: 'archivo',
-    loadChildren: () => import('./archivo/archivo.module').then( m => m.ArchivoPageModule)
+    loadChildren: () => import('./archivo/archivo.module').then( m => m.ArchivoPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'archivo-crear',
-    loadChildren: () => import('./archivo-crear/archivo-crear.module').then( m => m.ArchivoCrearPageModule)
+    loadChildren: () => import('./archivo-crear/archivo-crear.module').then( m => m.ArchivoCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'archivo-detalle/:archivo_id',
-    loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule)
+    loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'categoria',
-    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'categoria-crear',
-    loadChildren: () => import('./categoria-crear/categoria-crear.module').then( m => m.CategoriaCrearPageModule)
+    loadChildren: () => import('./categoria-crear/categoria-crear.module').then( m => m.CategoriaCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'categoria-detalle/:categoria_id',
-    loadChildren: () => import('./categoria-detalle/categoria-detalle.module').then( m => m.CategoriaDetallePageModule)
+    loadChildren: () => import('./categoria-detalle/categoria-detalle.module').then( m => m.CategoriaDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente-crear',
-    loadChildren: () => import('./cliente-crear/cliente-crear.module').then( m => m.ClienteCrearPageModule)
+    loadChildren: () => import('./cliente-crear/cliente-crear.module').then( m => m.ClienteCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente-etiqueta-crear',
-    loadChildren: () => import('./cliente-etiqueta-crear/cliente-etiqueta-crear.module').then( m => m.ClienteEtiquetaCrearPageModule)
+    loadChildren: () => import('./cliente-etiqueta-crear/cliente-etiqueta-crear.module').then( m => m.ClienteEtiquetaCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'cliente-etiqueta-detalle/:cliente_detalle_id',
-    loadChildren: () => import('./cliente-etiqueta-detalle/cliente-etiqueta-detalle.module').then( m => m.ClienteEtiquetaDetallePageModule)
+    loadChildren: () => import('./cliente-etiqueta-detalle/cliente-etiqueta-detalle.module').then( m => m.ClienteEtiquetaDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'color-crear',
-    loadChildren: () => import('./color-crear/color-crear.module').then( m => m.ColorCrearPageModule)
+    loadChildren: () => import('./color-crear/color-crear.module').then( m => m.ColorCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'color-detalle/:color_id',
-    loadChildren: () => import('./color-detalle/color-detalle.module').then( m => m.ColorDetallePageModule)
+    loadChildren: () => import('./color-detalle/color-detalle.module').then( m => m.ColorDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'devolucion',
-    loadChildren: () => import('./devolucion/devolucion.module').then( m => m.DevolucionPageModule)
+    loadChildren: () => import('./devolucion/devolucion.module').then( m => m.DevolucionPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'devolucion-crear',
-    loadChildren: () => import('./devolucion-crear/devolucion-crear.module').then( m => m.DevolucionCrearPageModule)
+    loadChildren: () => import('./devolucion-crear/devolucion-crear.module').then( m => m.DevolucionCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'devolucion-detalle/:devolucion_id',
-    loadChildren: () => import('./devolucion-detalle/devolucion-detalle.module').then( m => m.DevolucionDetallePageModule)
+    loadChildren: () => import('./devolucion-detalle/devolucion-detalle.module').then( m => m.DevolucionDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'domicilio-crear',
-    loadChildren: () => import('./domicilio-crear/domicilio-crear.module').then( m => m.DomicilioCrearPageModule)
+    loadChildren: () => import('./domicilio-crear/domicilio-crear.module').then( m => m.DomicilioCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'domicilio-detalle/:domicilio_id',
-    loadChildren: () => import('./domicilio-detalle/domicilio-detalle.module').then( m => m.DomicilioDetallePageModule)
+    loadChildren: () => import('./domicilio-detalle/domicilio-detalle.module').then( m => m.DomicilioDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'estado-detalle/:estado_id',
-    loadChildren: () => import('./estado-detalle/estado-detalle.module').then( m => m.EstadoDetallePageModule)
+    loadChildren: () => import('./estado-detalle/estado-detalle.module').then( m => m.EstadoDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'proveedor-crear',
@@ -195,29 +212,34 @@ const routes: Routes = [
   },
   {
     path: 'etiqueta',
-    loadChildren: () => import('./etiqueta/etiqueta.module').then( m => m.EtiquetaPageModule)
+    loadChildren: () => import('./etiqueta/etiqueta.module').then( m => m.EtiquetaPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'etiqueta-crear',
-    loadChildren: () => import('./etiqueta-crear/etiqueta-crear.module').then( m => m.EtiquetaCrearPageModule)
+    loadChildren: () => import('./etiqueta-crear/etiqueta-crear.module').then( m => m.EtiquetaCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'etiqueta-detalle/:etiqueta_id',
-    loadChildren: () => import('./etiqueta-detalle/etiqueta-detalle.module').then( m => m.EtiquetaDetallePageModule)
+    loadChildren: () => import('./etiqueta-detalle/etiqueta-detalle.module').then( m => m.EtiquetaDetallePageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'puesto',
-    loadChildren: () => import('./puesto/puesto.module').then( m => m.PuestoPageModule)
+    loadChildren: () => import('./puesto/puesto.module').then( m => m.PuestoPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'puesto-crear',
-    loadChildren: () => import('./puesto-crear/puesto-crear.module').then( m => m.PuestoCrearPageModule)
+    loadChildren: () => import('./puesto-crear/puesto-crear.module').then( m => m.PuestoCrearPageModule),
+    canActivate: [permisoGuard]
   },
   {
     path: 'puesto-detalle/:puesto_id',
-    loadChildren: () => import('./puesto-detalle/puesto-detalle.module').then( m => m.PuestoDetallePageModule)
+    loadChildren: () => import('./puesto-detalle/puesto-detalle.module').then( m => m.PuestoDetallePageModule),
+    canActivate: [permisoGuard]
   },
-
 
 ];
 @NgModule({

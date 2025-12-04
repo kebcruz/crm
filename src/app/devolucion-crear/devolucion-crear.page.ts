@@ -198,15 +198,17 @@ export class DevolucionCrearPage implements OnInit {
       header: 'Devolucion',
       subHeader: subMsg,
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar'
         },
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.modalCtrl.dismiss();
           },

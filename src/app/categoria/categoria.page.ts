@@ -107,15 +107,17 @@ export class CategoriaPage implements OnInit {
       header: 'Categoria',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar la categoria ' + cat_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(cat_id, cat_nombre);
           }
@@ -153,11 +155,12 @@ export class CategoriaPage implements OnInit {
       header: 'Categoria',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -165,6 +168,7 @@ export class CategoriaPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

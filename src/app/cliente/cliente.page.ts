@@ -103,18 +103,20 @@ export class ClientePage implements OnInit {
   /* Confirmación antes de eliminar un registro */
   async alertEliminar(cli_id: number, cli_nombre: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Cliente',
-      subHeader: 'Eliminar',
+      header: 'Eliminar Cliente',
+      /* subHeader: 'Eliminar', */
       message: '¿Estás seguro de eliminar al cliente ' + cli_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar',
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(cli_id, cli_nombre);
           }
@@ -149,14 +151,15 @@ export class ClientePage implements OnInit {
   /* Muestra que el registro ha sido eliminado */
   async alertEliminado(cli_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Cliente',
-      subHeader: 'Eliminado',
+      header: 'Cliente Eliminado',
+      /* subHeader: 'Eliminado', */
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -164,6 +167,7 @@ export class ClientePage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

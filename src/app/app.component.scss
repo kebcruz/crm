@@ -27,7 +27,6 @@ ion-header,
 ion-toolbar {
 	--background: var(--color-primario);
 	--color: var(--color-texto);
-	--border-color: transparent;
 }
 
 ion-title {
@@ -38,14 +37,14 @@ ion-title {
 /* FONDO GLOBAL */
 ion-content {
 	--background: var(--fondo-app);
-	--color: var(--color-primario);
+	/* 	--color: var(--color-primario); */
 }
 
 /* SEARCHBAR */
 ion-searchbar {
 	--background: var(--color-primario) !important;
-	--color: #fff;
-	--placeholder-color: #c3d0d6;
+	--color: var(--color-texto);
+	/* 	--placeholder-color: #c3d0d6; */
 }
 
 /* LISTA E ÍTEMS */
@@ -54,21 +53,29 @@ ion-list {
 }
 
 ion-item {
+	--inner-border-width: 0 !important;
 	--background: transparent;
 	--color: var(--color-primario) !important;
-	border-radius: 5px;
-	margin-bottom: 6px;
+	/* 	border-radius: 5px; */
+	/* 	margin-bottom: 6px; */
 	font-weight: 500;
 }
 
 ion-item:hover {
 	--background: #d4d6d8;
+	border-left: 2px solid #233d4d !important;
+}
+
+ion-input,
+ion-select {
+	border-bottom: 1px solid;
 }
 
 /* BOTONES */
 ion-button[color="personalizado"] {
 	--background: var(--color-primario) !important;
-	--color: #fff !important;
+	--color: var(--color-texto) !important;
+	font-weight: bold;
 }
 
 /* CARDS (vista detalle) */
@@ -89,4 +96,41 @@ ion-label,
 ion-label h2,
 ion-label p {
 	color: var(--color-primario) !important;
+}
+
+/* Contenedor del alert */
+.alert-personalizado .alert-wrapper {
+	background: var(--color-primario) !important;
+	color: var(--color-texto) !important;
+	border-radius: 5px !important;
+}
+
+/* Títulos */
+.alert-personalizado .alert-title {
+	color: var(--color-texto)!important;
+}
+
+.alert-personalizado .alert-sub-title {
+	color: var(--color-texto) !important;
+}
+
+/* Mensaje */
+.alert-personalizado .alert-message {
+	color: var(--color-texto) !important;
+}
+
+/* Botón cancelar */
+.btn-cancelar {
+	font-weight: bold !important;
+	color: #d9534f !important;
+	/* rojo */
+	border-radius: 10px;
+}
+
+/* Botón confirmar */
+.btn-confirmar {
+	font-weight: bold !important;
+	color: #0275d8 !important;
+	/* azul */
+	border-radius: 10px;
 }
