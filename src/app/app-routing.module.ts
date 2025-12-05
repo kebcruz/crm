@@ -123,22 +123,22 @@ const routes: Routes = [
   {
     path: 'archivo',
     loadChildren: () => import('./archivo/archivo.module').then( m => m.ArchivoPageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'archivo-crear',
     loadChildren: () => import('./archivo-crear/archivo-crear.module').then( m => m.ArchivoCrearPageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'archivo-detalle/:archivo_id',
     loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'categoria',
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'categoria-crear',
@@ -178,17 +178,17 @@ const routes: Routes = [
   {
     path: 'devolucion',
     loadChildren: () => import('./devolucion/devolucion.module').then( m => m.DevolucionPageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'devolucion-crear',
     loadChildren: () => import('./devolucion-crear/devolucion-crear.module').then( m => m.DevolucionCrearPageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'devolucion-detalle/:devolucion_id',
     loadChildren: () => import('./devolucion-detalle/devolucion-detalle.module').then( m => m.DevolucionDetallePageModule),
-    /* canActivate: [permisoGuard] */
+    canActivate: [permisoGuard]
   },
   {
     path: 'domicilio-crear',
@@ -240,6 +240,19 @@ const routes: Routes = [
     loadChildren: () => import('./puesto-detalle/puesto-detalle.module').then( m => m.PuestoDetallePageModule),
     canActivate: [permisoGuard]
   },
+  {
+    path: 'metodo',
+    loadChildren: () => import('./metodo/metodo.module').then( m => m.MetodoPageModule)
+  },
+  {
+    path: 'metodo-crear',
+    loadChildren: () => import('./metodo-crear/metodo-crear.module').then( m => m.MetodoCrearPageModule)
+  },
+  {
+    path: 'metodo-detalle',
+    loadChildren: () => import('./metodo-detalle/metodo-detalle.module').then( m => m.MetodoDetallePageModule)
+  },
+
 
 ];
 @NgModule({

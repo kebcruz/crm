@@ -1,0 +1,33 @@
+<app-toolbar nombre="Metodos"></app-toolbar>
+
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  <ion-list>
+    <ion-item button *ngFor="let metodo of metodos">
+
+      <ion-label class="ion-text-wrap">
+        <h2>{{metodo.met_nombre}}</h2>
+      </ion-label>
+
+      <ion-button [routerLink]="['/metodo-detalle', metodo.met_id]">
+        <ion-icon name="information-circle-sharp"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="editar(metodo.met_id)" color="warning">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="alertEliminar(metodo.met_id, metodo.met_nombre)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+      <ion-badge slot="end">{{metodo.met_id}}</ion-badge>
+    </ion-item>
+  </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
+</ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()" color="personalizado">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
