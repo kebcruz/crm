@@ -28,6 +28,10 @@
 	--ion-color-contrast-rgb: 255, 255, 255;
 }
 
+.ion-color-primario2 {
+	--ion-color-base: var(--color-primario2)
+}
+
 /* SECUNDARIO 1 – Advertencia suave */
 .ion-color-advertencia {
 	--ion-color-base: var(--color-secundario1);
@@ -86,8 +90,8 @@ ion-searchbar {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator{
-	background-color: var(--color-primario) !important;
+input[type="time"]::-webkit-calendar-picker-indicator {
+	background-color: var(--color-primario2) !important;
 	border-radius: 5px;
 }
 
@@ -99,8 +103,8 @@ input[type="time"]::-webkit-calendar-picker-indicator{
 	transition: transform 0.5s;
 }
 
-.count{
-	color: var(--color-primario2);
+.count {
+	color: var(--color-primario);
 }
 
 .detailbtn:hover {
@@ -126,6 +130,13 @@ input[type="time"]::-webkit-calendar-picker-indicator{
 	height: auto;
 }
 
+.preview-container {
+	margin-top: 10px;
+	width: 150px !important;
+	height: auto !important;
+	justify-self: center;
+}
+
 /* LISTA E ÍTEMS */
 ion-list {
 	background: transparent !important;
@@ -134,7 +145,7 @@ ion-list {
 ion-item {
 	--inner-border-width: 0 !important;
 	--background: transparent;
-	--color: var(--color-primario2) !important;
+	--color: var(--color-primario) !important;
 	/* 	border-radius: 5px; */
 	/* 	margin-bottom: 6px; */
 	font-weight: 500;
@@ -159,7 +170,7 @@ ion-card {
 }
 
 ion-label[color="primary"] {
-	color: var(--color-primario2) !important;
+	color: var(--color-primario) !important;
 }
 
 ion-card-title,
@@ -167,7 +178,7 @@ ion-card-subtitle,
 ion-label,
 ion-label h2,
 ion-label p {
-	color: var(--color-primario2) !important;
+	color: var(--color-primario) !important;
 }
 
 /* Cambia TODOS los ion-select de la app */
@@ -255,6 +266,6 @@ ion-label p {
 	border-radius: 10px;
 }
 
-ion-segment-button{
+ion-segment-button {
 	--indicator-color: var(--color-primario);
 }

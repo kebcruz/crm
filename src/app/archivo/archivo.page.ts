@@ -172,7 +172,7 @@ export class ArchivoPage implements OnInit {
       buttons: [
         {
           text: 'Continuar',
-          role: 'cancel',
+          role: 'confirm',
           cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
@@ -180,7 +180,7 @@ export class ArchivoPage implements OnInit {
         },
         {
           text: 'Salir',
-          role: 'confirm',
+          role: 'cancel',
           cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();

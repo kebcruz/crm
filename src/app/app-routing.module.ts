@@ -178,17 +178,17 @@ const routes: Routes = [
   {
     path: 'devolucion',
     loadChildren: () => import('./devolucion/devolucion.module').then( m => m.DevolucionPageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'devolucion-crear',
     loadChildren: () => import('./devolucion-crear/devolucion-crear.module').then( m => m.DevolucionCrearPageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'devolucion-detalle/:devolucion_id',
     loadChildren: () => import('./devolucion-detalle/devolucion-detalle.module').then( m => m.DevolucionDetallePageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'domicilio-crear',
