@@ -1,4 +1,4 @@
-<app-toolbar nombre="Metodos"></app-toolbar>
+<app-toolbar nombre="Métodos"></app-toolbar>
 
 <ion-content>
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
@@ -9,18 +9,20 @@
         <h2>{{metodo.met_nombre}}</h2>
       </ion-label>
 
-      <ion-button [routerLink]="['/metodo-detalle', metodo.met_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/metodo-detalle', metodo.met_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(metodo.met_id)" color="warning">
-        <ion-icon name="pencil"></ion-icon>
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(metodo.met_id)">
+        <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(metodo.met_id, metodo.met_nombre)" color="danger">
-        <ion-icon name="trash"></ion-icon>
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(metodo.met_id, metodo.met_nombre)">
+        <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
-      <ion-badge slot="end">{{metodo.met_id}}</ion-badge>
+
+      <ion-badge class="count" slot="start">{{metodo.met_id}}</ion-badge>
+
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>

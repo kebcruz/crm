@@ -37,7 +37,7 @@ export class EmpleadoPage implements OnInit {
     }
     return 'assets/images/placeholder.jpg';
   }
-  
+
   async cargarEmpleados() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -91,7 +91,7 @@ export class EmpleadoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',
       subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar al empleado: ' + emp_nombre + '?',
+      message: '¿Estás seguro de eliminar al empleado: ' + emp_id + '?',
       cssClass: 'alert-personalizado',
       buttons: [
         {
@@ -139,18 +139,21 @@ export class EmpleadoPage implements OnInit {
   async alertEliminado(emp_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',
-      subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
+      subHeader: 'Eliminado',
       message: msg,
       cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
-          role: 'cancel',
+          role: 'confirm',
           cssClass: 'btn-confirmar',
+          handler: () => {
+            this.regresar();
+          },
         },
         {
           text: 'Salir',
-          role: 'confirm',
+          role: 'cancel',
           cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
@@ -158,7 +161,6 @@ export class EmpleadoPage implements OnInit {
         },
       ],
     });
-
     await alert.present();
   }
 

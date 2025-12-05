@@ -249,7 +249,7 @@ const routes: Routes = [
     loadChildren: () => import('./metodo-crear/metodo-crear.module').then( m => m.MetodoCrearPageModule)
   },
   {
-    path: 'metodo-detalle',
+    path: 'metodo-detalle/:met_id',
     loadChildren: () => import('./metodo-detalle/metodo-detalle.module').then( m => m.MetodoDetallePageModule)
   },
 

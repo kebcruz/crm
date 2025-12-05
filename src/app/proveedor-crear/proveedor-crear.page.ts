@@ -59,11 +59,11 @@ export class ProveedorCrearPage implements OnInit {
     'prov_fkest_id': [
       { type: 'required', message: 'estatus requerido.' },
     ],
-      'prov_fkdom_id': [
+    'prov_fkdom_id': [
       { type: 'required', message: 'domicilio requerido.' },
     ],
   }
-  
+
   async cargarEstatus() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -125,31 +125,6 @@ export class ProveedorCrearPage implements OnInit {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
     return errors;
-  }
-
-  private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
-    const alert = await this.alert.create({
-      header: 'Proveedor',
-      subHeader: subMsg,
-      message: msg,
-      cssClass: 'alert-personalizado',
-      buttons: [
-        {
-          text: 'Continuar',
-          role: 'cancel',
-          cssClass: 'btn-confirmar'
-        },
-        {
-          text: 'Salir',
-          role: 'confirm',
-          cssClass: 'btn-cancelar',
-          handler: () => {
-            this.modalCtrl.dismiss();
-          },
-        },
-      ],
-    });
-    await alert.present();
   }
 
   async getDetalles() {
@@ -222,5 +197,30 @@ export class ProveedorCrearPage implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
+    const alert = await this.alert.create({
+      header: 'Proveedor',
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-personalizado',
+      buttons: [
+        {
+          text: 'Continuar',
+          role: 'cancel',
+          cssClass: 'btn-confirmar'
+        },
+        {
+          text: 'Salir',
+          role: 'confirm',
+          cssClass: 'btn-cancelar',
+          handler: () => {
+            this.modalCtrl.dismiss();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

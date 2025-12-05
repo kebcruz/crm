@@ -17,7 +17,6 @@ import { PaginacionModule } from '../components/paginacion/paginacion.module';
     IonicModule,
     MetodoPageRoutingModule,
     ToolbarModule,
-    ReactiveFormsModule,
     PaginacionModule
   ],
   declarations: [MetodoPage]

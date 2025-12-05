@@ -85,16 +85,18 @@ export class MetodoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Metodo',
       subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar al metodo: ' + met_nombre + '?',
-      cssClass: 'alert-center',
+      message: '¿Estás seguro de eliminar el método de pago ' + met_nombre + '?',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(met_id, met_nombre);
           }
@@ -108,18 +110,18 @@ export class MetodoPage implements OnInit {
     try {
       await this.metodosService.eliminar(met_id).subscribe(
         response => {
-          this.alertEliminado(met_id, 'El metodo: ' + met_nombre + ' ha sido eliminado');
+          this.alertEliminado(met_id, 'El método de pago: ' + met_nombre + ' ha sido eliminado');
         },
         error => {
           console.error('Error:', error);
           if (error.response?.status == 204) {
-            this.alertEliminado(met_id, 'El metodo: ' + met_nombre + ' no se puede eliminar');
+            this.alertEliminado(met_id, 'El método de pago: ' + met_nombre + ' no se puede eliminar');
           }
           if (error.response?.status == 500) {
-            this.alertEliminado(met_id, 'El metodo: ' + met_nombre + ' no se puede eliminar esta siendo utilizado por otro registro');
+            this.alertEliminado(met_id, 'El método de pago: ' + met_nombre + ' no se puede eliminar esta siendo utilizado por otro registro');
           }
           if (error.response?.status == 401) {
-            this.alertEliminado(met_id, 'El metodo: ' + met_nombre + ' no se puede eliminar por que no tiene las credenciales');
+            this.alertEliminado(met_id, 'El método de pago: ' + met_nombre + ' no se puede eliminar por que no tiene las credenciales');
           }
         }
       );
@@ -128,27 +130,31 @@ export class MetodoPage implements OnInit {
     }
   }
 
-   async alertEliminado(met_id: number, msg = "") {
+  async alertEliminado(met_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Metodo',
-      subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
+      subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
-          role: 'cancel',
+          role: 'confirm',
+          cssClass: 'btn-confirmar',
+          handler: () => {
+            this.regresar();
+          },
         },
         {
           text: 'Salir',
-          role: 'confirm',
+          role: 'cancel',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },
         },
       ],
     });
-
     await alert.present();
   }
 

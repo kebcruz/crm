@@ -28,7 +28,7 @@ export class EmpleadoDetallePage implements OnInit {
     return 'assets/images/placeholder.jpg';
   }
   
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarEmpleado();
   }
 

@@ -12,19 +12,20 @@
         <h3>{{empleado.emp_nombre}}</h3>
       </ion-label>
 
-      <ion-badge class="count" slot="start">{{empleado.emp_id}}</ion-badge>
-
       <ion-button color="accion" class="detailbtn" [routerLink]="['/empleado-detalle', empleado.emp_id]">
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
 
       <ion-button color="advertencia" class="updatebtn" (click)="editar(empleado.emp_id)">
-        <ion-icon name="pencil"></ion-icon>
+        <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
 
       <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(empleado.emp_id, empleado.emp_nombre)">
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
+
+      <ion-badge class="count" slot="start">{{empleado.emp_id}}</ion-badge>
+
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
