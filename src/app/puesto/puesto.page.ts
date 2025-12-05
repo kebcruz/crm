@@ -106,15 +106,17 @@ export class PuestoPage implements OnInit {
       header: 'Puesto',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar el puesto ' + pue_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(pue_id, pue_nombre);
           }
@@ -152,11 +154,12 @@ export class PuestoPage implements OnInit {
       header: 'Puesto',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -164,6 +167,7 @@ export class PuestoPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

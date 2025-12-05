@@ -284,15 +284,17 @@ export class ProductoCrearPage implements OnInit {
       header: 'Producto',
       subHeader: subMsg,
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar'
         },
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.modalCtrl.dismiss();
           },

@@ -85,15 +85,17 @@ export class VentaPage implements OnInit {
       header: 'Venta',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar la: ' + ven_id + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(ven_id);
           }
@@ -131,15 +133,17 @@ export class VentaPage implements OnInit {
       header: 'Venta',
       subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
         },
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

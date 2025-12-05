@@ -107,15 +107,17 @@ export class DomicilioPage implements OnInit {
       header: 'Domicilio',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar el domicilio ' + dom_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(dom_id, dom_nombre);
           }
@@ -153,11 +155,12 @@ export class DomicilioPage implements OnInit {
       header: 'Domicilio',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -165,6 +168,7 @@ export class DomicilioPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

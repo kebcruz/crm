@@ -1,23 +1,61 @@
 @font-face {
-	font-family: '"Rubik", sans-serif';
-	src: url("../assets/fonts/Rubik-Regular.ttf"); //change url accordingly
+	font-family: 'Inter', 'sans-serif';
+	src: url("../assets/fonts/Inter-Regular.ttf"); //change url accordingly
 }
 
 /* PALETA DE COLORES GLOBAL */
 :root {
-	--ion-font-family: 'Rubik', sans-serif;
+	--ion-font-family: 'Inter', sans-serif;
 
-	--fondo-app: #E1E4E7;
-	--color-primario: #233d4d;
-	/* azul oscuro */
+	--fondo-app: #F0F2F5;
 	--color-texto: #ffffff;
-	/* blanco */
+	--color-borde: #CBD5E0; // Para bordes
+
+	--color-primario: #233d4d;
+	--color-primario2: #4A6FA5;
+
+	--color-secundario1: #F7C948;
+	--color-secundario2: #FF9A5A;
+	--color-secundario3: #3DB389;
+	--color-secundario4: #D95D5D;
 }
 
 /* Color Ionic personalizado */
 .ion-color-personalizado {
 	--ion-color-base: var(--color-primario);
 	--ion-color-base-rgb: 35, 61, 77;
+	--ion-color-contrast: var(--color-texto);
+	--ion-color-contrast-rgb: 255, 255, 255;
+}
+
+/* SECUNDARIO 1 – Advertencia suave */
+.ion-color-advertencia {
+	--ion-color-base: var(--color-secundario1);
+	--ion-color-base-rgb: 244, 211, 94;
+	--ion-color-contrast: var(--color-texto);
+	--ion-color-contrast-rgb: 35, 61, 77;
+}
+
+/* SECUNDARIO 2 – Edición / acción */
+.ion-color-accion {
+	--ion-color-base: var(--color-secundario2);
+	--ion-color-base-rgb: 238, 150, 75;
+	--ion-color-contrast: var(--color-texto);
+	--ion-color-contrast-rgb: 255, 255, 255;
+}
+
+/* SECUNDARIO 3 – Éxito */
+.ion-color-exito {
+	--ion-color-base: var(--color-secundario3);
+	--ion-color-base-rgb: 66, 167, 122;
+	--ion-color-contrast: var(--color-texto);
+	--ion-color-contrast-rgb: 255, 255, 255;
+}
+
+/* SECUNDARIO 4 – Peligro / Eliminar */
+.ion-color-peligro {
+	--ion-color-base: var(--color-secundario4);
+	--ion-color-base-rgb: 167, 66, 66;
 	--ion-color-contrast: var(--color-texto);
 	--ion-color-contrast-rgb: 255, 255, 255;
 }
@@ -47,6 +85,43 @@ ion-searchbar {
 	/* 	--placeholder-color: #c3d0d6; */
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator{
+	background-color: var(--color-primario) !important;
+	border-radius: 5px;
+}
+
+.detailbtn,
+.updatebtn,
+.deletebtn,
+.count {
+	--background: none !important;
+	transition: transform 0.5s;
+}
+
+.detailbtn:hover {
+	--background: var(--color-secundario2) !important;
+	transform: scale(1.1) !important;
+}
+
+.updatebtn:hover {
+	--background: var(--color-secundario1) !important;
+	transform: scale(1.1) !important;
+}
+
+.deletebtn:hover {
+	--background: var(--color-secundario4) !important;
+	transform: scale(1.1) !important;
+}
+
+.imgdetail {
+	margin-top: 0 !important;
+	padding: 0 !important;
+	justify-self: center;
+	width: 200px;
+	height: auto;
+}
+
 /* LISTA E ÍTEMS */
 ion-list {
 	background: transparent !important;
@@ -55,7 +130,7 @@ ion-list {
 ion-item {
 	--inner-border-width: 0 !important;
 	--background: transparent;
-	--color: var(--color-primario) !important;
+	--color: var(--color-primario2) !important;
 	/* 	border-radius: 5px; */
 	/* 	margin-bottom: 6px; */
 	font-weight: 500;
@@ -63,7 +138,7 @@ ion-item {
 
 ion-item:hover {
 	--background: #d4d6d8;
-	border-left: 2px solid #233d4d !important;
+	border-left: 3px solid var(--color-primario2) !important;
 }
 
 ion-input,
@@ -71,23 +146,16 @@ ion-select {
 	border-bottom: 1px solid;
 }
 
-/* BOTONES */
-ion-button[color="personalizado"] {
-	--background: var(--color-primario) !important;
-	--color: var(--color-texto) !important;
-	font-weight: bold;
-}
-
 /* CARDS (vista detalle) */
 ion-card {
-	background: #fff;
+	background: var(--color-texto);
 	border-radius: 5px;
 	padding: 12px;
 	margin: 12px;
 }
 
 ion-label[color="primary"] {
-	color: var(--color-primario) !important;
+	color: var(--color-primario2) !important;
 }
 
 ion-card-title,
@@ -95,7 +163,55 @@ ion-card-subtitle,
 ion-label,
 ion-label h2,
 ion-label p {
-	color: var(--color-primario) !important;
+	color: var(--color-primario2) !important;
+}
+
+/* Cambia TODOS los ion-select de la app */
+.alert-wrapper {
+	/* Fondo general */
+	background: var(--color-primario) !important;
+
+	/* Línea debajo del header */
+	.alert-head {
+		margin-bottom: 15px !important;
+		border-bottom: 1px solid var(--color-borde) !important;
+	}
+
+	.alert-radio-label {
+		color: var(--color-texto) !important;
+	}
+
+	/* Círculos de radio (selección) */
+	.alert-radio-icon {
+		border-color: var(--color-borde) !important;
+
+		.alert-radio-inner {
+			background-color: var(--color-primario2) !important;
+			/* Color del círculo seleccionado */
+		}
+	}
+
+	/* Línea del footer */
+	.alert-button-group {
+		border-top: 1px solid var(--color-borde) !important;
+		background: var(--color-primario) !important;
+
+		/* Botones */
+		.alert-button {
+
+			/* Botón CANCEL */
+			&.alert-button-role-cancel {
+				color: var(--color-secundario4) !important;
+				font-weight: bold !important;
+			}
+
+			/* Botón OK/Confirmar */
+			&.alert-button-role-default {
+				color: var(--color-secundario3) !important;
+				font-weight: bold !important;
+			}
+		}
+	}
 }
 
 /* Contenedor del alert */
@@ -107,7 +223,7 @@ ion-label p {
 
 /* Títulos */
 .alert-personalizado .alert-title {
-	color: var(--color-texto)!important;
+	color: var(--color-texto) !important;
 }
 
 .alert-personalizado .alert-sub-title {
@@ -122,15 +238,19 @@ ion-label p {
 /* Botón cancelar */
 .btn-cancelar {
 	font-weight: bold !important;
-	color: #d9534f !important;
+	color: var(--color-secundario4) !important;
 	/* rojo */
 	border-radius: 10px;
 }
 
 /* Botón confirmar */
 .btn-confirmar {
-	font-weight: bold !important;
-	color: #0275d8 !important;
+	/* font-weight: bold !important; */
+	color: var(--color-secundario3) !important;
 	/* azul */
 	border-radius: 10px;
+}
+
+ion-segment-button{
+	--indicator-color: var(--color-primario);
 }

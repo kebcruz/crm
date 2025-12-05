@@ -12,19 +12,19 @@
         <h3>{{etiqueta.eti_nombre}}</h3>
       </ion-label>
 
-      <ion-button [routerLink]="['/etiqueta-detalle', etiqueta.eti_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/etiqueta-detalle', etiqueta.eti_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(etiqueta.eti_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(etiqueta.eti_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(etiqueta.eti_id, etiqueta.eti_nombre)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(etiqueta.eti_id, etiqueta.eti_nombre)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{etiqueta.eti_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{etiqueta.eti_id}}</ion-badge>
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>

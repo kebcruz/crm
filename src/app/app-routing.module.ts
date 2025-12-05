@@ -123,22 +123,22 @@ const routes: Routes = [
   {
     path: 'archivo',
     loadChildren: () => import('./archivo/archivo.module').then( m => m.ArchivoPageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'archivo-crear',
     loadChildren: () => import('./archivo-crear/archivo-crear.module').then( m => m.ArchivoCrearPageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'archivo-detalle/:archivo_id',
     loadChildren: () => import('./archivo-detalle/archivo-detalle.module').then( m => m.ArchivoDetallePageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'categoria',
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule),
-    canActivate: [permisoGuard]
+    /* canActivate: [permisoGuard] */
   },
   {
     path: 'categoria-crear',

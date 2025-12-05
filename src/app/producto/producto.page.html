@@ -14,19 +14,19 @@
         <p>{{producto.pro_fecha_creacion}}</p>
       </ion-label>
 
-      <ion-button [routerLink]="['/producto-detalle', producto.pro_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/producto-detalle', producto.pro_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(producto.pro_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(producto.pro_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(producto.pro_id, producto.pro_nombre)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(producto.pro_id, producto.pro_nombre)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{producto.pro_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{producto.pro_id}}</ion-badge>
 
     </ion-item>
   </ion-list>

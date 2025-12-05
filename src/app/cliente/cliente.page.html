@@ -10,19 +10,19 @@
         <p>{{cliente.cli_fecha_registro | date:'y-MM-dd'}}</p>
       </ion-label>
 
-      <ion-button [routerLink]="['/cliente-detalle', cliente.cli_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/cliente-detalle', cliente.cli_id]">
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(cliente.cli_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(cliente.cli_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(cliente.cli_id, cliente.cli_nombre)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(cliente.cli_id, cliente.cli_nombre)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{cliente.cli_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{cliente.cli_id}}</ion-badge>
 
     </ion-item>
   </ion-list>

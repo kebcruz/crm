@@ -1,12 +1,15 @@
-ion-thumbnail {
-    --size: 140px;
-    --border-radius: 14px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.imagotipo{
+    margin-top: 100px;
+    margin-bottom: 100px;
     justify-self: center;
 }
 
 ion-button {
     margin: 0 !important;
     padding: 0 !important;
+}
+
+ion-input{
+    color: #233d4d;
+    --background: none !important;
 }

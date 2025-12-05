@@ -10,14 +10,14 @@
         <h3>Vendedor: {{venta.empleadoNombre}}</h3>
       </ion-label>
 
-      <ion-badge slot="end">Total: ${{venta.ven_total}}</ion-badge>
-      <ion-button [routerLink]="['/venta-detalle', venta.ven_id]">
+      <ion-badge class="count" slot="start">Total: ${{venta.ven_total}}</ion-badge>
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/venta-detalle', venta.ven_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
-      <ion-button (click)="editar(venta.ven_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(venta.ven_id)" color="warning">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
-      <ion-button (click)="alertEliminar(venta.ven_id)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(venta.ven_id)" color="danger">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>
