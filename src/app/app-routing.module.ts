@@ -239,7 +239,8 @@ const routes: Routes = [
     path: 'puesto-detalle/:puesto_id',
     loadChildren: () => import('./puesto-detalle/puesto-detalle.module').then( m => m.PuestoDetallePageModule),
     canActivate: [permisoGuard]
-  },  {
+  },
+  {
     path: 'metodo',
     loadChildren: () => import('./metodo/metodo.module').then( m => m.MetodoPageModule)
   },

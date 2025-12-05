@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- Botón para seleccionar archivo -->
-                <ion-button expand="block" color="primary" (click)="openFileSelector()" class="ion-margin-top">
+                <ion-button expand="block" color="personalizado" (click)="openFileSelector()" class="ion-margin-top">
                   <ion-icon name="camera-outline" slot="start"></ion-icon>
                   {{ previewUrl ? 'Cambiar Foto' : 'Seleccionar Foto' }}
                 </ion-button>
@@ -47,7 +47,7 @@
               <!-- MODO: USAR FOTO EXISTENTE -->
               <div *ngIf="modoArchivo === 'existente'" class="ion-margin-top">
                 <ion-item>
-                  <ion-label position="floating" color="primary">Archivo Existente</ion-label>
+                  <!-- <ion-label position="floating" color="primary">Archivo Existente</ion-label> -->
                   <ion-select formControlName="emp_fkarc_id" class="form-control">
                     <ion-select-option value="">-- Seleccione una foto --</ion-select-option>
                     <ion-select-option *ngFor="let archivo of archivos" [value]="archivo.arc_id">
@@ -202,7 +202,7 @@
 
         <ion-col size="12">
           <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!empleado.valid || 
+            <ion-button color="personalizado" type="submit" [disabled]="!empleado.valid || 
               (modoArchivo === 'nuevo' && !selectedFile) || 
               (modoArchivo === 'existente' && !empleado.value.emp_fkarc_id)">
               Guardar

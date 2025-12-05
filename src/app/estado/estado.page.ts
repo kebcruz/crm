@@ -106,15 +106,17 @@ export class EstadoPage implements OnInit {
       header: 'Estado',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar al estado ' + estd_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(estd_id, estd_nombre);
           }
@@ -152,11 +154,12 @@ export class EstadoPage implements OnInit {
       header: 'Estado',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -164,6 +167,7 @@ export class EstadoPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

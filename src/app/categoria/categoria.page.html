@@ -8,19 +8,19 @@
         <h2>{{categoria.cat_nombre}}</h2>
       </ion-label>
 
-      <ion-button [routerLink]="['/categoria-detalle', categoria.cat_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/categoria-detalle', categoria.cat_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(categoria.cat_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(categoria.cat_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(categoria.cat_id, categoria.cat_nombre)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(categoria.cat_id, categoria.cat_nombre)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{categoria.cat_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{categoria.cat_id}}</ion-badge>
 
     </ion-item>
   </ion-list>

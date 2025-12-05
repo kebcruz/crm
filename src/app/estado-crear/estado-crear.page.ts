@@ -163,15 +163,17 @@ export class EstadoCrearPage implements OnInit {
       header: 'Estado',
       subHeader: subMsg,
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar'
         },
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.modalCtrl.dismiss();
           },

@@ -13,19 +13,19 @@
         <p>{{domicilio.dom_cp}}</p>
       </ion-label>
 
-      <ion-button [routerLink]="['/domicilio-detalle', domicilio.dom_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/domicilio-detalle', domicilio.dom_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(domicilio.dom_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(domicilio.dom_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(domicilio.dom_id, domicilio.dom_calle)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(domicilio.dom_id, domicilio.dom_calle)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{domicilio.dom_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{domicilio.dom_id}}</ion-badge>
 
     </ion-item>
   </ion-list>

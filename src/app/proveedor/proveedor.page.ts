@@ -86,15 +86,17 @@ export class ProveedorPage implements OnInit {
       header: 'Proveedor',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar al proveedor: ' + prov_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(prov_id, prov_nombre);
           }
@@ -133,15 +135,17 @@ export class ProveedorPage implements OnInit {
       header: 'Proveedor',
       subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar'
         },
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

@@ -11,19 +11,20 @@
         <p>{{archivo.arc_fecha_subida | date:'y-MM-dd'}}</p>
       </ion-label>
 
-      <ion-button [routerLink]="['/archivo-detalle', archivo.arc_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/archivo-detalle', archivo.arc_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(archivo.arc_id)" color="warning">
-        <ion-icon name="pencil"></ion-icon>
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(archivo.arc_id)">
+        <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(archivo.arc_id, archivo.arc_nombre)" color="danger">
-        <ion-icon name="trash"></ion-icon>
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(archivo.arc_id, archivo.arc_nombre)">
+        <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{archivo.arc_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{archivo.arc_id}}</ion-badge>
+
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>

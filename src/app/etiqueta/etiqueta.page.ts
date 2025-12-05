@@ -106,15 +106,17 @@ export class EtiquetaPage implements OnInit {
       header: 'Etiqueta',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar la etiqueta ' + eti_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(eti_id, eti_nombre);
           }
@@ -152,11 +154,12 @@ export class EtiquetaPage implements OnInit {
       header: 'Etiqueta',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -164,6 +167,7 @@ export class EtiquetaPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

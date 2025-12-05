@@ -12,19 +12,19 @@
         <h2>{{estado.estd_nombre}}</h2>
       </ion-label>
 
-      <ion-button [routerLink]="['/estado-detalle', estado.estd_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/estado-detalle', estado.estd_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(estado.estd_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(estado.estd_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="alertEliminar(estado.estd_id, estado.estd_nombre)" color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(estado.estd_id, estado.estd_nombre)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{estado.estd_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{estado.estd_id}}</ion-badge>
 
     </ion-item>
   </ion-list>

@@ -12,21 +12,19 @@
         <h2>{{clienteEtiqueta.clet_id}}</h2>
       </ion-label>
 
-      <ion-button [routerLink]="['/cliente-etiqueta-detalle', clienteEtiqueta.clet_id]">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/cliente-etiqueta-detalle', clienteEtiqueta.clet_id]">
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="editar(clienteEtiqueta.clet_id)" color="warning">
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(clienteEtiqueta.clet_id)">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
 
-      <ion-button
-        (click)="alertEliminar(clienteEtiqueta.clet_id)"
-        color="danger">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(clienteEtiqueta.clet_id)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
 
-      <ion-badge slot="end">{{clienteEtiqueta.clet_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{clienteEtiqueta.clet_id}}</ion-badge>
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>

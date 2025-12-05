@@ -207,8 +207,13 @@ export class RegistroPage implements OnInit {
       header: 'Importante',
       subHeader: 'Error',
       message: 'Nombre de usuario o contraseña incorrecta.',
-      cssClass: 'alert-center',
-      buttons: ['Corregir'],
+      cssClass: 'alert-personalizado',
+      buttons: [
+        {
+          text: 'Corregir',
+          cssClass: 'btn-confirmar',
+        }
+      ],
     });
     await alert.present();
   }
@@ -218,8 +223,13 @@ export class RegistroPage implements OnInit {
       header: 'Importante',
       subHeader: 'Duplicado',
       message: 'El usuario ya se encuentra registrada',
-      cssClass: 'alert-center',
-      buttons: ['Corregir'],
+      cssClass: 'alert-personalizado',
+      buttons: [
+        {
+          text: 'Corregir',
+          cssClass: 'btn-confirmar',
+        }
+      ],
     });
     await alert.present();
   }

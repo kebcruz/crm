@@ -121,15 +121,17 @@ export class ProductoPage implements OnInit {
       header: 'Producto',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar el producto ' + pro_nombre + '?',
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
+          cssClass: 'btn-cancelar'
         },
         {
           text: 'Confirmar',
           role: 'confirm',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.eliminar(pro_id, pro_nombre);
           }
@@ -166,11 +168,12 @@ export class ProductoPage implements OnInit {
       header: 'Producto',
       subHeader: 'Eliminado',
       message: msg,
-      cssClass: 'alert-center',
+      cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
           role: 'cancel',
+          cssClass: 'btn-confirmar',
           handler: () => {
             this.regresar();
           },
@@ -178,6 +181,7 @@ export class ProductoPage implements OnInit {
         {
           text: 'Salir',
           role: 'confirm',
+          cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
           },

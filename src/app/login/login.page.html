@@ -6,9 +6,9 @@
 
 <ion-content color="primario">
   <form [formGroup]="login" (ngSubmit)="submitLogin()">
-    <ion-thumbnail>
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-    </ion-thumbnail>
+    <div class="imagotipo">
+      <img alt="Silhouette of mountains" src="assets/icon/controlia_imgt.png" />
+    </div>
     <ion-grid>
       <ion-row>
         <ion-col size="12">
@@ -33,7 +33,9 @@
         </ion-col>
         <ion-col size="12">
           <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!login.valid" color="personalizado">Enviar</ion-button>
+            <ion-button type="submit" [disabled]="!login.valid" color="personalizado">
+              <ion-icon name="enter" slot="start"></ion-icon>Entrar
+            </ion-button>
           </p>
         </ion-col>
       </ion-row>
