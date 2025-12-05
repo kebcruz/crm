@@ -216,13 +216,13 @@ ion-label p {
 
 			/* Botón CANCEL */
 			&.alert-button-role-cancel {
-				color: var(--color-secundario4) !important;
+				color: var(--color-texto) !important;
 				font-weight: bold !important;
 			}
 
 			/* Botón OK/Confirmar */
-			&.alert-button-role-default {
-				color: var(--color-secundario3) !important;
+			&.alert-button-default {
+				color: var(--color-texto) !important;
 				font-weight: bold !important;
 			}
 		}
@@ -233,15 +233,16 @@ ion-label p {
 .alert-personalizado .alert-wrapper {
 	background: var(--color-primario) !important;
 	color: var(--color-texto) !important;
-	border-radius: 5px !important;
 }
 
 /* Títulos */
 .alert-personalizado .alert-title {
+	font-weight: bold !important;
 	color: var(--color-texto) !important;
 }
 
 .alert-personalizado .alert-sub-title {
+	font-weight: bold !important;
 	color: var(--color-texto) !important;
 }
 
@@ -253,17 +254,13 @@ ion-label p {
 /* Botón cancelar */
 .btn-cancelar {
 	font-weight: bold !important;
-	color: var(--color-secundario4) !important;
-	/* rojo */
-	border-radius: 10px;
+	color: var(--color-texto) !important;
 }
 
 /* Botón confirmar */
 .btn-confirmar {
-	/* font-weight: bold !important; */
-	color: var(--color-secundario3) !important;
-	/* azul */
-	border-radius: 10px;
+	font-weight: bold !important;
+	color: var(--color-texto) !important;
 }
 
 ion-segment-button {

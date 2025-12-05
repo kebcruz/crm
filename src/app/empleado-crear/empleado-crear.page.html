@@ -205,7 +205,7 @@
             <ion-button color="personalizado" type="submit" [disabled]="!empleado.valid || 
               (modoArchivo === 'nuevo' && !selectedFile) || 
               (modoArchivo === 'existente' && !empleado.value.emp_fkarc_id)">
-              Guardar
+              <ion-icon name="save" slot="start"></ion-icon>Guardar
             </ion-button>
           </p>
         </ion-col>
