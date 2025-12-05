@@ -3,7 +3,10 @@
     margin-bottom: 100px;
     justify-self: center;
 }
-
+ion-button{
+    padding: 0;
+    margin: 0;
+}
 ion-input{
     color: #233d4d;
     --background: none !important;
