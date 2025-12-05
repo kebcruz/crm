@@ -99,6 +99,10 @@ input[type="time"]::-webkit-calendar-picker-indicator{
 	transition: transform 0.5s;
 }
 
+.count{
+	color: var(--color-primario2);
+}
+
 .detailbtn:hover {
 	--background: var(--color-secundario2) !important;
 	transform: scale(1.1) !important;
