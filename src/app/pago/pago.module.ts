@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PaisPageRoutingModule } from './pais-routing.module';
+import { PagoPageRoutingModule } from './pago-routing.module';
 
-import { PaisPage } from './pais.page';
+import { PagoPage } from './pago.page';
 import { ToolbarModule } from '../components/toolbar/toolbar.module';
 import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
@@ -15,10 +15,10 @@ import { PaginacionModule } from '../components/paginacion/paginacion.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    PaisPageRoutingModule,
+    PagoPageRoutingModule,
     ToolbarModule,
     PaginacionModule
   ],
-  declarations: [PaisPage]
+  declarations: [PagoPage]
 })
-export class PaisPageModule {}
+export class PagoPageModule {}

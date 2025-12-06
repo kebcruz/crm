@@ -1,52 +1,81 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
-import axios from 'axios';
+import { Municipio } from '../services/municipio';
 import { Pais } from '../services/pais';
+import axios from 'axios';
 
 @Component({
-  selector: 'app-pais-crear',
-  templateUrl: './pais-crear.page.html',
-  styleUrls: ['./pais-crear.page.scss'],
+  selector: 'app-municipio-crear',
+  templateUrl: './municipio-crear.page.html',
+  styleUrls: ['./municipio-crear.page.scss'],
   standalone: false
 })
-export class PaisCrearPage implements OnInit {
+export class MunicipioCrearPage implements OnInit {
 
   constructor(
     private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private alert: AlertController,
     private modalCtrl: ModalController,
+    private municipiosService: Municipio,
     private paisService: Pais
   ) { }
 
   private editarDatos: any = {};
-  @Input() pai_id: number | undefined;
-  public pais!: FormGroup;
-  baseUrl: string = "http://localhost:8080/pais"
+  @Input() mun_id: number | undefined;
+  public municipio!: FormGroup;
+  paises: any = [];
+  baseUrl: string = "http://localhost:8080/municipio"
 
   ngOnInit() {
-    if (this.pai_id !== undefined) {
+    this.cargarPaises();
+    if (this.mun_id !== undefined) {
       this.getDetalles();
     }
     this.formulario();
   }
 
   mensajes_validacion: any = {
-    'pai_nombre': [
+    'mun_nombre': [
       { type: 'required', message: 'Nombre requerido.' },
+    ],
+    'mun_fkestd_id': [
+      { type: 'required', message: 'País requerido.' },
     ],
   }
 
+  async cargarPaises() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando',
+      spinner: 'bubbles',
+    });
+    await loading.present();
+    try {
+      await this.paisService.listado().subscribe(
+        response => {
+          this.paises = response;
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    loading.dismiss();
+  }
+
   private formulario() {
-    this.pais = this.formBuilder.group({
-      pai_nombre: ['', [Validators.required]],
+    this.municipio = this.formBuilder.group({
+      mun_nombre: ['', [Validators.required]],
+      mun_fkestd_id: ['', [Validators.required]],
     })
   }
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.pais.get(controlName);
+    const control = this.municipio.get(controlName);
     if (control?.touched && control?.errors != null) {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
@@ -54,8 +83,8 @@ export class PaisCrearPage implements OnInit {
   }
 
   getDetalles() {
-    if (this.pai_id) {
-      this.paisService.detalle(this.pai_id.toString()).subscribe(
+    if (this.mun_id) {
+      this.municipiosService.detalle(this.mun_id.toString()).subscribe(
         (response: any) => {
           if (Array.isArray(response)) {
             this.editarDatos = response[0];
@@ -64,8 +93,9 @@ export class PaisCrearPage implements OnInit {
           }
 
           if (this.editarDatos) {
-            this.pais.patchValue({
-              pai_nombre: this.editarDatos.pai_nombre || '',
+            this.municipio.patchValue({
+              mun_nombre: this.editarDatos.mun_nombre || '',
+              mun_fkestd_id: this.editarDatos.mun_fkestd_id || ''
             });
           }
         }
@@ -73,23 +103,24 @@ export class PaisCrearPage implements OnInit {
     }
   }
 
+
   async guardarDatos() {
     try {
-      const pais = this.pais?.value;
-      if (this.pai_id === undefined) {
+      const municipio = this.municipio?.value;
+      if (this.mun_id === undefined) {
         try {
-          await this.paisService.crear(pais).subscribe(
+          await this.municipiosService.crear(municipio).subscribe(
             response => {
               if (response?.status == 201) {
-                this.alertGuardado(response.data.pai_nombre, 'El país ' + response.data.pai_nombre + ' ha sido registrado');
+                this.alertGuardado(response.data.mun_nombre, 'El municipio ' + response.data.mun_nombre + ' ha sido registrado');
               }
             },
             error => {
               if (error?.response?.status == 422) {
-                this.alertGuardado(pais.pai_nombre, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(municipio.mun_nombre, error?.response?.data[0]?.message, "Error");
               }
               if (error?.response?.status == 500) {
-                this.alertGuardado(pais.pai_nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
+                this.alertGuardado(municipio.mun_nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
               }
             }
           );
@@ -98,19 +129,19 @@ export class PaisCrearPage implements OnInit {
         }
       } else {
         try {
-          await this.paisService.actualizar(this.pai_id, pais).subscribe(
+          await this.municipiosService.actualizar(this.mun_id, municipio).subscribe(
             response => {
               console.log(response)
               if (response?.status == 200) {
-                this.alertGuardado(response.data.pai_nombre, 'El país: ' + response.data.pai_nombre + ' ha sido actualizado');
+                this.alertGuardado(response.data.mun_nombre, 'El municipio: ' + response.data.mun_nombre + ' ha sido actualizado');
               }
             },
             error => {
               if (error?.response?.status == 422) {
-                this.alertGuardado(pais.pai_nombre, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(municipio.mun_nombre, error?.response?.data[0]?.message, "Error");
               }
               if (error?.response?.status == 401) {
-                this.alertGuardado(pais.pai_nombre, error?.response?.data[0]?.message, "No se puede guardar, no tienes credenciales");
+                this.alertGuardado(municipio.mun_nombre, error?.response?.data[0]?.message, "No se puede guardar, no tienes credenciales");
               }
             }
           );
@@ -125,7 +156,7 @@ export class PaisCrearPage implements OnInit {
 
   private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-      header: 'Pais',
+      header: 'Municipio',
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-personalizado',
@@ -147,5 +178,4 @@ export class PaisCrearPage implements OnInit {
     });
     await alert.present();
   }
-
 }

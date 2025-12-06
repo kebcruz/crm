@@ -264,8 +264,22 @@ const routes: Routes = [
     path: 'estatu-detalle/:est_id',
     loadChildren: () => import('./estatu-detalle/estatu-detalle.module').then( m => m.EstatuDetallePageModule)
   },
-
-
+  {
+    path: 'municipio-crear',
+    loadChildren: () => import('./municipio-crear/municipio-crear.module').then( m => m.MunicipioCrearPageModule)
+  },
+  {
+    path: 'pago',
+    loadChildren: () => import('./pago/pago.module').then( m => m.PagoPageModule)
+  },
+  {
+    path: 'pago-crear',
+    loadChildren: () => import('./pago-crear/pago-crear.module').then( m => m.PagoCrearPageModule)
+  },
+  {
+    path: 'pago-detalle/:pag_id',
+    loadChildren: () => import('./pago-detalle/pago-detalle.module').then( m => m.PagoDetallePageModule)
+  },
 
 ];
 @NgModule({

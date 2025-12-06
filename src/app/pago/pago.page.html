@@ -1,24 +1,27 @@
-<app-toolbar nombre="Municipio"></app-toolbar>
+<app-toolbar nombre="Pagos"></app-toolbar>
 
 <ion-content>
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-list>
-    <ion-item button *ngFor="let municipio of municipios">
+    <ion-item button *ngFor="let pago of pagos">
 
       <ion-label class="ion-text-wrap">
-        <h2>{{municipio.mun_nombre}}</h2>
-        <p>{{municipio.estadoNombre}}</p>
+        <h2>{{pago.pag_referencia}}</h2>
       </ion-label>
 
-      <ion-button color="advertencia" class="updatebtn" (click)="editar(municipio.mun_id)">
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/pago-detalle', pago.pag_id]">
+        <ion-icon name="information-circle-sharp"></ion-icon>
+      </ion-button>
+
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(pago.pag_id)">
         <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
 
-      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(municipio.mun_id, municipio.mun_nombre)">
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(pago.pag_id, pago.pag_referencia)">
         <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
 
-      <ion-badge class="count" slot="start">{{municipio.mun_id}}</ion-badge>
+      <ion-badge class="count" slot="start">{{pago.pag_id}}</ion-badge>
 
     </ion-item>
   </ion-list>
