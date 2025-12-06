@@ -91,7 +91,7 @@ export class EmpleadoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Empleado',
       subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar al empleado: ' + emp_id + '?',
+      message: '¿Estás seguro de eliminar al empleado: ' + emp_nombre + '?',
       cssClass: 'alert-personalizado',
       buttons: [
         {

@@ -84,8 +84,8 @@ export class ProveedorPage implements OnInit {
   async alertEliminar(prov_id: number, prov_nombre: string) {
     const alert = await this.alertCtrl.create({
       header: 'Proveedor',
-      subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar al proveedor: ' + prov_nombre + '?',
+      subHeader: 'Eliminar', 
+      message: '¿Estás seguro de eliminar el proveedor ' + prov_nombre + '?',
       cssClass: 'alert-personalizado',
       buttons: [
         {
@@ -133,18 +133,21 @@ export class ProveedorPage implements OnInit {
   async alertEliminado(prov_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
       header: 'Proveedor',
-      subHeader: msg.includes('no se puede eliminar') ? 'Error al eliminar' : 'Eliminado',
+      subHeader: 'Eliminado',
       message: msg,
       cssClass: 'alert-personalizado',
       buttons: [
         {
           text: 'Continuar',
-          role: 'cancel',
-          cssClass: 'btn-confirmar'
+          role: 'confirm',
+          cssClass: 'btn-confirmar',
+          handler: () => {
+            this.regresar();
+          },
         },
         {
           text: 'Salir',
-          role: 'confirm',
+          role: 'cancel',
           cssClass: 'btn-cancelar',
           handler: () => {
             this.regresar();
@@ -152,7 +155,6 @@ export class ProveedorPage implements OnInit {
         },
       ],
     });
-
     await alert.present();
   }
 

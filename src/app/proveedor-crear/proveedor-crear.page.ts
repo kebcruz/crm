@@ -208,12 +208,12 @@ export class ProveedorCrearPage implements OnInit {
       buttons: [
         {
           text: 'Continuar',
-          role: 'cancel',
+          role: 'confirm',
           cssClass: 'btn-confirmar'
         },
         {
           text: 'Salir',
-          role: 'confirm',
+          role: 'cancel',
           cssClass: 'btn-cancelar',
           handler: () => {
             this.modalCtrl.dismiss();

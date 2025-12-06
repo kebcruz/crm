@@ -32,7 +32,7 @@ export class VentaDetallePage implements OnInit {
     });
     await loading.present();
     try {
-      await this.ventasService.detalle(ven_id, '?expand=clienteNombre, empleadoNombre, pagoReferencia, ventaDetalles').subscribe(
+      await this.ventasService.detalle(ven_id, '?expand=clienteNombre, empleadoNombre, pagoReferencia, ventaDetalles.producto').subscribe(
         response => {
           this.venta = response;
         },

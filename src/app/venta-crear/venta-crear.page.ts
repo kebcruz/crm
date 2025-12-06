@@ -7,6 +7,7 @@ import { Ventadetalles } from '../services/ventadetalles';
 import { Productos } from '../services/productos';
 import { Cliente } from '../services/cliente';
 import { Empleados } from '../services/empleados';
+import { Pago } from '../services/pago';
 
 @Component({
   selector: 'app-venta-crear',
@@ -25,7 +26,8 @@ export class VentaCrearPage implements OnInit {
     private ventadService: Ventadetalles,
     private productosService: Productos,
     private clientesService: Cliente,
-    private empleadosService: Empleados
+    private empleadosService: Empleados,
+    private pagosService: Pago
   ) { }
 
   private editarDatos = [];
@@ -127,19 +129,20 @@ export class VentaCrearPage implements OnInit {
   }
 
   async cargarPagos() {
-    const response = await axios({
-      method: 'get',
-      url: this.pagoUrl,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.pagos = response.data;
-    }).catch(function (error) {
+    try {
+      await this.pagosService.listado('?per-page=100').subscribe(
+        response => {
+          this.pagos = response;
+        },
+        error => {
+          console.error('Error productos:', error);
+        }
+      );
+    } catch (error) {
       console.log(error);
-    });
+    }
   }
+
 
   private formulario() {
     this.venta = this.formBuilder.group({

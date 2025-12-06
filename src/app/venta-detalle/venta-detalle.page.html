@@ -2,71 +2,70 @@
   <ion-toolbar>
     <ion-title>Venta Detalle</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button defaultHref="/venta"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-card *ngIf="venta as venta">
+  <ion-card *ngIf="venta">
     <ion-card-header class="center">
       <ion-card-title>
-        <h3>Venta {{venta.ven_id}}</h3>
+        <h3>Venta #{{venta.ven_id}}</h3>
       </ion-card-title>
+      <ion-card-subtitle>
+        {{venta.ven_fecha_venta | date:'medium'}}
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
       <ion-list>
+        <!-- Información de la venta -->
         <ion-item>
           <ion-label>
             <p>Cliente</p>
-            <h2>{{venta.clienteNombre}}</h2>
+            <h2>{{venta.clienteNombre || 'No especificado'}}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
             <p>Empleado</p>
-            <h2>{{venta.empleadoNombre}}</h2>
+            <h2>{{venta.empleadoNombre || 'No especificado'}}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
-            <p>Comprobante</p>
-            <h2>${{venta.pagoReferencia}}</h2>
+            <p>Referencia de Pago</p>
+            <h2>{{venta.pagoReferencia || 'Sin referencia'}}</h2>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-label>
-            <p>Total</p>
-            <h2>${{venta.ven_total}}</h2>
+            <p>Total de Venta</p>
+            <h2>${{venta.ven_total | number:'1.2-2'}}</h2>
           </ion-label>
         </ion-item>
+
+        <!-- Detalles de la venta -->
         <ion-list-header>
           <ion-label><strong>Detalles de la venta</strong></ion-label>
         </ion-list-header>
-        <ion-item *ngFor="let detalle of venta.ventaDetalles">
+
+        <!-- Solo UN *ngFor que muestra toda la información del detalle -->
+        <ion-item *ngFor="let detalle of venta.ventaDetalles; let i = index">
           <ion-label>
-            <p>Producto</p>
-            <h2>{{detalle.producto?.pro_nombre}}</h2>
+            <h2><strong>Detalle #{{i + 1}}</strong></h2>
+            <p><strong>Producto:</strong> {{detalle.producto?.pro_nombre || 'Producto no disponible'}}</p>
+            <p><strong>Precio unitario:</strong> ${{detalle.producto?.pro_precio | number:'1.2-2'}}</p>
+            <p><strong>Cantidad:</strong> {{detalle.ved_cantidad}}</p>
+            <p><strong>Subtotal:</strong> ${{detalle.ved_subtotal | number:'1.2-2'}}</p>
           </ion-label>
         </ion-item>
-        <ion-item *ngFor="let detalle of venta.ventaDetalles">
-          <ion-label>
-            <p>Precio</p>
-            <h2>${{detalle.producto?.pro_precio}}</h2>
-          </ion-label>
-        </ion-item>
-        <ion-item *ngFor="let detalle of venta.ventaDetalles">
-          <ion-label>
-            <p>Cantidad</p>
-            <h2>{{detalle.ved_cantidad}}</h2>
-          </ion-label>
-        </ion-item>
-        <ion-item *ngFor="let detalle of venta.ventaDetalles">
-          <ion-label>
-            <p>Subtotal</p>
-            <h2>${{detalle.ved_subtotal}}</h2>
+
+        <!-- Mensaje si no hay detalles -->
+        <ion-item *ngIf="!venta.ventaDetalles || venta.ventaDetalles.length === 0">
+          <ion-label class="ion-text-center">
+            <p>No hay detalles registrados para esta venta</p>
           </ion-label>
         </ion-item>
       </ion-list>

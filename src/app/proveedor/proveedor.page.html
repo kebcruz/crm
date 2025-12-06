@@ -13,14 +13,16 @@
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
       <ion-button color="advertencia" class="updatebtn" (click)="editar(proveedor.prov_id)">
-        <ion-icon name="pencil"></ion-icon>
+        <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
       <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(proveedor.prov_id, proveedor.prov_nombre)">
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
+
     </ion-item>
   </ion-list>
   <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
+  
 </ion-content>
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-fab-button (click)="new()">

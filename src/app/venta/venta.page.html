@@ -8,17 +8,18 @@
         <h3>Venta: {{venta.ven_id}}</h3>
         <h3>Cliente: {{venta.clienteNombre}}</h3>
         <h3>Vendedor: {{venta.empleadoNombre}}</h3>
+        <h3>Total: ${{venta.ven_total}}</h3>
+        
       </ion-label>
-
-      <ion-badge class="count" slot="start">Total: ${{venta.ven_total}}</ion-badge>
+      <ion-badge class="count" slot="start">{{venta.ven_id}}</ion-badge>
       <ion-button color="accion" class="detailbtn" [routerLink]="['/venta-detalle', venta.ven_id]">
         <ion-icon name="information-circle-sharp"></ion-icon>
       </ion-button>
       <ion-button color="advertencia" class="updatebtn" (click)="editar(venta.ven_id)" color="warning">
-        <ion-icon name="pencil"></ion-icon>
+        <ion-icon name="create-sharp"></ion-icon>
       </ion-button>
       <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(venta.ven_id)" color="danger">
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon name="trash-sharp"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
-import axios from 'axios';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { VentaCrearPage } from '../venta-crear/venta-crear.page';
 import { Router } from '@angular/router';
 import { Ventas } from '../services/ventas';
-import { EmpleadoCrearPage } from '../empleado-crear/empleado-crear.page';
+
 
 @Component({
   selector: 'app-venta',
@@ -21,6 +20,7 @@ export class VentaPage implements OnInit {
     private router: Router,
     private ventasService: Ventas
   ) { }
+
   ventas: any = [];
   total: number = 0;
   page: string = '1';
@@ -53,6 +53,7 @@ export class VentaPage implements OnInit {
     }
     loading.dismiss();
   }
+  
   async new() {
     const paginaModal = await this.modalCtrl.create({
       component: VentaCrearPage,

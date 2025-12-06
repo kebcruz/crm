@@ -20,11 +20,10 @@ export class ProveedorDetallePage implements OnInit {
 
   proveedor: any = null;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarProveedor();
   }
-
-
+  
   async cargarProveedor() {
     const prov_id = this.route.snapshot.paramMap.get('prov_id');
     const loading = await this.loading.create({

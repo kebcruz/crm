@@ -281,6 +281,7 @@ const routes: Routes = [
     loadChildren: () => import('./pago-detalle/pago-detalle.module').then( m => m.PagoDetallePageModule)
   },
 
+
 ];
 @NgModule({
   imports: [
