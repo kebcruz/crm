@@ -54,10 +54,10 @@ export class EmpleadoCrearPage implements OnInit {
       { type: 'required', message: 'Nombre(s) requeridos.' },
     ],
     'emp_paterno': [
-      { type: 'required', message: 'Apellido Paterno requeridos.' },
+      { type: 'required', message: 'Apellido Paterno requerido.' },
     ],
     'emp_materno': [
-      { type: 'required', message: 'Apellido Materno requeridos.' },
+      { type: 'required', message: 'Apellido Materno requerido.' },
     ],
     'emp_telefono': [
       { type: 'required', message: 'Telefono requerido.' },

@@ -1,56 +1,56 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Estatu } from '../services/estatu';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
-import { Metodo } from '../services/metodo';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-metodo-crear',
-  templateUrl: './metodo-crear.page.html',
-  styleUrls: ['./metodo-crear.page.scss'],
+  selector: 'app-estatu-crear',
+  templateUrl: './estatu-crear.page.html',
+  styleUrls: ['./estatu-crear.page.scss'],
   standalone: false
 })
-export class MetodoCrearPage implements OnInit {
+export class EstatuCrearPage implements OnInit {
 
   constructor(
     private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private alert: AlertController,
     private modalCtrl: ModalController,
-    private metodosService: Metodo
+    private estatusService: Estatu
   ) { }
 
   private editarDatos = [];
-  @Input() met_id: number | undefined;
-  public metodo!: FormGroup;
-  baseUrl: string = "http://localhost:8080/metodos"
+  @Input() est_id: number | undefined;
+  public estatu!: FormGroup;
+  baseUrl: string = "http://localhost:8080/estatus"
 
   ngOnInit() {
-    if (this.met_id !== undefined) {
+    if (this.est_id !== undefined) {
       this.getDetalles();
     }
     this.formulario();
   }
 
   mensajes_validacion: any = {
-    'met_nombre': [
+    'est_nombre': [
       { type: 'required', message: 'Nombre requerido.' },
     ],
-    'met_descripcion': [
-      { type: 'required', message: 'Descripción requerido.' },
+    'est_descripcion': [
+      { type: 'required', message: 'Descripción requerida.' },
     ],
   }
 
   private formulario() {
-    this.metodo = this.formBuilder.group({
-      met_nombre: ['', [Validators.required]],
-      met_descripcion: ['', [Validators.required]],
+    this.estatu = this.formBuilder.group({
+      est_nombre: ['', [Validators.required]],
+      est_descripcion: ['', [Validators.required]],
     })
   }
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.metodo.get(controlName);
+    const control = this.estatu.get(controlName);
     if (control?.touched && control?.errors != null) {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
@@ -60,7 +60,7 @@ export class MetodoCrearPage implements OnInit {
   async getDetalles() {
     const response = await axios({
       method: 'get',
-      url: this.baseUrl + "/" + this.met_id,
+      url: this.baseUrl + "/" + this.est_id,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -68,7 +68,7 @@ export class MetodoCrearPage implements OnInit {
     }).then((response) => {
       this.editarDatos = response.data;
       Object.keys(this.editarDatos).forEach((key: any) => {
-        const control = this.metodo.get(String(key));
+        const control = this.estatu.get(String(key));
         if (control !== null) {
           control.markAsTouched();
           control.patchValue(this.editarDatos[key]);
@@ -81,21 +81,21 @@ export class MetodoCrearPage implements OnInit {
 
   async guardarDatos() {
     try {
-      const metodo = this.metodo?.value;
-      if (this.met_id === undefined) {
+      const estatu = this.estatu?.value;
+      if (this.est_id === undefined) {
         try {
-          await this.metodosService.crear(metodo).subscribe(
+          await this.estatusService.crear(estatu).subscribe(
             response => {
               if (response?.status == 201) {
-                this.alertGuardado(response.data.met_nombre, 'El método de pago ' + response.data.met_nombre + ' ha sido registrado');
+                this.alertGuardado(response.data.est_nombre, 'El estatus ' + response.data.est_nombre + ' ha sido registrado');
               }
             },
             error => {
               if (error?.response?.status == 422) {
-                this.alertGuardado(metodo.met_nombre, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(estatu.est_nombre, error?.response?.data[0]?.message, "Error");
               }
               if (error?.response?.status == 500) {
-                this.alertGuardado(metodo.met_nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
+                this.alertGuardado(estatu.est_nombre, "No puedes eliminar porque tiene relaciones con otra tabla", "Error");
               }
             }
           );
@@ -104,19 +104,19 @@ export class MetodoCrearPage implements OnInit {
         }
       } else {
         try {
-          await this.metodosService.actualizar(this.met_id, metodo).subscribe(
+          await this.estatusService.actualizar(this.est_id, estatu).subscribe(
             response => {
               console.log(response)
               if (response?.status == 200) {
-                this.alertGuardado(response.data.met_nombre, 'El método de pago: ' + response.data.met_nombre + ' ha sido actualizado');
+                this.alertGuardado(response.data.est_nombre, 'El estatus: ' + response.data.est_nombre + ' ha sido actualizado');
               }
             },
             error => {
               if (error?.response?.status == 422) {
-                this.alertGuardado(metodo.met_nombre, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(estatu.est_nombre, error?.response?.data[0]?.message, "Error");
               }
               if (error?.response?.status == 401) {
-                this.alertGuardado(metodo.met_nombre, error?.response?.data[0]?.message, "No se puede guardar, no tienes credenciales");
+                this.alertGuardado(estatu.est_nombre, error?.response?.data[0]?.message, "No se puede guardar, no tienes credenciales");
               }
             }
           );
@@ -131,7 +131,7 @@ export class MetodoCrearPage implements OnInit {
 
   private async alertGuardado(nombre: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-      header: 'Metodo',
+      header: 'Estatu',
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-personalizado',

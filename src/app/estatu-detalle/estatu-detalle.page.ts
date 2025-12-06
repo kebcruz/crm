@@ -1,39 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { Metodo } from '../services/metodo';
+import { Estatu } from '../services/estatu';
 
 @Component({
-  selector: 'app-metodo-detalle',
-  templateUrl: './metodo-detalle.page.html',
-  styleUrls: ['./metodo-detalle.page.scss'],
+  selector: 'app-estatu-detalle',
+  templateUrl: './estatu-detalle.page.html',
+  styleUrls: ['./estatu-detalle.page.scss'],
   standalone: false
 })
-export class MetodoDetallePage implements OnInit {
+export class EstatuDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
     private loading: LoadingController,
-    private metodosService: Metodo
+    private estatusService: Estatu
   ) { }
 
-  metodo: any = null;
+  estatu: any = null;
 
-  ngOnInit(): void {
-    this.cargarMetodo();
+  ngOnInit() {
+    this.cargarEstatu();
   }
 
- async cargarMetodo() {
-    const met_id = this.route.snapshot.paramMap.get('met_id');
+  async cargarEstatu() {
+    const est_id = this.route.snapshot.paramMap.get('est_id');
     const loading = await this.loading.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
     try {
-      await this.metodosService.detalle(met_id).subscribe(
+      await this.estatusService.detalle(est_id).subscribe(
         response => {
-          this.metodo = response;
+          this.estatu = response;
         },
         error => {
           console.error('Error:', error);

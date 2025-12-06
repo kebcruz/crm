@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+    <ion-title>Estatus Detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/estatu"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="estatu as estatu">
+    <ion-card-header class="center">
+      <ion-card-title>
+        <h3>Estatus: {{ estatu.est_id }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p>Nombre</p>
+            <h2>{{ estatu.est_nombre }}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p>Descripción</p>
+            <h2>{{ estatu.est_descripcion }}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

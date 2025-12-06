@@ -103,8 +103,8 @@ export class ClientePage implements OnInit {
   /* Confirmación antes de eliminar un registro */
   async alertEliminar(cli_id: number, cli_nombre: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Eliminar Cliente',
-      /* subHeader: 'Eliminar', */
+      header: 'Cliente',
+      subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar al cliente ' + cli_nombre + '?',
       cssClass: 'alert-personalizado',
       buttons: [
@@ -151,8 +151,8 @@ export class ClientePage implements OnInit {
   /* Muestra que el registro ha sido eliminado */
   async alertEliminado(cli_id: number, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Cliente Eliminado',
-      /* subHeader: 'Eliminado', */
+      header: 'Cliente',
+      subHeader: 'Eliminado',
       message: msg,
       cssClass: 'alert-personalizado',
       buttons: [

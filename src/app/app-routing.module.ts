@@ -252,6 +252,19 @@ const routes: Routes = [
     path: 'metodo-detalle/:met_id',
     loadChildren: () => import('./metodo-detalle/metodo-detalle.module').then( m => m.MetodoDetallePageModule)
   },
+  {
+    path: 'estatu',
+    loadChildren: () => import('./estatu/estatu.module').then( m => m.EstatuPageModule)
+  },
+  {
+    path: 'estatu-crear',
+    loadChildren: () => import('./estatu-crear/estatu-crear.module').then( m => m.EstatuCrearPageModule)
+  },
+  {
+    path: 'estatu-detalle/:est_id',
+    loadChildren: () => import('./estatu-detalle/estatu-detalle.module').then( m => m.EstatuDetallePageModule)
+  },
+
 
 
 ];

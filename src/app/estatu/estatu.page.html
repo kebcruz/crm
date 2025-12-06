@@ -1,0 +1,35 @@
+<app-toolbar nombre="Estatus"></app-toolbar>
+
+<ion-content>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  <ion-list>
+    <ion-item button *ngFor="let estatu of estatus">
+
+      <ion-label class="ion-text-wrap">
+        <h2>{{estatu.est_nombre}}</h2>
+      </ion-label>
+
+      <ion-button color="accion" class="detailbtn" [routerLink]="['/estatu-detalle', estatu.est_id]">
+        <ion-icon name="information-circle-sharp"></ion-icon>
+      </ion-button>
+
+      <ion-button color="advertencia" class="updatebtn" (click)="editar(estatu.est_id)">
+        <ion-icon name="create-sharp"></ion-icon>
+      </ion-button>
+
+      <ion-button color="peligro" class="deletebtn" (click)="alertEliminar(estatu.est_id, estatu.est_nombre)">
+        <ion-icon name="trash-sharp"></ion-icon>
+      </ion-button>
+
+      <ion-badge class="count" slot="start">{{estatu.est_id}}</ion-badge>
+
+    </ion-item>
+  </ion-list>
+  <app-paginacion [total]="total" (click)="pagina($event)"></app-paginacion>
+</ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()" color="personalizado">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
