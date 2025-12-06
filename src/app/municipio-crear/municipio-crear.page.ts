@@ -2,8 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Municipio } from '../services/municipio';
-import { Pais } from '../services/pais';
-import axios from 'axios';
+import { Estado } from '../services/estado'; // Cambia Pais por Estado
 
 @Component({
   selector: 'app-municipio-crear',
@@ -19,21 +18,23 @@ export class MunicipioCrearPage implements OnInit {
     private alert: AlertController,
     private modalCtrl: ModalController,
     private municipiosService: Municipio,
-    private paisService: Pais
+    private estadoService: Estado
   ) { }
 
   private editarDatos: any = {};
   @Input() mun_id: number | undefined;
   public municipio!: FormGroup;
-  paises: any = [];
-  baseUrl: string = "http://localhost:8080/municipio"
+  estados: any = [];
 
   ngOnInit() {
-    this.cargarPaises();
-    if (this.mun_id !== undefined) {
-      this.getDetalles();
-    }
     this.formulario();
+    this.cargarEstados();
+
+    if (this.mun_id !== undefined) {
+      setTimeout(() => {
+        this.getDetalles();
+      }, 300);
+    }
   }
 
   mensajes_validacion: any = {
@@ -41,20 +42,20 @@ export class MunicipioCrearPage implements OnInit {
       { type: 'required', message: 'Nombre requerido.' },
     ],
     'mun_fkestd_id': [
-      { type: 'required', message: 'País requerido.' },
+      { type: 'required', message: 'Estado requerido.' }, // Cambia "País" por "Estado"
     ],
   }
 
-  async cargarPaises() {
+  async cargarEstados() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
     try {
-      await this.paisService.listado().subscribe(
+      await this.estadoService.listado().subscribe(
         response => {
-          this.paises = response;
+          this.estados = response;
         },
         error => {
           console.error('Error:', error);
@@ -70,7 +71,7 @@ export class MunicipioCrearPage implements OnInit {
     this.municipio = this.formBuilder.group({
       mun_nombre: ['', [Validators.required]],
       mun_fkestd_id: ['', [Validators.required]],
-    })
+    });
   }
 
   public getError(controlName: string) {
@@ -103,7 +104,6 @@ export class MunicipioCrearPage implements OnInit {
     }
   }
 
-
   async guardarDatos() {
     try {
       const municipio = this.municipio?.value;
@@ -112,7 +112,7 @@ export class MunicipioCrearPage implements OnInit {
           await this.municipiosService.crear(municipio).subscribe(
             response => {
               if (response?.status == 201) {
-                this.alertGuardado(response.data.mun_nombre, 'El municipio ' + response.data.mun_nombre + ' ha sido registrado');
+                this.alertGuardado(response.data.mun_nombre, 'El municipio con nombre: ' + response.data.mun_nombre + ' ha sido registrado');
               }
             },
             error => {

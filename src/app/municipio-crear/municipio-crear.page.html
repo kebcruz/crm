@@ -21,10 +21,10 @@
         </ion-col>
         <ion-col size="12">
           <ion-item>
-            <ion-label position="floating" color="primary">País</ion-label>
+            <ion-label position="floating" color="primary">Municipio</ion-label>
             <ion-select formControlName="mun_fkestd_id" class="form-control">
-              <ion-select-option *ngFor="let pais of paises" [value]="pais.pai_id">
-                {{ pais.pai_nombre }}
+              <ion-select-option *ngFor="let estado of estados" [value]="estado.estd_id">
+                {{ estado.estd_nombre }}
               </ion-select-option>
             </ion-select>
           </ion-item>
